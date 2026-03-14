@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <title>Iceland South-West Seismic Network</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/css/leaflet-sidebar.min.css" />
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a1a; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .station-label { background: rgba(255, 255, 255, 0.9); border: 1px solid #c62828; border-radius: 3px; 
+                         padding: 0px 4px; font-weight: bold; font-size: 11px; color: #333; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .sidebar-header { background: #c62828 !important; }
+        .btn { display: block; background: #c62828; color: white; padding: 14px; text-align: center; 
+               text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 10px; transition: background 0.3s; }
+        .btn:hover { background: #9b1c1c; }
+        .coords-text { font-family: monospace; font-size: 11px; color: #666; background: #f4f4f4; padding: 5px; border-radius: 3px; border-left: 3px solid #c62828; }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+        <div class="leaflet-sidebar-tabs"><ul role="tablist"><li><a href="#home" role="tab">📉</a></li></ul></div>
+        <div class="leaflet-sidebar-content">
+            <div class="leaflet-sidebar-pane" id="home">
+                <h2 class="leaflet-sidebar-header">Live Seismic Data<span class="leaflet-sidebar-close">×</span></h2>
+                <div id="station-content" style="padding:15px;">
+                    <p>Select a station on the map to begin monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
+
+    <script>
+        var map = L.map('map', { zoomControl: false }).setView([63.95, -21.80], 9);
+        L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+        var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
+
+        var stations = [
+            { id: "fad", name: "Fagradalsfjall", lat: 63.91668, lon: -22.28938, url: "fad" },
+            { id: "grv", name: "Grindavík", lat: 63.85716, lon: -22.45583, url: "grv" },
+            { id: "rne", name: "Reykjanesviti", lat: 63.81681, lon: -22.70563, url: "rne" },
+            { id: "vog", name: "Vogar", lat: 63.96967, lon: -22.39285, url: "vog" },
+            { id: "moh", name: "Móhálshnúkar", lat: 63.92269, lon: -22.06688, url: "moh" },
+            { id: "isk", name: "Ísólfsskáli", lat: 63.93147, lon: -22.37988, url: "lsk" },
+            { id: "ash", name: "Afstapahraun", lat: 63.98167, lon: -22.14986, url: "ash" },
+            { id: "kri", name: "Krýsuvík", lat: 63.8781, lon: -22.07646, url: "kri" },
+            { id: "iss", name: "Ísólfsskáli-S", lat: 63.86524, lon: -22.30963, url: "iss" },
+            { id: "lag", name: "Lágheiði", lat: 63.89523, lon: -22.53252, url: "lag" },
+            { id: "rah", name: "Rauðhólar", lat: 63.852372, lon: -22.58946, url: "rah" },
+            { id: "lfe", name: "Lágafell", lat: 63.91436, lon: -22.48471, url: "lfe" },
+            { id: "ger", name: "Gerðar", lat: 63.83104, lon: -22.47742, url: "ger" },
+            { id: "hrv", name: "Hraunsvík", lat: 63.89597, lon: -22.18444, url: "hrv" },
+            { id: "hvs", name: "Hveragerði", lat: 63.939395, lon: -21.714498, url: "hvs" },
+            { id: "bja", name: "Bjarnarflag", lat: 63.946, lon: -21.303, url: "bja" },
+            { id: "hei", name: "Heiðarsporður", lat: 64.200, lon: -21.237, url: "hei" },
+            { id: "skr", name: "Skólavörðustígur", lat: 64.142, lon: -21.927, url: "skr" }
+        ];
+
+        stations.forEach(function(st) {
+            var marker = L.circleMarker([st.lat, st.lon], {
+                radius: 8, fillColor: "#ff0000", color: "#fff", weight: 2, fillOpacity: 1
+            }).addTo(map);
+
+            L.marker([st.lat, st.lon], {
+                icon: L.divIcon({
+                    className: 'station-label',
+                    html: st.id.toUpperCase(),
+                    iconAnchor: [-10, 10]
+                }),
+                interactive: false
+            }).addTo(map);
+
+            marker.on('click', function() {
+                var drumURL = `http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png`;
+                
+                var content = `
+                    <h2 style="color:#c62828; margin-top:0;">${st.name}</h2>
+                    <div class="coords-text">LAT: ${st.lat} | LON: ${st.lon}</div>
+                    <p style="margin:20px 0; font-size:1.1em;">Real-time plot data for <strong>${st.name}</strong></p>
+                    <div style="margin-top:20px;">
+                        <a href="${drumURL}" target="_blank" class="btn">VIEW HIGH-PASS DRUMPLOT ↗</a>
+                    </div>
+                `;
+                document.getElementById('station-content').innerHTML = content;
+                sidebar.open('home');
+            });
+        });
+
+        L.control.zoom({ position: 'topright' }).addTo(map);
+    </script>
+</body>
+</html>
