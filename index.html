@@ -10,23 +10,29 @@
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
         /* Professional Ghost Labels */
        /* The 3-letter name styling */
+/* The 3-letter name: Black, bold, and centered */
 .station-label {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    color: #000000; /* Solid Black */
+    color: #000000; 
     font-weight: bold;
     font-size: 11px;
-    text-shadow: 1px 1px 1px #fff; /* White glow so it pops */
+    text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff; /* White glow for legibility */
+    text-align: center;
 }
 
-/* The actual Red Dot */
+/* The Red Dot: Small, circular, and professional */
 .red-dot {
     background-color: #ff0000;
-    border: 2px solid #ffffff;
+    border: 1px solid #ffffff;
     border-radius: 50%;
-    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+
 }
+
+
+
         }
         .sidebar-header { background: #c62828 !important; }
         .btn { display: block; background: #c62828; color: white; padding: 10px; text-align: center; 
