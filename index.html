@@ -217,11 +217,13 @@ if (searchInput) {
     const marker = L.marker([st.lat, st.lon]).addTo(map);
 
     // 2. Add the 3-letter station name as a permanent label
+ // Add the 3-letter station name centered above the pin
     marker.bindTooltip(st.id.toUpperCase(), {
         permanent: true,
-        direction: 'right',
+        direction: 'top',      // Puts it above the pin
         className: 'station-label',
-        offset: [10, 0]
+        offset: [0, 10],       // Centers it properly
+        opacity: 1             // Makes sure it's fully visible
     });
 
     // 3. Attach search data
