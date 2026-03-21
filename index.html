@@ -75,6 +75,7 @@
 
     <script>
         // 1. Initialize Map
+        const allMarkers = [];
         var map = L.map('map', { 
             zoomControl: false,
             minZoom: 5,
@@ -88,6 +89,7 @@
 
         // 2. Initialize Sidebar & "Bring Back Markers" Logic
         var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
+        
 
         sidebar.on('hide', function () {
             allMarkers.forEach(marker => marker.addTo(map));
