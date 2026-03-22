@@ -6,58 +6,50 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/css/leaflet-sidebar.min.css" />
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a1a; }
-        /* This removes the little triangle/arrow under the label */
-.leaflet-tooltip-top:before, 
-.leaflet-tooltip-bottom:before, 
-.leaflet-tooltip-left:before, 
-.leaflet-tooltip-right:before {
-    display: none !important;
-}
-    #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; height: 100vh; width: 100%; z-index: 1; }
-        /* Professional Ghost Labels */
-       /* The 3-letter name styling */
-/* The 3-letter name: Black, bold, and centered */
-.station-label {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: #000000; 
-    padding: 0 !important; /* This removes the extra 'box' space */
-    font-weight: bold;
-    font-size: 11px;
-    text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff; /* White glow for legibility */
-    text-align: center;
-}
-
-/* The Red Dot: Small, circular, and professional */
-.red-dot {
-    background-color: #ff0000;
-    border: 1px solid #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
-
-}
-
-
-
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a1a; overflow: hidden; }
         
-        .sidebar-header { background: #c62828 !important; }
+        #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; height: 100vh; width: 100%; z-index: 1; }
+
+        /* Label Styling */
+        .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, 
+        .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { display: none !important; }
+
+        .station-label {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #000000; 
+            font-weight: bold;
+            font-size: 11px;
+            text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff;
+            text-align: center;
+        }
+
+        .red-dot {
+            background-color: #ff0000;
+            border: 1px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+
         .btn { display: block; background: #c62828; color: white; padding: 10px; text-align: center; 
                text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 5px; transition: background 0.3s; border: none; cursor: pointer; }
         .btn:hover { background: #9b1c1c; }
         .coords-text { font-family: monospace; font-size: 11px; color: #666; background: #f4f4f4; padding: 5px; border-radius: 3px; border-left: 3px solid #c62828; }
+        
+        /* Ensure sidebar is above map */
+        .leaflet-sidebar { z-index: 2000 !important; }
     </style>
 </head>
 <body>
 
-  <div id="sidebar" class="leaflet-sidebar collapsed">
+    <div id="sidebar" class="leaflet-sidebar collapsed">
         <div class="leaflet-sidebar-tabs">
             <ul role="tablist"><li><a href="#home" role="tab">📉</a></li></ul>
         </div>
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="home">
-                <h2 class="leaflet-sidebar-header">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
+                <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
                 <div style="padding:15px;">
                     
                     <div style="margin-bottom: 20px;">
@@ -66,21 +58,15 @@
                     </div> 
 
                     <div style="margin-bottom: 20px;">
-                        <a href="https://www.youtube.com/@vedurstofan/live" target="_blank" class="btn" style="background-color: #01579b; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
-                            📡 LIVE DAS STREAM
-                        </a>
+                        <a href="https://www.youtube.com/@vedurstofan/live" target="_blank" class="btn" style="background-color: #01579b;">📡 LIVE DAS STREAM</a>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <a href="https://aflogun.vedur.is/" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #2e7d32; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
-                            🌍 LIVE GPS DEFORMATION
-                        </a>
+                        <a href="https://aflogun.vedur.is/" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #2e7d32;">🌍 LIVE GPS DEFORMATION</a>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <a href="https://linktr.ee/VOLCANOWATCHERS" target="_blank" class="btn" style="background-color: #43d143; color: black; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
-                            🌳 MY LINKTREE
-                        </a>
+                        <a href="https://linktr.ee/VOLCANOWATCHERS" target="_blank" class="btn" style="background-color: #43d143; color: black;">🌳 MY LINKTREE</a>
                     </div>
 
                     <div id="station-data">
@@ -88,13 +74,12 @@
                     </div>
 
                     <div style="margin-top: 30px; border-top: 1px solid #444; padding-top: 10px; text-align: center;">
-                        <p style="font-size: 11px; color: #888; margin: 0;">
-                            Created & Maintained by <br>
-                            <span style="color: #bbb; font-weight: bold;">VOLCANOWATCHERS</span>
-                        </p>
+                        <p style="font-size: 11px; color: #888; margin: 0;">Created & Maintained by <br><b>VOLCANOWATCHERS</b></p>
                     </div>
-
-                </div> </div> </div> </div> <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="map"></div>
 
@@ -104,7 +89,7 @@
     <script>
         // 1. Initialize Map
         const allMarkers = [];
-       var map = L.map('map', { 
+        var map = L.map('map', { 
             zoomControl: false,
             minZoom: 5,
             scrollWheelZoom: true,
@@ -116,28 +101,17 @@
         L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
         L.control.zoom({ position: 'topright' }).addTo(map);
 
-  // 2. Initialize Sidebar & "Bring Back Markers" Logic
-var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
+        // 2. Initialize Sidebar
+        var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
 
-// This function runs when you click the 'X' or close the sidebar
-function resetMap() {
-    // 1. Clear the search text
-    const searchInput = document.getElementById('stationSearch');
-    if (searchInput) {
-        searchInput.value = '';
-    }
-    // 2. Put all red dots back on the map
-    if (typeof allMarkers !== 'undefined') {
-        allMarkers.forEach(marker => {
-            marker.addTo(map);
-        });
-    }
-}
+        function resetMap() {
+            const searchInput = document.getElementById('stationSearch');
+            if (searchInput) searchInput.value = '';
+            allMarkers.forEach(marker => marker.addTo(map));
+        }
+        sidebar.on('closing', resetMap);
 
-// Attach the reset to both possible close events to be safe
-sidebar.on('hide', resetMap);
-sidebar.on('closing', resetMap);
-        // 3. Your Station Data
+        // 3. Station Data
         var stations = [
             { id: "klv", name: "Kleifarvatn", lat: 63.91447, lon: -21.95979, url: "klv" },
             { id: "odf", name: "Ölkelduháls", lat: 63.94253, lon: -22.11324, url: "odf" },
@@ -234,90 +208,57 @@ sidebar.on('closing', resetMap);
             { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
         ];
 
-     
-
-   stations.forEach(st => {
-    // This creates the red dot icon
-    var redDotIcon = L.divIcon({
-        className: 'red-dot',
-        iconSize: [8, 8],     // Adjust size here (8px is nice and neat)
-        iconAnchor: [4, 4]    // This centers the dot exactly on the point
-    });
-
-    // Create the marker using our new red dot
-    const marker = L.marker([st.lat, st.lon], { icon: redDotIcon }).addTo(map);
-     marker.stationName = st.name.toLowerCase();
-    marker.stationID = st.id.toLowerCase();  
-
- // Add the 3-letter name ABOVE the dot
-marker.bindTooltip(st.id.toUpperCase(), {
-    permanent: true,
-    direction: 'top',
-    className: 'station-label',
-    offset: [22, 18] // Change from [0, 0] to [0, -5] to pull it closer
-});
-
-    marker.stationName = st.name.toLowerCase();
-    marker.stationID = st.id.toLowerCase();
-    allMarkers.push(marker);
-marker.on('click', function() {
-    sidebar.open('home');
-    
-    // Using a timestamp (?t=) forces the browser to pull the newest image from IMO
-    const drumURL = `http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png?t=${new Date().getTime()}`;
-    
-    const dataDiv = document.getElementById('station-data');
-if(dataDiv) {
-        dataDiv.innerHTML = `
-            <div style="padding:10px;">
-                <h2 style="color:#c62828; margin-bottom:5px;">${st.name} (${st.id.toUpperCase()})</h2>
-                <div class="coords-text">LAT: ${st.lat} | LON: ${st.lon}</div>
-                
-                <p style="margin:15px 0; line-height: 1.4;">
-                    Select the button below to view the live 2.0Hz high-pass drumplot for this station.
-                </p>
-
-                <div style="margin-top:15px; display: flex; gap: 8px;">
-                   
-                    <a href="${drumURL}" target="_blank" class="btn" style="width: 100%; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center;">DRUM PLOT</a>
-                </div>
-            </div>`;
-    }
-     });
- });
- 
-// 5. Search Function with Fixed Centering
-const searchInput = document.getElementById('stationSearch');
-if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase();
-        if (term.length < 2) return; // Wait for 2 letters to avoid jumping
-
-        let foundMatch = false;
-
-        allMarkers.forEach(marker => {
-            const isMatch = marker.stationName.toLowerCase().includes(term) || 
-                            marker.stationID.toLowerCase().includes(term);
-
-            if (isMatch) {
-                marker.addTo(map);
-                if (!foundMatch) {
-                    map.setView(marker.getLatLng(), 10); // Snap to the FIRST match
-                    marker.fire('click'); // Automatically open the sidebar for that station
-                    foundMatch = true;
-                }
-            } else {
-                map.removeLayer(marker);
-            }
-        });
-    });
-}
+        // 4. Create Markers
+        stations.forEach(st => {
+            var redDotIcon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
+            const marker = L.marker([st.lat, st.lon], { icon: redDotIcon }).addTo(map);
             
-        
-        
+            marker.stationName = st.name.toLowerCase();
+            marker.stationID = st.id.toLowerCase();
+            allMarkers.push(marker);
 
+            marker.bindTooltip(st.id.toUpperCase(), {
+                permanent: true,
+                direction: 'top',
+                className: 'station-label',
+                offset: [22, 18]
+            });
 
-  
-</script>
+            marker.on('click', function() {
+                sidebar.open('home');
+                const drumURL = `http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png?t=${new Date().getTime()}`;
+                document.getElementById('station-data').innerHTML = `
+                    <div style="padding:10px;">
+                        <h2 style="color:#c62828; margin-bottom:5px;">${st.name} (${st.id.toUpperCase()})</h2>
+                        <div class="coords-text">LAT: ${st.lat} | LON: ${st.lon}</div>
+                        <p style="margin:15px 0;">Select below to view the live 2.0Hz drumplot.</p>
+                        <a href="${drumURL}" target="_blank" class="btn">DRUM PLOT</a>
+                    </div>`;
+            });
+        });
+
+        // 5. Search Logic
+        const searchInput = document.getElementById('stationSearch');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const term = e.target.value.toLowerCase();
+                if (term.length < 2) return;
+                let foundMatch = false;
+                allMarkers.forEach(marker => {
+                    const isMatch = marker.stationName.includes(term) || marker.stationID.includes(term);
+                    if (isMatch) {
+                        marker.addTo(map);
+                        if (!foundMatch) {
+                            map.setView(marker.getLatLng(), 10);
+                            marker.fire('click');
+                            foundMatch = true;
+                        }
+                    } else {
+                        map.removeLayer(marker);
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 </html>
