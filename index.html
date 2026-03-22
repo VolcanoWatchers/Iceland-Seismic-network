@@ -249,28 +249,35 @@
             });
         });
 
-        // 5. Search Logic
-        const searchInput = document.getElementById('stationSearch');
-        if (searchInput) {
-            searchInput.addEventListener('input', function(e) {
-                const term = e.target.value.toLowerCase();
-                if (term.length < 2) return;
-                let foundMatch = false;
-                allMarkers.forEach(marker => {
-                    const isMatch = marker.stationName.includes(term) || marker.stationID.includes(term);
-                    if (isMatch) {
-                        marker.addTo(map);
-                        if (!foundMatch) {
-                            map.setView(marker.getLatLng(), 10);
-                            marker.fire('click');
-                            foundMatch = true;
-                        }
-                    } else {
-                        map.removeLayer(marker);
-                    }
-                });
-            });
-        }
+      // 5. Search Logic
+const searchInput = document.getElementById('stationSearch');
+
+if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase().trim();
+        if (term.length < 2) return;
+
+        let foundMatch = false;
+
+        // Start looking through markers
+        allMarkers.forEach(marker => {
+            // Check for EXACT 3-letter match first, then partial names
+            const isExactMatch = marker.stationID === term;
+            const isPartialMatch = marker.stationName.includes(term) || marker.stationID.includes(term);
+
+            if (isExactMatch || (!foundMatch && isPartialMatch)) {
+                marker.addTo(map);
+                if (!foundMatch) {
+                    map.setView(marker.getLatLng(), 10);
+                    marker.fire('click');
+                    foundMatch = true;
+                }
+            } else {
+                map.removeLayer(marker);
+            }
+        }); // <--- This closes the allMarkers.forEach
+    }); // <--- This closes the addEventListener
+} // <--- This closes the if(searchInput)
     </script>
 </body>
 </html>
