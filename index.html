@@ -295,30 +295,32 @@ if(dataDiv) {
      });
  });
  
- // 5. Search Function with Auto-Centring
+// 5. Search Function with Fixed Centering
 const searchInput = document.getElementById('stationSearch');
 if (searchInput) {
     searchInput.addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase();
-        let foundFirstMatch = false;
+        if (term.length < 2) return; // Wait for 2 letters to avoid jumping
+
+        let foundMatch = false;
 
         allMarkers.forEach(marker => {
-            const isMatch = marker.stationName.includes(term) || marker.stationID.includes(term);
-            
-            if (isMatch) { 
+            const isMatch = marker.stationName.toLowerCase().includes(term) || 
+                            marker.stationID.toLowerCase().includes(term);
+
+            if (isMatch) {
                 marker.addTo(map);
-                // If this is the first match and the search term isn't empty, zoom to it!
-                if (!foundFirstMatch && term.length > 0) {
-                    map.setView(marker.getLatLng(), 10); // Zoom level 10 is a good "close up"
-                    foundFirstMatch = true;
+                if (!foundMatch) {
+                    map.setView(marker.getLatLng(), 10); // Snap to the FIRST match
+                    marker.fire('click'); // Automatically open the sidebar for that station
+                    foundMatch = true;
                 }
-            } else { 
-                map.removeLayer(marker); 
+            } else {
+                map.removeLayer(marker);
             }
         });
     });
 }
-    
             
         
         
