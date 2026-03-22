@@ -51,36 +51,50 @@
 </head>
 <body>
 
-    <div id="sidebar" class="leaflet-sidebar collapsed">
-        <div class="leaflet-sidebar-tabs"><ul role="tablist"><li><a href="#home" role="tab">📉</a></li></ul></div>
+  <div id="sidebar" class="leaflet-sidebar collapsed">
+        <div class="leaflet-sidebar-tabs">
+            <ul role="tablist"><li><a href="#home" role="tab">📉</a></li></ul>
+        </div>
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="home">
                 <h2 class="leaflet-sidebar-header">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
                 <div style="padding:15px;">
+                    
                     <div style="margin-bottom: 20px;">
                         <input type="text" id="stationSearch" placeholder="Search station (e.g. LSK)..." 
                                style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333;">
                     </div> 
-<div style="margin-bottom: 20px;">
-    <a href="https://www.youtube.com/@vedurstofan/live" target="_blank" class="btn" style="background-color: #01579b; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
-        📡 LIVE DAS STREAM
-    </a>
-</div>
 
-<div style="margin-bottom: 20px;">
-    <a href="https://aflogun.vedur.is/" 
-       target="_blank" 
-       rel="noopener noreferrer"
-       class="btn" 
-       style="background-color: #2e7d32; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
-        🌍 LIVE GPS DEFORMATION
-    </a>
-</div>
-   <div id="station-data">
+                    <div style="margin-bottom: 20px;">
+                        <a href="https://www.youtube.com/@vedurstofan/live" target="_blank" class="btn" style="background-color: #01579b; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
+                            📡 LIVE DAS STREAM
+                        </a>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <a href="https://aflogun.vedur.is/" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #2e7d32; color: white; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
+                            🌍 LIVE GPS DEFORMATION
+                        </a>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <a href="https://linktr.ee/VOLCANOWATCHERS" target="_blank" class="btn" style="background-color: #43d143; color: black; text-decoration: none; display: block; padding: 10px; border-radius: 4px; font-weight: bold; text-align: center;">
+                            🌳 MY LINKTREE
+                        </a>
+                    </div>
+
+                    <div id="station-data">
                         <p>Select a station on the map to begin monitoring.</p>
                     </div>
 
+                    <div style="margin-top: 30px; border-top: 1px solid #444; padding-top: 10px; text-align: center;">
+                        <p style="font-size: 11px; color: #888; margin: 0;">
+                            Created & Maintained by <br>
+                            <span style="color: #bbb; font-weight: bold;">VOLCANOWATCHERS</span>
+                        </p>
+                    </div>
 
+                </div> </div> </div> </div> <div id="map"></div>
 
     <div id="map"></div>
 
