@@ -235,13 +235,13 @@ sidebar.on('closing', resetMap);
      marker.stationName = st.name.toLowerCase();
     marker.stationID = st.id.toLowerCase();  
 
-   // Add the 3-letter name ABOVE the dot
-    marker.bindTooltip(st.id.toUpperCase(), {
-        permanent: true,
-        direction: 'top',
-        className: 'station-label',
-        offset: [0, 0] // This pulls the text down closer to the red dot
-    });
+ // Add the 3-letter name ABOVE the dot
+marker.bindTooltip(st.id.toUpperCase(), {
+    permanent: true,
+    direction: 'top',
+    className: 'station-label',
+    offset: [0, -5] // Change from [0, 0] to [0, -5] to pull it closer
+});
 
     marker.stationName = st.name.toLowerCase();
     marker.stationID = st.id.toLowerCase();
