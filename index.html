@@ -113,7 +113,21 @@
             maxBoundsViscosity: 1.0
         }).setView([64.90, -18.5], 7); // 3. Setting the initial zoom level to 7
 
-        L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+       // 1. Define the Topo and Satellite layers
+var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
+var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Esri Satellite'
+});
+
+// 2. Start with Topo by default
+topo.addTo(map);
+
+// 3. Add the toggle button to the top-right
+var baseMaps = {
+    "Topographic": topo,
+    "Satellite": satellite
+};
+L.control.layers(baseMaps).addTo(map);
         L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
         L.control.zoom({ position: 'topright' }).addTo(map);
 
