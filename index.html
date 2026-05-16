@@ -447,12 +447,21 @@ stations.forEach(st => {
 sidebar.on('closing', function () {
     const seismicContainer = document.getElementById('station-data');
     const gpsContainer = document.getElementById('gps-data');
+    const gpsInput = document.getElementById('gpsSearch');
+    const gpsClear = document.getElementById('clearGpsSearch');
     
     if (seismicContainer) {
         seismicContainer.innerHTML = '';
     }
     if (gpsContainer) {
-        gpsContainer.innerHTML = '';
+        // Reset to default message instead of total blankness
+        gpsContainer.innerHTML = '<p style="padding: 10px; color: #666; font-style: italic;">Select a GPS station on the map or search above to begin monitoring.</p>';
+    }
+    if (gpsInput) {
+        gpsInput.value = ''; // Wipe anything typed in the search box
+    }
+    if (gpsClear) {
+        gpsClear.style.display = 'none'; // Hide the 'X' button
     }
 });
         // 5. Search Logic
