@@ -437,7 +437,19 @@ stations.forEach(st => {
 
 }); // <-- THIS is the crucial missing bracket that was causing the blank screen!
 
-// 5. Search Logic
+// Clear sidebar content when it is closed
+sidebar.on('hide', function () {
+    const seismicContainer = document.getElementById('station-data');
+    const gpsContainer = document.getElementById('gps-data');
+    
+    if (seismicContainer) {
+        seismicContainer.innerHTML = '';
+    }
+    if (gpsContainer) {
+        gpsContainer.innerHTML = '';
+    }
+});
+        // 5. Search Logic
 const searchInput = document.getElementById('stationSearch');
 const clearBtn = document.getElementById('clearSearch');
 
