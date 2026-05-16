@@ -174,13 +174,19 @@
                     <div style="margin-top: 30px; border-top: 1px solid #444; padding-top: 10px; text-align: center;">
                         <p style="font-size: 11px; color: #888; margin: 0;">Created & Maintained by <br><b>VOLCANOWATCHERS</b></p>
                     </div>
-                </div> </div> <div class="leaflet-sidebar-pane" id="gps">
-                <h2 class="leaflet-sidebar-header" style="background-color: #2e7d32;">GPS Deformation (Uplift)<span class="leaflet-sidebar-close">×</span></h2>
-                <div id="gps-data" style="padding:15px;">
-                    <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>
-                </div>
-            </div>
-
+               <div class="leaflet-sidebar-pane" id="gps">
+    <h2 class="leaflet-sidebar-header" style="background-color: #2e7d32;">GPS Deformation (Uplift)<span class="leaflet-sidebar-close">×</span></h2>
+    
+    <div style="padding: 15px 10px 5px 10px; position: relative;">
+        <input type="text" id="gpsSearch" placeholder="Search GPS station (e.g. SENG)..." 
+               style="width: 100%; padding: 10px 35px 10px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+        <button id="clearGpsSearch" style="display: none; position: absolute; right: 20px; top: 24px; background: none; border: none; font-size: 16px; cursor: pointer; color: #999;">&times;</button>
+    </div>
+    
+    <div id="gps-data" style="padding:15px;">
+        <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>
+    </div>
+</div>
         </div> </div> ```
 
     <div id="map"></div>
