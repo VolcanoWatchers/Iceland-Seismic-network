@@ -454,8 +454,8 @@ sidebar.on('closing', function () {
         seismicContainer.innerHTML = '';
     }
     if (gpsContainer) {
-        // Reset to default message instead of total blankness
-        gpsContainer.innerHTML = '<p style="padding: 10px; color: #666; font-style: italic;">Select a GPS station on the map or search above to begin monitoring.</p>';
+        // Reset to your bold default message instead of total blankness
+        gpsContainer.innerHTML = '<p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>';
     }
     if (gpsInput) {
         gpsInput.value = ''; // Wipe anything typed in the search box
@@ -464,35 +464,38 @@ sidebar.on('closing', function () {
         gpsClear.style.display = 'none'; // Hide the 'X' button
     }
 });
-        // 5. Search Logic
-const searchInput = document.getElementById('stationSearch');
-const clearBtn = document.getElementById('clearSearch');
 
-if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
+// 5b. GPS Search Logic
+const gpsSearchInput = document.getElementById('gpsSearch');
+const clearGpsBtn = document.getElementById('clearGpsSearch');
+
+if (gpsSearchInput) {
+    gpsSearchInput.addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase().trim();
-        clearBtn.style.display = term.length > 0 ? 'block' : 'none';
+        clearGpsBtn.style.display = term.length > 0 ? 'block' : 'none';
 
+        // Check if a full 3 or 4 letter station ID has been typed
         if (term.length === 3 || term.length === 4) {
             const match = allMarkers.find(m => m.stationID === term);
             if (match) {
                 const station = stations.find(s => s.id.toLowerCase() === term);
+                
+                // Only act if the searched station is actually a GPS station
                 if (station && station.type === 'gps') {
                     sidebar.open('gps');
-                } else {
-                    sidebar.open('home');
+                    allMarkers.forEach(m => m.addTo(map));
+                    map.setView(match.getLatLng(), 10);
+                    match.fire('click');
                 }
-                allMarkers.forEach(m => m.addTo(map));
-                map.setView(match.getLatLng(), 10);
-                match.fire('click');
             }
         }
     });
 
-    clearBtn.addEventListener('click', function() {
-        searchInput.value = '';
+    clearGpsBtn.addEventListener('click', function() {
+        gpsSearchInput.value = '';
         this.style.display = 'none';
-        sidebar.close();
+        document.getElementById('gps-data').innerHTML = `
+            <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
         resetMap();
     });
 }
