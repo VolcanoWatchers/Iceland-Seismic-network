@@ -384,52 +384,55 @@ stations.forEach(st => {
         offset: [22, 22]
     });
 
-   marker.on('click', function() {
-    if (st.type === 'gps') {
-        // --- OPEN GPS TAB ---
-        sidebar.open('gps');
-        
-        const stationID = st.url.toUpperCase();
-        // Use the folder from the station data, or default to reykjanes if not specified
-        const folderName = st.folder ? st.folder.toLowerCase() : 'reykjanes';
-        
-        // Your brilliant brunnur master server template!
-        const gpsImageURL = `http://brunnur.vedur.is/gps/eldfjoll/${folderName}/${stationID}-plate-90d.png`;
-        
-        document.getElementById('gps-data').innerHTML = `
-            <div style="padding:10px;">
-                <h2 style="color:#2e7d32; margin-bottom:5px;">${st.name} (${stationID})</h2>
-                <div class="coords-text" style="border-left-color: #2e7d32; color: #444; font-weight: bold;">
-                    LAT: ${st.lat} | LON: ${st.lon}
-                </div>
-                <p style="margin:20px 0 8px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📈 90-Day Vertical Displacement</p>
-                
-                <a href="${gpsImageURL}" target="_blank">
-                    <img src="${gpsImageURL}" 
-                         alt="GPS Displacement Chart" 
-                         style="width:100%; border:1px solid #ccc; background: white;">
-                </a>
-                
-                <p style="font-size: 11px; color: #555; text-align: center; margin-top: 8px; font-weight: 600;">(Click chart to enlarge)</p>
-            </div>`;
+ marker.on('click', function() {
+        if (st.type === 'gps') {
+            // --- OPEN GPS TAB ---
+            sidebar.open('gps');
             
-    } else {
-        // --- OPEN SEISMIC TAB ---
-        sidebar.open('home');
-        const secureDrumURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png&noproxy`;
-        const secureTremorURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/oroi/${st.url}.gif&noproxy`;
-        
-        document.getElementById('station-data').innerHTML = `
-            <div style="padding:10px;">
-                <h2 style="color:#c62828; margin-bottom:5px;">${st.name} (${st.id.toUpperCase()})</h2>
-                <div class="coords-text" style="color: #444; font-weight: bold;">LAT: ${st.lat} | LON: ${st.lon}</div>
-                <p style="margin:5px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">🌋 Volcanic Tremor (Órói)</p>
-                <a href="${secureTremorURL}" target="_blank"><img src="${secureTremorURL}" alt="Tremor Chart"></a>
-                <p style="margin:12px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📉 Drumplot (Highpass)</p>
-                <a href="${secureDrumURL}" target="_blank"><img src="${secureDrumURL}" alt="Drum Plot"></a>
-            </div>`;
-    }
-});
+            const stationID = st.url.toUpperCase();
+            // Use the folder from the station data, or default to reykjanes if not specified
+            const folderName = st.folder ? st.folder.toLowerCase() : 'reykjanes';
+            
+            // Your brilliant brunnur master server template!
+            const gpsImageURL = `http://brunnur.vedur.is/gps/eldfjoll/${folderName}/${stationID}-plate-90d.png`;
+            
+            document.getElementById('gps-data').innerHTML = `
+                <div style="padding:10px;">
+                    <h2 style="color:#2e7d32; margin-bottom:5px;">${st.name} (${stationID})</h2>
+                    <div class="coords-text" style="border-left-color: #2e7d32; color: #444; font-weight: bold;">
+                        LAT: ${st.lat} | LON: ${st.lon}
+                    </div>
+                    <p style="margin:20px 0 8px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📈 90-Day Vertical Displacement</p>
+                    
+                    <a href="${gpsImageURL}" target="_blank">
+                        <img src="${gpsImageURL}" 
+                             alt="GPS Displacement Chart" 
+                             style="width:100%; border:1px solid #ccc; background: white;">
+                    </a>
+                    
+                    <p style="font-size: 11px; color: #555; text-align: center; margin-top: 8px; font-weight: 600;">(Click chart to enlarge)</p>
+                </div>`;
+                
+        } else {
+            // --- OPEN SEISMIC TAB ---
+            sidebar.open('home');
+            const secureDrumURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png&noproxy`;
+            const secureTremorURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/oroi/${st.url}.gif&noproxy`;
+            
+            document.getElementById('station-data').innerHTML = `
+                <div style="padding:10px;">
+                    <h2 style="color:#c62828; margin-bottom:5px;">${st.name} (${st.id.toUpperCase()})</h2>
+                    <div class="coords-text" style="color: #444; font-weight: bold;">LAT: ${st.lat} | LON: ${st.lon}</div>
+                    <p style="margin:5px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">🌋 Volcanic Tremor (Órói)</p>
+                    <a href="${secureTremorURL}" target="_blank"><img src="${secureTremorURL}" alt="Tremor Chart"></a>
+                    <p style="margin:12px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📉 Drumplot (Highpass)</p>
+                    <a href="${secureDrumURL}" target="_blank"><img src="${secureDrumURL}" alt="Drum Plot"></a>
+                </div>`;
+        }
+    });
+
+}); // <-- THIS is the crucial missing bracket that was causing the blank screen!
+
 // 5. Search Logic
 const searchInput = document.getElementById('stationSearch');
 const clearBtn = document.getElementById('clearSearch');
@@ -462,6 +465,6 @@ if (searchInput) {
         resetMap();
     });
 }
-    </script>
+</script>
 </body>
 </html>
