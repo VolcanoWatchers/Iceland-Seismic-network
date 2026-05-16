@@ -438,7 +438,7 @@ stations.forEach(st => {
 }); // <-- THIS is the crucial missing bracket that was causing the blank screen!
 
 // Clear sidebar content when it is closed
-sidebar.on('hide', function () {
+sidebar.on('closing', function () {
     const seismicContainer = document.getElementById('station-data');
     const gpsContainer = document.getElementById('gps-data');
     
