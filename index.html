@@ -294,6 +294,21 @@ sidebar.on('content', function (e) {
 { id: "fim2", name: "Fimmvörðuháls (Katla)", lat: 63.61003, lon: -19.43389, type: "gps", url: "FIM2", folder: "katla" },
 { id: "fjoc", name: "Fjórðungsalda", lat: 64.87514, lon: -18.00644, type: "gps", url: "FJOC", folder: "bardarbunga" },
 { id: "ftey", name: "Flatey", lat: 66.16031, lon: -17.84787, type: "gps", url: "FTEY", folder: "tjornes" },
+{ id: "gake", name: "Garður í Kelduhverfi", lat: 66.07806, lon: -16.76470, type: "gps", url: "GAKE" },
+{ id: "gevk", name: "Gerðavallakriki", lat: 63.83536, lon: -22.47153, type: "gps", url: "GEVK" },
+{ id: "gfel", name: "Geitafell", lat: 63.94815, lon: -21.53064, type: "gps", url: "GFEL" },
+{ id: "gfum", name: "Grímsfjall", lat: 64.40716, lon: -17.26704, type: "gps", url: "GFUM" },
+{ id: "gigo", name: "Gígöldur", lat: 64.84008, lon: -17.01878, type: "gps", url: "GIGO" },
+{ id: "gjog", name: "Gjögurtá", lat: 65.99411, lon: -21.34617, type: "gps", url: "GJOG" },
+{ id: "gler", name: "Glerhaus", lat: 64.02290, lon: -19.80248, type: "gps", url: "GLER" },
+{ id: "gmey", name: "Grímsey", lat: 66.53900, lon: -18.01901, type: "gps", url: "GMEY" },
+{ id: "gola", name: "Godaland", lat: 63.65961, lon: -19.32230, type: "gps", url: "GOLA" },
+{ id: "gonh", name: "Gónhóll", lat: 63.88564, lon: -22.27045, type: "gps", url: "GONH" },
+{ id: "gran", name: "Granastaðir", lat: 65.91870, lon: -17.57844, type: "gps", url: "GRAN" },
+{ id: "grfs", name: "Graenufjoll (Katla)", lat: 63.52657, lon: -19.10935, type: "gps", url: "GRFS" },
+{ id: "griv", name: "Grindavik", lat: 63.85920, lon: -22.45165, type: "gps", url: "GRIV" },
+{ id: "grvm", name: "Grindavík Miðja", lat: 63.84333, lon: -22.43040, type: "gps", url: "GRVM" },
+{ id: "grvv", name: "Grindavík Vestur", lat: 63.84559, lon: -22.44489, type: "gps", url: "GRVV" },              
             { id: "klv", name: "Kleifarvatn", lat: 63.91447, lon: -21.95979, url: "klv" },
             { id: "odf", name: "Oddafell", lat: 63.94690, lon: -22.11900, url: "odf" },
             { id: "eld", name: "Eldey", lat: 63.74067, lon: -22.95803, url: "eld" },
@@ -420,7 +435,7 @@ stations.forEach(st => {
            const stationID = st.url.toUpperCase();
             
             // Define your core Reykjanes station URLs that live on the old brunnur server
-            const reykjanesStations = ["SENG", "HS02", "ELDC", "ELEY", "GRV", "FAD", "RNE", "VOG", "MOH", "ASH", "AFST", "AUSV", "ODF", "KLV"];
+            const reykjanesStations = ["SENG", "HS02", "ELDC", "ELEY", "GRV", "FAD", "RNE", "VOG", "MOH", "ASH", "AFST", "AUSV", "ODF", "KLV", "GEVK", "GONH", "GRIV", "GRVM", "GRVV"];
             
             let gpsImageURL;
             if (reykjanesStations.includes(stationID)) {
