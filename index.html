@@ -432,19 +432,10 @@ stations.forEach(st => {
             // --- OPEN GPS TAB ---
             sidebar.open('gps');
             
-           const stationID = st.url.toUpperCase();
+         const stationID = st.url.toUpperCase();
             
-            // Define your core Reykjanes station URLs that live on the old brunnur server
-            const reykjanesStations = ["SENG", "HS02", "ELDC", "ELEY", "GRV", "FAD", "RNE", "VOG", "MOH", "ASH", "AFST", "AUSV", "ODF", "KLV", "GEVK", "GONH", "GRIV", "GRVM", "GRVV"];
-            
-            let gpsImageURL;
-            if (reykjanesStations.includes(stationID)) {
-                // Core Reykjanes stations use the old server folder
-                gpsImageURL = `http://brunnur.vedur.is/gps/eldfjoll/reykjanes/${stationID}-plate-90d.png`;
-            } else {
-                // EVERY OTHER STATION across Iceland uses your new CDN discovery!
-                gpsImageURL = `https://cdn.vedur.is/gps/timeseries/graphs/standard_24h/${stationID}-plate-90d.png`;
-            }
+            // The entire Icelandic network is now unified on your CDN discovery!
+            const gpsImageURL = `https://cdn.vedur.is/gps/timeseries/graphs/standard_24h/${stationID}-plate-90d.png`;
             
             document.getElementById('gps-data').innerHTML = `
                 <div style="padding:10px;">
