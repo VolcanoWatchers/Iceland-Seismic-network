@@ -90,21 +90,15 @@
             font-size: 20px;
         }
 
-/* Sharp, professional-sized GPS markers */
-.gps-triangle {
-    width: 0;
-    height: 0;
-    /* Small but sharp: 6px sides, 10px tall */
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 10px solid #00ff00; 
-    
-    /* Keep the shadow tight so it doesn't look blurry */
-    filter: drop-shadow(0 0 1px #000);
-    
-    /* This stops the "cutting off" at the top */
-    margin-top: 0px; 
-    z-index: 1000 !important;
+/* Sharp, professional-sized GPS markers changed to glowing dots */
+.gps-dot {
+    background-color: #00ff00 !important; /* Matches your original vibrant tracking green */
+    border: 1px solid #ffffff;           /* Clean white border so it pops on dark mode */
+    border-radius: 50%;                  /* This creates a perfect round circle! */
+    width: 8px !important;               /* Matches the exact size of your seismic dots */
+    height: 8px !important;
+    box-shadow: 0 0 3px rgba(0,0,0,0.8);
+    z-index: 1000 !important;            /* Keeps it sitting proudly on top */
 }
  /* ... your existing code ... */
 
@@ -518,14 +512,15 @@ sidebar.on('closing', resetMap);
 // ==========================================
 stations.forEach(st => {
     let icon;
-    let labelOffset; // Variable to hold the custom offset for each type
+    let labelOffset; 
     
     if (st.type === 'gps') {
-        icon = L.divIcon({ className: 'gps-triangle', iconSize: [10, 8], iconAnchor: [5, 8] });
-        labelOffset = [0, 11]; // Final nudge down to sit perfectly on top of the triangle point
+        // FIXED: Swapped to 'gps-dot', centered the anchor [4, 4], and matched the label offset!
+        icon = L.divIcon({ className: 'gps-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
+        labelOffset = [0, 6]; // Nudges the text label to sit snug right above the green dot
     } else {
         icon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
-        labelOffset = [0, 6];  // Final nudge down to sit snug right above the red dot
+        labelOffset = [0, 6];  
     }
     
     const marker = L.marker([st.lat, st.lon], { icon: icon });
@@ -540,12 +535,12 @@ stations.forEach(st => {
         offset: labelOffset 
     });
 
- marker.on('click', function() {
+    marker.on('click', function() {
         if (st.type === 'gps') {
             // --- OPEN GPS TAB ---
             sidebar.open('gps');
             
-         const stationID = st.url.toUpperCase();
+            const stationID = st.url.toUpperCase();
             
             // The entire Icelandic network is now unified on your CDN discovery!
             const gpsImageURL = `https://cdn.vedur.is/gps/timeseries/graphs/standard_24h/${stationID}-plate-90d.png`;
