@@ -202,23 +202,26 @@
 // ==========================================
 const allMarkers = [];
 
-// Define a reliable bounding box that frames Iceland comfortably
+// Define the precise geographical bounding box for Iceland
 const icelandViewBounds = [
-    [63.20, -24.50], // Southwest corner (below Westfjords/Reykjanes)
-    [66.60, -13.00]  // Northeast corner (above Northeast coast)
+    [63.20, -24.50], // Southwest corner
+    [66.60, -13.00]  // Northeast corner
 ];
 
 var map = L.map('map', { 
     zoomControl: false,
     minZoom: 6,
     scrollWheelZoom: true,
-    // Generous maximum bounds to prevent bouncing glitches
-    maxBounds: [[62.50, -26.50], [67.20, -11.00]],
-    maxBoundsViscosity: 1.0
+    // FIXED: Generous outer boundaries so you can slide the map left and right freely
+    maxBounds: [[62.00, -28.00], [67.50, -10.00]],
+    // FIXED: Reduced viscosity from 1.0 to 0.5 so it stops aggressively snapping back
+    maxBoundsViscosity: 0.5 
 });
 
-// Automatically fits Iceland beautifully onto the screen, accounting for layout restrictions
-map.fitBounds(icelandViewBounds);
+// FIXED: Automatically fits the island while ignoring the area under the sidebar (left padding)
+map.fitBounds(icelandViewBounds, {
+    paddingTopLeft: [420, 0] // Tells Leaflet: "Keep everything 420px away from the left edge"
+});
 
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -277,8 +280,10 @@ function resetMap() {
     // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
     
-    // FIX: Snap back using the exact same professional bounding box frame
-    map.fitBounds(icelandViewBounds);
+    // FIXED: Snaps back using the clean, padded sidebar logic
+    map.fitBounds(icelandViewBounds, {
+        paddingTopLeft: [420, 0]
+    });
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
