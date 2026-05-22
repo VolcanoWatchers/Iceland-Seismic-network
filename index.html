@@ -589,9 +589,32 @@ const gpsSearchInput = document.getElementById('gpsSearch');
 const clearGpsBtn = document.getElementById('clearGpsSearch');
 
 if (gpsSearchInput) {
+    // Helper function so we don't repeat code for clearing
+    function resetGpsSearchState() {
+        gpsSearchInput.value = '';
+        if (clearGpsBtn) clearGpsBtn.style.display = 'none';
+        
+        const gpsContainer = document.getElementById('gps-data');
+        if (gpsContainer) {
+            gpsContainer.innerHTML = `
+                <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
+        }
+        if (typeof resetMap === 'function') resetMap();
+    }
+
+    // Listens to typing AND browser's native 'x' clear click
     gpsSearchInput.addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase().trim();
-        clearGpsBtn.style.display = term.length > 0 ? 'block' : 'none';
+        
+        if (clearGpsBtn) {
+            clearGpsBtn.style.display = term.length > 0 ? 'block' : 'none';
+        }
+
+        // FIX: If search is wiped out (via backspace or native browser 'x' button)
+        if (term === '') {
+            resetGpsSearchState();
+            return; // Stop running the rest of the logic
+        }
 
         // Check if a full 3 or 4 letter station ID has been typed
         if (term.length === 3 || term.length === 4) {
@@ -610,13 +633,12 @@ if (gpsSearchInput) {
         }
     });
 
-    clearGpsBtn.addEventListener('click', function() {
-        gpsSearchInput.value = '';
-        this.style.display = 'none';
-        document.getElementById('gps-data').innerHTML = `
-            <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
-        resetMap();
-    });
+    // Custom button click clear handler
+    if (clearGpsBtn) {
+        clearGpsBtn.addEventListener('click', function() {
+            resetGpsSearchState();
+        });
+    }
 }
 </script>
 </body>
