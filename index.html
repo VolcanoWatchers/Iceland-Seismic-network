@@ -623,16 +623,15 @@ if (seismicSearchInput) {
             seismicContainer.innerHTML = '<p>Select a station on the map to begin monitoring.</p>';
         }
         
-        // Reset map position safely
         if (typeof resetMap === 'function') {
             resetMap();
             hideWelcomeOverlay(); 
         }
 
-        // FIX: Force the seismic markers to show back up immediately on clear
+        // FIX: Re-draw seismic dots by matching their IDs back to the original station type
         allMarkers.forEach(m => {
-            // Check if it's a seismic marker (adjust this property name if needed to match your code)
-            if (m.stationType === 'seismic' || !m.stationID) { 
+            const originalData = stations.find(s => s.id.toLowerCase() === m.stationID);
+            if (originalData && originalData.type !== 'gps') { 
                 m.addTo(map);
             }
         });
@@ -648,7 +647,7 @@ if (seismicSearchInput) {
         }
 
         if (term.length === 3 || term.length === 4) {
-            const match = allMarkers.find(m => m.stationID === term || (m.options && m.options.title && m.options.title.toLowerCase() === term));
+            const match = allMarkers.find(m => m.stationID === term);
             if (match) {
                 sidebar.open('home'); 
                 hideWelcomeOverlay();
@@ -682,17 +681,15 @@ if (gpsSearchInput) {
                 <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
         }
         
-        // Reset map position safely
         if (typeof resetMap === 'function') {
             resetMap();
             hideWelcomeOverlay(); 
         }
 
-        // FIX: Force the green GPS markers to show back up immediately on clear
+        // FIX: Re-draw green GPS triangles instantly when clearing search
         allMarkers.forEach(m => {
-            // Look through your stations array to confirm if this marker is a GPS type
-            const isGps = stations.some(s => s.id.toLowerCase() === m.stationID && s.type === 'gps');
-            if (isGps) {
+            const originalData = stations.find(s => s.id.toLowerCase() === m.stationID);
+            if (originalData && originalData.type === 'gps') {
                 m.addTo(map);
             }
         });
