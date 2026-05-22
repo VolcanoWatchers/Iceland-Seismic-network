@@ -199,19 +199,17 @@
     <script>
        
 // ==========================================
-// 1. INITIALISE MAP (FULL SCREEN CENTER)
+// 1. INITIALIZE MAP (STABLE, FIXED POSITION)
 // ==========================================
 const allMarkers = [];
-
 var map = L.map('map', { 
     zoomControl: false,
     minZoom: 6,
     scrollWheelZoom: true,
-    zoomSnap: 0.1,
-    zoomDelta: 0.1,
-    maxBounds: [[62.00, -30.00], [67.50, -10.00]],
-    maxBoundsViscosity: 0.2 
-}).setView([64.90, -18.5], 7.0); // Perfect, crisp full-island view when sidebar is closed
+    maxBounds: [[63.20, -24.80], [66.80, -13.20]],
+    maxBoundsViscosity: 1.0 // Keeps the map locked solidly in place
+}).setView([64.90, -18.3], 7); // OPTIMIZED: Static nudge to -18.3 to give the Westfjords breathing room
+
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Esri Satellite'
@@ -224,23 +222,16 @@ L.control.layers(baseMaps).addTo(map);
 L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
 L.control.zoom({ position: 'topright' }).addTo(map);
 
-        // 2. Initialize Sidebar
-        var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
+// ==========================================
+// 2. INITIALIZE SIDEBAR
+// ==========================================
+var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
 
-        let isMapShifted = false;
-
-// --- THE MAP FILTER LOGIC ---
+// --- THE MAP FILTER LOGIC (NO FLYING OR FLICKERING) ---
 sidebar.on('content', function (e) {
     // Hide the welcome overlay as soon as a tab is opened
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '0';
-
-    // FIX: Only glide the map IF it isn't already shifted. 
-    // This completely stops the repositioning flicker when switching between tabs!
-    if (!isMapShifted) {
-        map.flyTo([64.95, -19.7], 7.1, { animate: true, duration: 0.5 });
-        isMapShifted = true; // Mark it as shifted
-    }
     
     if (e.id === 'gps') {
         // --- GPS TAB OPENED: Show ONLY Triangles ---
@@ -263,7 +254,7 @@ sidebar.on('content', function (e) {
             }
         });
     }
-});       
+});
 
 // ==========================================
 // 7. GLOBAL MAP RESET FUNCTION
@@ -275,11 +266,8 @@ function resetMap() {
     // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
     
-    // Smoothly glide back to full-screen alignment
-    map.flyTo([64.90, -18.5], 7.0, { animate: true, duration: 0.5 });
-    
-    // FIX: Reset our tracking flag so the map knows it is back in full-screen mode
-    isMapShifted = false; 
+    // Snap back cleanly to our optimal static position
+    map.setView([64.90, -18.3], 7);
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
