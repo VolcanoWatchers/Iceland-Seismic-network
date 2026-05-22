@@ -198,7 +198,8 @@
 
     <script>
        
-// 1. INITIALISE MAP
+// ==========================================
+// 1. INITIALISE MAP (FULL SCREEN CENTER)
 // ==========================================
 const allMarkers = [];
 
@@ -206,12 +207,11 @@ var map = L.map('map', {
     zoomControl: false,
     minZoom: 6,
     scrollWheelZoom: true,
-    // CRITICAL: Widened boundaries drastically to the west (-32.00) and east (-8.00)
-    // This removes the "wall" that was forcing the map to clip your Westfjords!
+    zoomSnap: 0.1,
+    zoomDelta: 0.1,
     maxBounds: [[62.00, -30.00], [67.50, -10.00]],
-    maxBoundsViscosity: 0.2 // Softened drastically so dragging is buttery smooth
-}).setView([64.90, -19.6], 6.7); // MANUAL CONTROL: Set to Zoom 6.5 and shifted center way East to -15.5
-
+    maxBoundsViscosity: 0.2 
+}).setView([64.90, -18.5], 7.0); // Perfect, crisp full-island view when sidebar is closed
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Esri Satellite'
@@ -227,40 +227,40 @@ L.control.zoom({ position: 'topright' }).addTo(map);
         // 2. Initialize Sidebar
         var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
 
-        // --- THE MAP FILTER LOGIC ---
+// --- THE MAP FILTER LOGIC ---
 sidebar.on('content', function (e) {
+    // DYNAMIC SHIFT: The moment a tab opens, glide the map to clear the sidebar beautifully!
+    map.flyTo([64.95, -19.7], 7.1, { animate: true, duration: 0.5 });
+
     // Hide the welcome overlay as soon as a tab is opened then appear when closed
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '0';
+    
     if (e.id === 'gps') {
-       
         // --- GPS TAB OPENED: Show ONLY Triangles ---
         allMarkers.forEach(marker => {
-            // Find the station data that matches this marker
             const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
-            
             if (station && station.type === 'gps') {
-                marker.addTo(map); // Keep/Add the Green Triangle
+                marker.addTo(map);
             } else {
-                map.removeLayer(marker); // Remove the Red Seismic Dot
+                map.removeLayer(marker);
             }
         });
     } else if (e.id === 'home') {
         // --- SEISMIC TAB OPENED: Show ONLY Red Dots ---
         allMarkers.forEach(marker => {
             const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
-            
             if (station && station.type === 'gps') {
-                map.removeLayer(marker); // Remove the Green Triangle
+                map.removeLayer(marker);
             } else {
-                marker.addTo(map); // Keep/Add the Red Seismic Dot
+                marker.addTo(map);
             }
         });
     }
 });
 
 // ==========================================
-// 7. GLOBAL MAP RESET FUNCTION
+// 7. GLOBAL MAP RESET FUNCTION (MAP CLOSED)
 // ==========================================
 function resetMap() {
     const searchInput = document.getElementById('stationSearch');
@@ -269,14 +269,13 @@ function resetMap() {
     // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
     
-    // MANUAL CONTROL: Snap back to the exact same spacious manual coordinate view
-    map.setView([64.90, -19.6], 6.7); 
+    // DYNAMIC RESET: Smoothly glide back to full-screen alignment
+    map.flyTo([64.90, -18.5], 7.0, { animate: true, duration: 0.5 });
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
 }
 sidebar.on('closing', resetMap);
-
         // 3. Station Data
            var stations = [
              // GPS STATIONS (The Green Triangles)
