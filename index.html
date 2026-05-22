@@ -497,23 +497,26 @@ sidebar.on('content', function (e) {
 // ==========================================
 stations.forEach(st => {
     let icon;
+    let labelOffset; // Variable to hold the custom offset for each type
+    
     if (st.type === 'gps') {
-        // Shrunk size from [12,10] to [10,8] and nudged the anchor point
         icon = L.divIcon({ className: 'gps-triangle', iconSize: [10, 8], iconAnchor: [5, 8] });
+        labelOffset = [0, 4];  // Pulls the text down close to the triangle peak
     } else {
         icon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
+        labelOffset = [0, 0];  // Perfect default snug position for the circular red dots
     }
     
     const marker = L.marker([st.lat, st.lon], { icon: icon });
     marker.stationID = st.id.toLowerCase();
     allMarkers.push(marker);
 
-    // Nudged offset left to avoid clipping text names
+    // Dynamic offset applied here based on station type
     marker.bindTooltip(st.id.toUpperCase(), {
         permanent: true,
         direction: 'top',
         className: 'station-label',
-        offset: [0, -5] // Shifting the anchor point upward and centered cleanly
+        offset: labelOffset 
     });
 
  marker.on('click', function() {
