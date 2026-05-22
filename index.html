@@ -210,7 +210,7 @@ var map = L.map('map', {
     // This removes the "wall" that was forcing the map to clip your Westfjords!
     maxBounds: [[62.00, -30.00], [67.50, -10.00]],
     maxBoundsViscosity: 0.2 // Softened drastically so dragging is buttery smooth
-}).setView([64.90, -19.3], 6.4); // MANUAL CONTROL: Set to Zoom 6.5 and shifted center way East to -15.5
+}).setView([64.90, -19.6], 6.7); // MANUAL CONTROL: Set to Zoom 6.5 and shifted center way East to -15.5
 
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -270,7 +270,7 @@ function resetMap() {
     allMarkers.forEach(marker => map.removeLayer(marker));
     
     // MANUAL CONTROL: Snap back to the exact same spacious manual coordinate view
-    map.setView([64.90, -19.3], 6.4); 
+    map.setView([64.90, -19.6], 6.7); 
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
