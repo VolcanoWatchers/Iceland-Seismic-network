@@ -515,9 +515,8 @@ stations.forEach(st => {
     let labelOffset; 
     
     if (st.type === 'gps') {
-        // FIXED: Swapped to 'gps-dot', centered the anchor [4, 4], and matched the label offset!
         icon = L.divIcon({ className: 'gps-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
-        labelOffset = [0, 6]; // Nudges the text label to sit snug right above the green dot
+        labelOffset = [0, 6]; 
     } else {
         icon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
         labelOffset = [0, 6];  
@@ -527,7 +526,6 @@ stations.forEach(st => {
     marker.stationID = st.id.toLowerCase();
     allMarkers.push(marker);
 
-    // Dynamic offset applied here based on station type
     marker.bindTooltip(st.id.toUpperCase(), {
         permanent: true,
         direction: 'top',
@@ -537,14 +535,11 @@ stations.forEach(st => {
 
     marker.on('click', function() {
         if (st.type === 'gps') {
-            // --- OPEN GPS TAB ---
             sidebar.open('gps');
-            
             const stationID = st.url.toUpperCase();
-            
-            // The entire Icelandic network is now unified on your CDN discovery!
             const gpsImageURL = `https://cdn.vedur.is/gps/timeseries/graphs/standard_24h/${stationID}-plate-90d.png`;
             
+            // FIXED: Added a beautiful relative layout container with a loader icon behind the image
             document.getElementById('gps-data').innerHTML = `
                 <div style="padding:10px;">
                     <h2 style="color:#2e7d32; margin-bottom:5px;">${st.name} (${stationID})</h2>
@@ -553,34 +548,46 @@ stations.forEach(st => {
                     </div>
                     <p style="margin:20px 0 8px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📈 90-Day Vertical Displacement</p>
                     
-                    <a href="${gpsImageURL}" target="_blank">
-                        <img src="${gpsImageURL}" 
-                             alt="GPS Displacement Chart" 
-                             style="width:100%; border:1px solid #ccc; background: white;">
-                    </a>
+                    <div style="position: relative; background: #f4f4f4; min-height: 150px; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc;">
+                        <i class="fa fa-spinner fa-spin" style="position: absolute; font-size: 30px; color: #2e7d32; z-index: 1;"></i>
+                        <a href="${gpsImageURL}" target="_blank" style="position: relative; z-index: 2; width: 100%; display: block;">
+                            <img src="${gpsImageURL}" alt="GPS Displacement Chart" style="width:100%; display: block; background: white;">
+                        </a>
+                    </div>
                     
                     <p style="font-size: 11px; color: #555; text-align: center; margin-top: 8px; font-weight: 600;">(Click chart to enlarge)</p>
                 </div>`;
                 
         } else {
-            // --- OPEN SEISMIC TAB ---
             sidebar.open('home');
             const secureDrumURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/drumplot/drumplot/${st.url}_highpass_2.0.png&noproxy`;
             const secureTremorURL = `https://wsrv.nl/?url=http://hraun.vedur.is/ja/oroi/${st.url}.gif&noproxy`;
             
+            // FIXED: Added loading icons for both the Tremor and Drumplot charts using FontAwesome
             document.getElementById('station-data').innerHTML = `
                 <div style="padding:10px;">
                     <h2 style="color:#c62828; margin-bottom:5px;">${st.name} (${st.id.toUpperCase()})</h2>
                     <div class="coords-text" style="color: #444; font-weight: bold;">LAT: ${st.lat} | LON: ${st.lon}</div>
-                    <p style="margin:5px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">🌋 Volcanic Tremor (Órói)</p>
-                    <a href="${secureTremorURL}" target="_blank"><img src="${secureTremorURL}" alt="Tremor Chart"></a>
-                    <p style="margin:12px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📉 Drumplot (Highpass)</p>
-                    <a href="${secureDrumURL}" target="_blank"><img src="${secureDrumURL}" alt="Drum Plot"></a>
+                    
+                    <p style="margin:15px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">🌋 Volcanic Tremor (Órói)</p>
+                    <div style="position: relative; background: #f4f4f4; min-height: 100px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; margin-bottom: 10px;">
+                        <i class="fa fa-spinner fa-spin" style="position: absolute; font-size: 24px; color: #c62828; z-index: 1;"></i>
+                        <a href="${secureTremorURL}" target="_blank" style="position: relative; z-index: 2; width: 100%; display: block;">
+                            <img src="${secureTremorURL}" alt="Tremor Chart" style="width:100%; display: block;">
+                        </a>
+                    </div>
+                    
+                    <p style="margin:15px 0 2px 0; font-weight: 800; color: #222; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">📉 Drumplot (Highpass)</p>
+                    <div style="position: relative; background: #f4f4f4; min-height: 150px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd;">
+                        <i class="fa fa-spinner fa-spin" style="position: absolute; font-size: 24px; color: #c62828; z-index: 1;"></i>
+                        <a href="${secureDrumURL}" target="_blank" style="position: relative; z-index: 2; width: 100%; display: block;">
+                            <img src="${secureDrumURL}" alt="Drum Plot" style="width:100%; display: block;">
+                        </a>
+                    </div>
                 </div>`;
         }
     });
-
-}); // <-- THIS is the crucial missing bracket that was causing the blank screen!
+});// <-- THIS is the crucial missing bracket that was causing the blank screen!
 
 // ==========================================
 // 1. WELCOME OVERLAY HELPER FUNCTIONS
