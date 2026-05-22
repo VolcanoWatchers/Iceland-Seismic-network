@@ -622,10 +622,20 @@ if (seismicSearchInput) {
         if (seismicContainer) {
             seismicContainer.innerHTML = '<p>Select a station on the map to begin monitoring.</p>';
         }
+        
+        // Reset map position safely
         if (typeof resetMap === 'function') {
             resetMap();
-            hideWelcomeOverlay(); // Stop resetMap from forcing the banner back up
+            hideWelcomeOverlay(); 
         }
+
+        // FIX: Force the seismic markers to show back up immediately on clear
+        allMarkers.forEach(m => {
+            // Check if it's a seismic marker (adjust this property name if needed to match your code)
+            if (m.stationType === 'seismic' || !m.stationID) { 
+                m.addTo(map);
+            }
+        });
     }
 
     seismicSearchInput.addEventListener('input', function(e) {
@@ -638,10 +648,9 @@ if (seismicSearchInput) {
         }
 
         if (term.length === 3 || term.length === 4) {
-            // Scan your active seismic markers array
             const match = allMarkers.find(m => m.stationID === term || (m.options && m.options.title && m.options.title.toLowerCase() === term));
             if (match) {
-                sidebar.open('home'); // Open the Seismic tab pane
+                sidebar.open('home'); 
                 hideWelcomeOverlay();
                 map.setView(match.getLatLng(), 9);
                 match.fire('click');
@@ -672,10 +681,21 @@ if (gpsSearchInput) {
             gpsContainer.innerHTML = `
                 <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
         }
+        
+        // Reset map position safely
         if (typeof resetMap === 'function') {
             resetMap();
-            hideWelcomeOverlay(); // Keep the welcome overlay hidden while browsing
+            hideWelcomeOverlay(); 
         }
+
+        // FIX: Force the green GPS markers to show back up immediately on clear
+        allMarkers.forEach(m => {
+            // Look through your stations array to confirm if this marker is a GPS type
+            const isGps = stations.some(s => s.id.toLowerCase() === m.stationID && s.type === 'gps');
+            if (isGps) {
+                m.addTo(map);
+            }
+        });
     }
 
     gpsSearchInput.addEventListener('input', function(e) {
@@ -692,7 +712,7 @@ if (gpsSearchInput) {
             if (match) {
                 const station = stations.find(s => s.id.toLowerCase() === term);
                 if (station && station.type === 'gps') {
-                    sidebar.open('gps'); // Open the GPS tab pane
+                    sidebar.open('gps'); 
                     hideWelcomeOverlay();
                     allMarkers.forEach(m => m.addTo(map));
                     map.setView(match.getLatLng(), 10);
