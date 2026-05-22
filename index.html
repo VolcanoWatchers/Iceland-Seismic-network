@@ -202,26 +202,15 @@
 // ==========================================
 const allMarkers = [];
 
-// Define the precise geographical bounding box for Iceland
-const icelandViewBounds = [
-    [63.20, -24.50], // Southwest corner
-    [66.60, -13.00]  // Northeast corner
-];
-
 var map = L.map('map', { 
     zoomControl: false,
     minZoom: 6,
     scrollWheelZoom: true,
-    // FIXED: Generous outer boundaries so you can slide the map left and right freely
-    maxBounds: [[62.00, -28.00], [67.50, -10.00]],
-    // FIXED: Reduced viscosity from 1.0 to 0.5 so it stops aggressively snapping back
-    maxBoundsViscosity: 0.5 
-});
-
-// FIXED: Increased left padding to 550px to force a comfortable zoom/fit alignment
-map.fitBounds(icelandViewBounds, {
-    paddingTopLeft: [550, 0] 
-});
+    // CRITICAL: Widened boundaries drastically to the west (-32.00) and east (-8.00)
+    // This removes the "wall" that was forcing the map to clip your Westfjords!
+    maxBounds: [[62.00, -32.00], [67.50, -8.00]],
+    maxBoundsViscosity: 0.2 // Softened drastically so dragging is buttery smooth
+}).setView([64.85, -15.5], 6.5); // MANUAL CONTROL: Set to Zoom 6.5 and shifted center way East to -15.5
 
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -269,7 +258,7 @@ sidebar.on('content', function (e) {
         });
     }
 });
-      
+
 // ==========================================
 // 7. GLOBAL MAP RESET FUNCTION
 // ==========================================
@@ -280,9 +269,8 @@ function resetMap() {
     // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
     
-    map.fitBounds(icelandViewBounds, {
-        paddingTopLeft: [550, 0]
-    });
+    // MANUAL CONTROL: Snap back to the exact same spacious manual coordinate view
+    map.setView([64.85, -15.5], 6.5); 
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
