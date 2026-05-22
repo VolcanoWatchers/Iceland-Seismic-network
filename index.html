@@ -492,14 +492,14 @@ sidebar.on('content', function (e) {
             { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
      ];
              
- // 4. Create Markers and Sidebar Content
-// Replace your old stations.forEach loop with this:
-// 4. Create Markers and Sidebar Content
+// ==========================================
+// 5. MARKER STYLE AND LABEL ADJUSTMENTS
+// ==========================================
 stations.forEach(st => {
     let icon;
-    // 1. Assign the correct icon based on type
     if (st.type === 'gps') {
-        icon = L.divIcon({ className: 'gps-triangle', iconSize: [12, 10], iconAnchor: [6, 10] });
+        // Shrunk size from [12,10] to [10,8] and nudged the anchor point
+        icon = L.divIcon({ className: 'gps-triangle', iconSize: [10, 8], iconAnchor: [5, 8] });
     } else {
         icon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
     }
@@ -508,11 +508,12 @@ stations.forEach(st => {
     marker.stationID = st.id.toLowerCase();
     allMarkers.push(marker);
 
+    // Nudged offset left to avoid clipping text names
     marker.bindTooltip(st.id.toUpperCase(), {
         permanent: true,
         direction: 'top',
         className: 'station-label',
-        offset: [22, 22]
+        offset: [0, -5] // Shifting the anchor point upward and centered cleanly
     });
 
  marker.on('click', function() {
