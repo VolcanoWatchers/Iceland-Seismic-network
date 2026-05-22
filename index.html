@@ -217,16 +217,17 @@ var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/service
     attribution: 'Esri Satellite'
 });
 
-// NEW: Elegant Dark Mode Layer
-var darkMode = L.tileLayer('https://tiles.stadiamaps.com/tiles/al_dark_matter/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attribution: '&copy; Stadia Maps, &copy; OpenMapTiles, &copy; OpenStreetMap contributors'
+// FIXED: CartoDB Dark Matter - Completely free, no API keys, no 401 errors!
+var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
 });
 
-// Default to loading the topographic map first (or change to darkMode.addTo(map) if you prefer)
+// Default to loading the topographic map first
 topo.addTo(map);
 
-// FIXED: Added "Dark Mode" to your layer switcher control
+// Added "Dark Mode" to your layer switcher control
 var baseMaps = { 
     "Topographic": topo, 
     "Satellite": satellite,
