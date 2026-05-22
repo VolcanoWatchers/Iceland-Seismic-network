@@ -562,34 +562,107 @@ stations.forEach(st => {
 
 }); // <-- THIS is the crucial missing bracket that was causing the blank screen!
 
-// Clear sidebar content when it is closed
+// ==========================================
+// 1. WELCOME OVERLAY HELPER FUNCTIONS
+// ==========================================
+function hideWelcomeOverlay() {
+    const overlay = document.getElementById('welcome-overlay');
+    if (overlay) overlay.style.opacity = '0';
+}
+
+function showWelcomeOverlay() {
+    const overlay = document.getElementById('welcome-overlay');
+    if (overlay) overlay.style.opacity = '1';
+}
+
+// ==========================================
+// 2. SIDEBAR EVENT LISTENERS
+// ==========================================
+// Hide the welcome overlay the instant ANY tab is opened or clicked
+sidebar.on('content', function(e) {
+    hideWelcomeOverlay();
+});
+
+// Clear sidebar content when it is closed completely
 sidebar.on('closing', function () {
     const seismicContainer = document.getElementById('station-data');
     const gpsContainer = document.getElementById('gps-data');
     const gpsInput = document.getElementById('gpsSearch');
+    const seismicInput = document.getElementById('stationSearch');
     const gpsClear = document.getElementById('clearGpsSearch');
+    const seismicClear = document.getElementById('clearSearch');
     
     if (seismicContainer) {
-        seismicContainer.innerHTML = '';
+        seismicContainer.innerHTML = '<p>Select a station on the map to begin monitoring.</p>';
     }
     if (gpsContainer) {
-        // Reset to your bold default message instead of total blankness
         gpsContainer.innerHTML = '<p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>';
     }
-    if (gpsInput) {
-        gpsInput.value = ''; // Wipe anything typed in the search box
-    }
-    if (gpsClear) {
-        gpsClear.style.display = 'none'; // Hide the 'X' button
-    }
+    if (gpsInput) gpsInput.value = '';
+    if (seismicInput) seismicInput.value = '';
+    if (gpsClear) gpsClear.style.display = 'none';
+    if (seismicClear) seismicClear.style.display = 'none';
+    
+    // Bring back the landing banner ONLY if the sidebar is shut
+    showWelcomeOverlay();
 });
 
-// 5b. GPS Search Logic
+// ==========================================
+// 3. SEISMIC (TREMOR) NETWORK SEARCH LOGIC
+// ==========================================
+const seismicSearchInput = document.getElementById('stationSearch');
+const clearSeismicBtn = document.getElementById('clearSearch');
+
+if (seismicSearchInput) {
+    function resetSeismicSearchState() {
+        seismicSearchInput.value = '';
+        if (clearSeismicBtn) clearSeismicBtn.style.display = 'none';
+        
+        const seismicContainer = document.getElementById('station-data');
+        if (seismicContainer) {
+            seismicContainer.innerHTML = '<p>Select a station on the map to begin monitoring.</p>';
+        }
+        if (typeof resetMap === 'function') {
+            resetMap();
+            hideWelcomeOverlay(); // Stop resetMap from forcing the banner back up
+        }
+    }
+
+    seismicSearchInput.addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase().trim();
+        if (clearSeismicBtn) clearSeismicBtn.style.display = term.length > 0 ? 'block' : 'none';
+
+        if (term === '') {
+            resetSeismicSearchState();
+            return;
+        }
+
+        if (term.length === 3 || term.length === 4) {
+            // Scan your active seismic markers array
+            const match = allMarkers.find(m => m.stationID === term || (m.options && m.options.title && m.options.title.toLowerCase() === term));
+            if (match) {
+                sidebar.open('home'); // Open the Seismic tab pane
+                hideWelcomeOverlay();
+                map.setView(match.getLatLng(), 9);
+                match.fire('click');
+            }
+        }
+    });
+
+    if (clearSeismicBtn) {
+        clearSeismicBtn.addEventListener('click', function() {
+            resetSeismicSearchState();
+        });
+    }
+}
+
+// ==========================================
+// 4. GPS DEFORMATION SEARCH LOGIC
+// ==========================================
 const gpsSearchInput = document.getElementById('gpsSearch');
 const clearGpsBtn = document.getElementById('clearGpsSearch');
 
 if (gpsSearchInput) {
-    // Helper function so we don't repeat code for clearing
     function resetGpsSearchState() {
         gpsSearchInput.value = '';
         if (clearGpsBtn) clearGpsBtn.style.display = 'none';
@@ -599,32 +672,28 @@ if (gpsSearchInput) {
             gpsContainer.innerHTML = `
                 <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>`;
         }
-        if (typeof resetMap === 'function') resetMap();
+        if (typeof resetMap === 'function') {
+            resetMap();
+            hideWelcomeOverlay(); // Keep the welcome overlay hidden while browsing
+        }
     }
 
-    // Listens to typing AND browser's native 'x' clear click
     gpsSearchInput.addEventListener('input', function(e) {
         const term = e.target.value.toLowerCase().trim();
-        
-        if (clearGpsBtn) {
-            clearGpsBtn.style.display = term.length > 0 ? 'block' : 'none';
-        }
+        if (clearGpsBtn) clearGpsBtn.style.display = term.length > 0 ? 'block' : 'none';
 
-        // FIX: If search is wiped out (via backspace or native browser 'x' button)
         if (term === '') {
             resetGpsSearchState();
-            return; // Stop running the rest of the logic
+            return;
         }
 
-        // Check if a full 3 or 4 letter station ID has been typed
         if (term.length === 3 || term.length === 4) {
             const match = allMarkers.find(m => m.stationID === term);
             if (match) {
                 const station = stations.find(s => s.id.toLowerCase() === term);
-                
-                // Only act if the searched station is actually a GPS station
                 if (station && station.type === 'gps') {
-                    sidebar.open('gps');
+                    sidebar.open('gps'); // Open the GPS tab pane
+                    hideWelcomeOverlay();
                     allMarkers.forEach(m => m.addTo(map));
                     map.setView(match.getLatLng(), 10);
                     match.fire('click');
@@ -633,7 +702,6 @@ if (gpsSearchInput) {
         }
     });
 
-    // Custom button click clear handler
     if (clearGpsBtn) {
         clearGpsBtn.addEventListener('click', function() {
             resetGpsSearchState();
