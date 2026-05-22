@@ -501,10 +501,10 @@ stations.forEach(st => {
     
     if (st.type === 'gps') {
         icon = L.divIcon({ className: 'gps-triangle', iconSize: [10, 8], iconAnchor: [5, 8] });
-        labelOffset = [0, 8];  // Nudged further down to sit snugly on the triangle peak
+        labelOffset = [0, 11]; // Final nudge down to sit perfectly on top of the triangle point
     } else {
         icon = L.divIcon({ className: 'red-dot', iconSize: [8, 8], iconAnchor: [4, 4] });
-        labelOffset = [0, 3];  // Nudged down to sit tightly above the red circle
+        labelOffset = [0, 6];  // Final nudge down to sit snug right above the red dot
     }
     
     const marker = L.marker([st.lat, st.lon], { icon: icon });
