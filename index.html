@@ -227,14 +227,20 @@ L.control.zoom({ position: 'topright' }).addTo(map);
         // 2. Initialize Sidebar
         var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
 
+        let isMapShifted = false;
+
 // --- THE MAP FILTER LOGIC ---
 sidebar.on('content', function (e) {
-    // DYNAMIC SHIFT: The moment a tab opens, glide the map to clear the sidebar beautifully!
-    map.flyTo([64.95, -19.7], 7.1, { animate: true, duration: 0.5 });
-
-    // Hide the welcome overlay as soon as a tab is opened then appear when closed
+    // Hide the welcome overlay as soon as a tab is opened
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '0';
+
+    // FIX: Only glide the map IF it isn't already shifted. 
+    // This completely stops the repositioning flicker when switching between tabs!
+    if (!isMapShifted) {
+        map.flyTo([64.95, -19.7], 7.1, { animate: true, duration: 0.5 });
+        isMapShifted = true; // Mark it as shifted
+    }
     
     if (e.id === 'gps') {
         // --- GPS TAB OPENED: Show ONLY Triangles ---
@@ -257,10 +263,10 @@ sidebar.on('content', function (e) {
             }
         });
     }
-});
+});       
 
 // ==========================================
-// 7. GLOBAL MAP RESET FUNCTION (MAP CLOSED)
+// 7. GLOBAL MAP RESET FUNCTION
 // ==========================================
 function resetMap() {
     const searchInput = document.getElementById('stationSearch');
@@ -269,13 +275,17 @@ function resetMap() {
     // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
     
-    // DYNAMIC RESET: Smoothly glide back to full-screen alignment
+    // Smoothly glide back to full-screen alignment
     map.flyTo([64.90, -18.5], 7.0, { animate: true, duration: 0.5 });
+    
+    // FIX: Reset our tracking flag so the map knows it is back in full-screen mode
+    isMapShifted = false; 
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
 }
 sidebar.on('closing', resetMap);
+       
         // 3. Station Data
            var stations = [
              // GPS STATIONS (The Green Triangles)
