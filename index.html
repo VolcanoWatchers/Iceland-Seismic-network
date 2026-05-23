@@ -152,18 +152,34 @@
     <p>Click a monitoring icon to get started</p>
 </div>
     
-    <div id="sidebar" class="leaflet-sidebar collapsed">
-        <div class="leaflet-sidebar-tabs">
-            <ul role="tablist">
-                <li><a href="#home" role="tab">📈</a></li>
-                <li><a href="#gps" role="tab"><i class="fa fa-location-arrow"></i></a></li>
-            </ul>
+   <div id="sidebar" class="leaflet-sidebar collapsed">
+    <div class="leaflet-sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab">📈</a></li>
+            <li><a href="#gps" role="tab"><i class="fa fa-location-arrow"></i></a></li>
+            <li><a href="#quakes" role="tab">🌍</a></li> </ul>
+    </div>
+
+    <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="home">
+            <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
+            <div style="padding:15px;">
+                </div> 
         </div>
-        <div class="leaflet-sidebar-content">
-            <div class="leaflet-sidebar-pane" id="home">
-                <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
-                <div style="padding:15px;">
-                    
+
+        <div class="leaflet-sidebar-pane" id="gps">
+            <h2 class="leaflet-sidebar-header" style="background-color: #2e7d32;">GPS Deformation (Uplift)<span class="leaflet-sidebar-close">×</span></h2>
+            </div>
+
+        <div class="leaflet-sidebar-pane" id="quakes">
+            <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Recent Earthquakes<span class="leaflet-sidebar-close">×</span></h2>
+            <div id="quakes-ledger-body" style="padding: 10px; color: white;">
+                <p>Loading earthquake data...</p>
+            </div>
+        </div>
+
+    </div> </div> ```
+    
                  <div style="position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 20px;">
     <input type="text" id="stationSearch" placeholder="Search station (e.g. ASH)..." 
            style="width: 100%; padding: 10px; padding-right: 35px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; box-sizing: border-box;">
