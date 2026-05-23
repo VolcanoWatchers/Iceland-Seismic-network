@@ -995,13 +995,14 @@ function processDataset(dataArray) {
     // Ensure we are handling a valid array from the new IMO API
     if (!dataArray || !Array.isArray(dataArray)) return;
 
+    // Clear old markers before drawing new ones
+    seismicMapLayerGroup.clearLayers();
+
     earthquakeDataStorage = dataArray.map(item => {
-        // The new IMO API uses 'origin_time' or 'originTime'. We fallback safely:
         const rawTime = item.origin_time || item.originTime || item.timestamp;
         const timestamp = new Date(rawTime);
         const elapsedHr = (new Date() - timestamp) / 3600000;
         
-        // Map latitude and longitude (new API uses 'latitude' and 'longitude')
         const currentLat = item.latitude || item.lat;
         const currentLon = item.longitude || item.lon;
         
@@ -1011,6 +1012,31 @@ function processDataset(dataArray) {
             processedQuakeRegistry.add(quakeID);
             if (elapsedHr <= 1.0) { freshDetectFlags = true; }
         }
+
+        return {
+            lat: currentLat,
+            lon: currentLon,
+            magnitude: parseFloat(item.magnitude || item.mag || 0),
+            depth: parseFloat(item.depth || 0),
+            area: item.epicenter_text || item.epicenterText || item.area || "Unknown Region",
+            humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+            hoursOld: elapsedHr
+        };
+    }).sort((x, y) => x.hoursOld - y.hoursOld);
+
+    // Draw the markers on the map
+    earthquakeDataStorage.forEach(eq => {
+        createQuakeMarker(eq.lat, eq.lon, eq.magnitude, eq.depth, eq.area, eq.humanTime, eq.hoursOld);
+    });
+
+    if (freshDetectFlags && earthquakeDataStorage.length > 0) {
+        const leadEvent = earthquakeDataStorage[0];
+        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
+    }
+
+    executeClientFiltering();
+    fixLegendLabels();
+}
 
         // Return unified data names matching your mapping expectations
         return {
