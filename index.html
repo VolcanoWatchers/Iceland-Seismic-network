@@ -983,12 +983,19 @@ function executeClientFiltering() {
 
 async function fetchEarthquakeTelemetry() {
     try {
-        const response = await fetch('http://localhost:3000/api/earthquakes');
-        if (!response.ok) throw new Error("Proxy target inaccessible");
+        // We route the official live api.vedur.is endpoint through an open public CORS helper
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const targetUrl = 'https://api.vedur.is/skjalftalisa/v1/quakefilter';
+        
+        const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
+        if (!response.ok) throw new Error("Live data stream inaccessible");
+        
         const rawJson = await response.json();
+        
+        // This hands the real live data over to your map's processing engine!
         processDataset(rawJson);
     } catch (error) {
-        console.warn("Local proxy offline. Initialising sandbox simulation fallback schema Matrix...");
+        console.warn("Live feed connection error. Initialising fallback schema Matrix...", error);
         generateSandboxData();
     }
 }
