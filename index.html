@@ -994,11 +994,12 @@ function processDataset(dataArray) {
 
     if (!dataArray || !Array.isArray(dataArray)) return;
 
-    // Ensure the bucket exists before clearing
-    if (typeof seismicMapLayerGroup !== 'undefined') {
-        seismicMapLayerGroup.clearLayers();
-    }
+    // 1. Clear Map and Sidebar
+    if (typeof seismicMapLayerGroup !== 'undefined') seismicMapLayerGroup.clearLayers();
+    const ledger = document.getElementById('seismic-ledger-body');
+    if (ledger) ledger.innerHTML = '';
 
+    // 2. Process data
     earthquakeDataStorage = dataArray.map(item => {
         const rawTime = item.origin_time || item.originTime || item.timestamp;
         const timestamp = new Date(rawTime);
@@ -1008,10 +1009,9 @@ function processDataset(dataArray) {
         const currentLon = item.longitude || item.lon;
         
         const quakeID = `${currentLat}_${currentLon}_${rawTime}`;
-        
         if (!processedQuakeRegistry.has(quakeID)) {
             processedQuakeRegistry.add(quakeID);
-            if (elapsedHr <= 1.0) { freshDetectFlags = true; }
+            if (elapsedHr <= 1.0) freshDetectFlags = true;
         }
 
         return {
@@ -1025,37 +1025,46 @@ function processDataset(dataArray) {
         };
     }).sort((x, y) => x.hoursOld - y.hoursOld);
 
+    // 3. Render Map and Sidebar
     earthquakeDataStorage.forEach(eq => {
         createQuakeMarker(eq.lat, eq.lon, eq.magnitude, eq.depth, eq.area, eq.humanTime, eq.hoursOld);
     });
 
+    executeClientFiltering();
+    fixLegendLabels();
+
     if (freshDetectFlags && earthquakeDataStorage.length > 0) {
-        const leadEvent = earthquakeDataStorage[0];
-        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
+        triggerSyntheticChirp(earthquakeDataStorage[0].magnitude, earthquakeDataStorage[0].depth);
     }
-
-    executeClientFiltering();
-    fixLegendLabels();
 }
-    
- // This updates your visual ledger list and renders your map markers
-    executeClientFiltering();
-    
-    // Quick layout label update: fix the legend's text directly if it exists on your page
-    fixLegendLabels();
 
-// Quick helper to immediately transform "Old" into "Ago" inside your legend panel
+function executeClientFiltering() {
+    const ledger = document.getElementById('seismic-ledger-body');
+    if (!ledger) return;
+
+    earthquakeDataStorage.forEach(eq => {
+        const row = document.createElement('div');
+        row.style.cssText = "display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #444; color: white;";
+        row.innerHTML = `
+            <span style="flex:1;">${eq.humanTime}</span>
+            <span style="flex:1;">${eq.magnitude}</span>
+            <span style="flex:1;">${eq.depth} km</span>
+            <span style="flex:2;">${eq.area}</span>
+        `;
+        ledger.appendChild(row);
+    });
+}
+
 function fixLegendLabels() {
     const legendContainer = document.querySelector('.info.legend') || document.getElementById('eq-recency-legend');
     if (legendContainer) {
         let content = legendContainer.innerHTML;
-        // Changes any occurrences of "Hours Old" over to "Hours Ago" or "Old" to "ago"
         content = content.replace(/Hours Old/g, 'Hours Ago').replace(/old/g, 'ago').replace(/Old/g, 'ago');
         legendContainer.innerHTML = content;
     }
 }
+
 function generateSandboxData() {
-    // Generate simulated volcanic cluster points over standard active systems (Reykjanes, Askja, Katla)
     const faultLines = [
         { name: "Grindavík Sveg", lat: 63.86, lon: -22.42 },
         { name: "Askja Caldera", lat: 65.03, lon: -16.75 },
@@ -1067,27 +1076,23 @@ function generateSandboxData() {
 
     for (let index = 0; index < 35; index++) {
         const line = faultLines[Math.floor(Math.random() * faultLines.length)];
-        const simulatedOffsetTime = Math.random() * 30; // hours back
-        
-        const simulatedMag = parseFloat((Math.random() * 3.8).toFixed(1));
-        const simulatedDepth = parseFloat((Math.random() * 12).toFixed(1));
+        const simulatedOffsetTime = Math.random() * 30;
         
         simulationArray.push({
             timestamp: new Date(nowTime.getTime() - (simulatedOffsetTime * 3600000)).toISOString(),
             lat: line.lat + (Math.random() - 0.5) * 0.08,
             lon: line.lon + (Math.random() - 0.5) * 0.12,
-            magnitude: simulatedMag,
-            depth: simulatedDepth,
+            magnitude: parseFloat((Math.random() * 3.8).toFixed(1)),
+            depth: parseFloat((Math.random() * 12).toFixed(1)),
             area: line.name
         });
     }
-
     processDataset(simulationArray);
 }
 
 // Instantiate Polling Engine 
 fetchEarthquakeTelemetry();
-setInterval(fetchEarthquakeTelemetry, 30000); // Poll server every 30 seconds
+setInterval(fetchEarthquakeTelemetry, 30000);
 </script>
 </body>
 </html>
