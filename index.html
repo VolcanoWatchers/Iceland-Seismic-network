@@ -1003,25 +1003,35 @@ async function fetchEarthquakeTelemetry() {
 function processDataset(dataArray) {
     let freshDetectFlags = false;
 
+    // Ensure we are handling a valid array from the new IMO API
+    if (!dataArray || !Array.isArray(dataArray)) return;
+
     earthquakeDataStorage = dataArray.map(item => {
-        const timestamp = new Date(item.timestamp);
+        // The new IMO API uses 'origin_time' or 'originTime'. We fallback safely:
+        const rawTime = item.origin_time || item.originTime || item.timestamp;
+        const timestamp = new Date(rawTime);
         const elapsedHr = (new Date() - timestamp) / 3600000;
         
-        const quakeID = `${item.lat}_${item.lon}_${item.timestamp}`;
+        // Map latitude and longitude (new API uses 'latitude' and 'longitude')
+        const currentLat = item.latitude || item.lat;
+        const currentLon = item.longitude || item.lon;
+        
+        const quakeID = `${currentLat}_${currentLon}_${rawTime}`;
         
         if (!processedQuakeRegistry.has(quakeID)) {
             processedQuakeRegistry.add(quakeID);
-            // Alert user if newly discovered event falls inside 1 hour active buffer windows
             if (elapsedHr <= 1.0) { freshDetectFlags = true; }
         }
 
+        // Return unified data names matching your mapping expectations
         return {
-            lat: item.lat,
-            lon: item.lon,
-            magnitude: item.magnitude,
-            depth: item.depth,
-            area: item.area || "Reykjanes",
-            humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            lat: currentLat,
+            lon: currentLon,
+            magnitude: parseFloat(item.magnitude || item.mag || 0).toFixed(1),
+            depth: parseFloat(item.depth || 0).toFixed(1),
+            // New API uses 'epicenter_text' or 'epicenterText' for names like "Krýsuvík"
+            area: item.epicenter_text || item.epicenterText || item.area || "Unknown Region",
+            humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
             hoursOld: elapsedHr
         };
     }).sort((x, y) => x.hoursOld - y.hoursOld);
@@ -1031,9 +1041,23 @@ function processDataset(dataArray) {
         triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
     }
 
+    // This updates your visual ledger list and renders your map markers
     executeClientFiltering();
+    
+    // Quick layout label update: fix the legend's text directly if it exists on your page
+    fixLegendLabels();
 }
 
+// Quick helper to immediately transform "Old" into "Ago" inside your legend panel
+function fixLegendLabels() {
+    const legendContainer = document.querySelector('.info.legend') || document.getElementById('eq-recency-legend');
+    if (legendContainer) {
+        let content = legendContainer.innerHTML;
+        // Changes any occurrences of "Hours Old" over to "Hours Ago" or "Old" to "ago"
+        content = content.replace(/Hours Old/g, 'Hours Ago').replace(/old/g, 'ago').replace(/Old/g, 'ago');
+        legendContainer.innerHTML = content;
+    }
+}
 function generateSandboxData() {
     // Generate simulated volcanic cluster points over standard active systems (Reykjanes, Askja, Katla)
     const faultLines = [
