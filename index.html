@@ -992,11 +992,14 @@ async function fetchEarthquakeTelemetry() {
 function processDataset(dataArray) {
     let freshDetectFlags = false;
 
-    // Ensure we are handling a valid array from the new IMO API
     if (!dataArray || !Array.isArray(dataArray)) return;
 
-    // Clear old markers before drawing new ones
-    seismicMapLayerGroup.clearLayers();
+    // Check if the bucket exists before trying to clear it
+    if (typeof seismicMapLayerGroup !== 'undefined') {
+        seismicMapLayerGroup.clearLayers();
+    } else {
+        console.warn("seismicMapLayerGroup not found yet, skipping clear.");
+    }
 
     earthquakeDataStorage = dataArray.map(item => {
         const rawTime = item.origin_time || item.originTime || item.timestamp;
@@ -1023,6 +1026,19 @@ function processDataset(dataArray) {
             hoursOld: elapsedHr
         };
     }).sort((x, y) => x.hoursOld - y.hoursOld);
+
+    earthquakeDataStorage.forEach(eq => {
+        createQuakeMarker(eq.lat, eq.lon, eq.magnitude, eq.depth, eq.area, eq.humanTime, eq.hoursOld);
+    });
+
+    if (freshDetectFlags && earthquakeDataStorage.length > 0) {
+        const leadEvent = earthquakeDataStorage[0];
+        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
+    }
+
+    executeClientFiltering();
+    fixLegendLabels();
+}
 
     // Draw the markers on the map
     earthquakeDataStorage.forEach(eq => {
