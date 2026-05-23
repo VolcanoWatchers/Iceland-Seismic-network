@@ -721,30 +721,20 @@ function showWelcomeOverlay() {
 // ==========================================
 sidebar.on('content', function(e) {
     hideWelcomeOverlay();
-});
 
-sidebar.on('closing', function () {
-    const seismicContainer = document.getElementById('station-data');
-    const gpsContainer = document.getElementById('gps-data');
-    const gpsInput = document.getElementById('gpsSearch');
-    const seismicInput = document.getElementById('stationSearch');
-    const gpsClear = document.getElementById('clearGpsSearch');
-    const seismicClear = document.getElementById('clearSearch');
-    
-    if (seismicContainer) {
-        seismicContainer.innerHTML = '<p>Select a station on the map to begin monitoring.</p>';
+    // NEW: Control the Earthquake markers based on the active tab
+    if (e.id === 'earthquakes') {
+        // Show earthquake markers
+        if (!map.hasLayer(seismicMapLayerGroup)) {
+            seismicMapLayerGroup.addTo(map);
+        }
+    } else {
+        // Hide earthquake markers for all other tabs (Home, GPS)
+        if (map.hasLayer(seismicMapLayerGroup)) {
+            map.removeLayer(seismicMapLayerGroup);
+        }
     }
-    if (gpsContainer) {
-        gpsContainer.innerHTML = '<p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>';
-    }
-    if (gpsInput) gpsInput.value = '';
-    if (seismicInput) seismicInput.value = '';
-    if (gpsClear) gpsClear.style.display = 'none';
-    if (seismicClear) seismicClear.style.display = 'none';
-    
-    showWelcomeOverlay();
 });
-
 // ==========================================
 // 3. SEISMIC (TREMOR) NETWORK SEARCH LOGIC
 // ==========================================
