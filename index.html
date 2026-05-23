@@ -983,23 +983,21 @@ function executeClientFiltering() {
 
 async function fetchEarthquakeTelemetry() {
     try {
-        // We route the official live api.vedur.is endpoint through an open public CORS helper
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const targetUrl = 'https://api.vedur.is/skjalftalisa/v1/quakefilter';
+        // This line fetches the real live data from the IMO's new system
+        const response = await fetch('https://api.allorigins.win/raw?url=https://api.vedur.is/skjalftalisa/v1/quakefilter');
         
-        const response = await fetch(proxyUrl + encodeURIComponent(targetUrl));
-        if (!response.ok) throw new Error("Live data stream inaccessible");
+        if (!response.ok) throw new Error("Could not reach live server");
         
         const rawJson = await response.json();
         
-        // This hands the real live data over to your map's processing engine!
+        // This hands the data to your processing function
         processDataset(rawJson);
+        
     } catch (error) {
-        console.warn("Live feed connection error. Initialising fallback schema Matrix...", error);
+        console.warn("Connection failed, using backup data.");
         generateSandboxData();
     }
 }
-
 function processDataset(dataArray) {
     let freshDetectFlags = false;
 
