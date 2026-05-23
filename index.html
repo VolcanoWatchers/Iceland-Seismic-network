@@ -973,23 +973,17 @@ function executeClientFiltering() {
 }
 
 async function fetchEarthquakeTelemetry() {
-    const url = 'https://api.allorigins.win/raw?url=https://api.vedur.is/skjalftalisa/v1/quakefilter';
+    // We'll use a different proxy that is generally more reliable
+    const url = 'https://api.codetabs.com/v1/proxy?quest=https://api.vedur.is/skjalftalisa/v1/quakefilter';
     
     try {
-        console.log("Fetching live data...");
         const response = await fetch(url);
-        
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
         const data = await response.json();
-        console.log("Successfully fetched data:", data); // Check this in Console
-        
-        // Ensure we pass the array to the processor
         processDataset(data);
-        
     } catch (error) {
-        console.error("Fetch failed, error details:", error);
-        console.warn("Falling back to sandbox data...");
+        console.warn("Proxy failed, using sandbox fallback.");
         generateSandboxData();
     }
 }
