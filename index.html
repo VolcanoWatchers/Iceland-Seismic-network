@@ -994,11 +994,9 @@ function processDataset(dataArray) {
 
     if (!dataArray || !Array.isArray(dataArray)) return;
 
-    // Check if the bucket exists before trying to clear it
+    // Ensure the bucket exists before clearing
     if (typeof seismicMapLayerGroup !== 'undefined') {
         seismicMapLayerGroup.clearLayers();
-    } else {
-        console.warn("seismicMapLayerGroup not found yet, skipping clear.");
     }
 
     earthquakeDataStorage = dataArray.map(item => {
@@ -1019,8 +1017,8 @@ function processDataset(dataArray) {
         return {
             lat: currentLat,
             lon: currentLon,
-            magnitude: parseFloat(item.magnitude || item.mag || 0),
-            depth: parseFloat(item.depth || 0),
+            magnitude: parseFloat(item.magnitude || item.mag || 0).toFixed(1),
+            depth: parseFloat(item.depth || 0).toFixed(1),
             area: item.epicenter_text || item.epicenterText || item.area || "Unknown Region",
             humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
             hoursOld: elapsedHr
@@ -1039,21 +1037,6 @@ function processDataset(dataArray) {
     executeClientFiltering();
     fixLegendLabels();
 }
-
-    // Draw the markers on the map
-    earthquakeDataStorage.forEach(eq => {
-        createQuakeMarker(eq.lat, eq.lon, eq.magnitude, eq.depth, eq.area, eq.humanTime, eq.hoursOld);
-    });
-
-    if (freshDetectFlags && earthquakeDataStorage.length > 0) {
-        const leadEvent = earthquakeDataStorage[0];
-        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
-    }
-
-    executeClientFiltering();
-    fixLegendLabels();
-}
-
         // Return unified data names matching your mapping expectations
         return {
             lat: currentLat,
