@@ -16,34 +16,31 @@
         .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, 
         .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { display: none !important; }
 
-/* Clean, sharp, and perfectly sized */
+        /* Clean, sharp, and perfectly sized */
         .leaflet-sidebar-content img {
             display: block;
             margin: 8px auto;
-            /* 1. Remove the forced height to kill the black bars */
             width: 380px; 
             max-width: 95%;
             height: auto;
-            /* 2. Keep it sharp */
             image-rendering: auto;
             border: 1px solid #ddd;
-            background-color: #fff; /* Match the sidebar background */
+            background-color: #fff;
         }
 
         /* Tighten the vertical spacing between elements */
         .leaflet-sidebar-content h2 { margin-top: 0; }
         .leaflet-sidebar-content p { margin: 4px 0 !important; }
         
-
-     /* 1. The Red Dot itself */
+        /* 1. The Red Dot itself */
         .red-dot {
-            background-color: #ff0000 !important; /* Forces red */
+            background-color: #ff0000 !important;
             border: 1px solid #ffffff;
             border-radius: 50%;
             width: 8px !important;
             height: 8px !important;
             box-shadow: 0 0 3px rgba(0,0,0,0.8);
-            z-index: 500 !important; /* Keeps the dot visible */
+            z-index: 500 !important;
         }
 
         /* 2. The Station Label (The Text) */
@@ -54,96 +51,158 @@
             color: #ffffff !important; 
             font-weight: bold;
             font-size: 11px;
-            /* Sharp black outline for Satellite/Topo clarity */
             text-shadow: 
-                -1px -1px 0 #000,  
+                -1px -1px 0 #000,   
                  1px -1px 0 #000,
                 -1px  1px 0 #000,
                  1px  1px 0 #000;
             text-align: center;
-            pointer-events: none; /* Let clicks pass through to the dot */
+            pointer-events: none;
         }
 
-     .btn { 
-    display: block; 
-    background: #c62828; 
-    color: #000000 !important; /* Forces the text to be black */
-    padding: 10px; 
-    text-align: center; 
-    text-decoration: none; 
-    border-radius: 5px; 
-    font-weight: bold; 
-    margin-bottom: 5px; 
-    transition: background 0.3s; 
-    border: none; 
-    cursor: pointer; 
-}
+        .btn { 
+            display: block; 
+            background: #c62828; 
+            color: #000000 !important;
+            padding: 10px; 
+            text-align: center; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            transition: background 0.3s; 
+            border: none; 
+            cursor: pointer; 
+        }
         .btn:hover { background: #9b1c1c; }
         .coords-text { font-family: monospace; font-size: 11px; color: #666; background: #f4f4f4; padding: 5px; border-radius: 3px; border-left: 3px solid #c62828; }
         
         /* Ensure sidebar is above map */
         .leaflet-sidebar { z-index: 2000 !important; }
 
-       /* Styling for the GPS icon in the tab list */
+        /* Styling for the GPS icon in the tab list */
         .fa-location-arrow {
-            color: #2e7d32; /* Deep GPS Green */
+            color: #2e7d32;
             font-size: 20px;
         }
 
-/* Sharp, professional-sized GPS markers changed to glowing dots */
-.gps-dot {
-    background-color: #00ff00 !important; /* Matches your original vibrant tracking green */
-    border: 1px solid #ffffff;           /* Clean white border so it pops on dark mode */
-    border-radius: 50%;                  /* This creates a perfect round circle! */
-    width: 8px !important;               /* Matches the exact size of your seismic dots */
-    height: 8px !important;
-    box-shadow: 0 0 3px rgba(0,0,0,0.8);
-    z-index: 1000 !important;            /* Keeps it sitting proudly on top */
-}
- /* ... your existing code ... */
+        /* Sharp, professional-sized GPS markers changed to glowing dots */
+        .gps-dot {
+            background-color: #00ff00 !important;
+            border: 1px solid #ffffff;
+            border-radius: 50%;
+            width: 8px !important;
+            height: 8px !important;
+            box-shadow: 0 0 3px rgba(0,0,0,0.8);
+            z-index: 1000 !important;
+        }
 
-/* Welcome Prompt Styling */
-#welcome-overlay {
-    position: absolute;
-    /* Position it near the top-left tabs */
-    top: 20px;
-    left: 60px; 
-    z-index: 3000;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    text-align: left; /* Changed to left-aligned for a cleaner look */
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    border-left: 5px solid #c62828; /* Changed stripe to the side for a "tag" look */
-}
+        /* Welcome Prompt Styling */
+        #welcome-overlay {
+            position: absolute;
+            top: 20px;
+            left: 60px; 
+            z-index: 3000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-align: left;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            border-left: 5px solid #c62828;
+        }
 
-#welcome-overlay h1 {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-}
+        #welcome-overlay h1 { margin: 0; font-size: 16px; color: #333; }
+        #welcome-overlay p { margin: 4px 0 0 0; font-size: 13px; color: #666; font-weight: 500; }
 
-#welcome-overlay p {
-    margin: 4px 0 0 0;
-    font-size: 13px;
-    color: #666;
-    font-weight: 500;
-}
-/* ==========================================
-   PASTE THE NEW NATIVE LOADER RULES HERE:
-   ========================================== */
-.native-loader {
-    animation: spin 1s linear infinite;
-}
+        .native-loader { animation: spin 1s linear infinite; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-        /* This is the final closing bracket for the CSS section */   
-</style>
+        /* =========================================================================
+           EARTHQUAKE SYSTEM INTERFACE STYLING
+           ========================================================================= */
+        .eq-tab-icon { color: #e65100; font-size: 20px; }
+
+        /* Floating Interactive Controls Bar */
+        #eq-filter-overlay {
+            position: absolute;
+            top: 15px;
+            right: 60px;
+            z-index: 1500;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            color: #eee;
+            font-size: 12px;
+            pointer-events: auto;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        #eq-filter-overlay.visible { opacity: 1; visibility: visible; }
+        .filter-group { display: flex; align-items: center; gap: 6px; }
+        .filter-group select, .filter-group input {
+            background: #2b2b2b; color: #fff; border: 1px solid #555;
+            padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer;
+        }
+
+        /* Color Coding Legend Overlay */
+        #eq-legend-overlay {
+            position: absolute;
+            bottom: 25px;
+            right: 15px;
+            z-index: 1500;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            color: #eee;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        #eq-legend-overlay.visible { opacity: 1; visibility: visible; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #fff; }
+
+        /* High-Density Ledger List System */
+        .ledger-container { display: flex; flex-direction: column; height: calc(100vh - 120px); overflow-y: auto; margin-top: 10px; }
+        .ledger-header {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 2fr;
+            background: #2d2d2d; padding: 8px; border-bottom: 2px solid #444;
+            font-size: 11px; font-weight: bold; color: #bbb; text-align: center;
+            position: sticky; top: 0; z-index: 10;
+        }
+        .ledger-row {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 2fr;
+            padding: 8px; border-bottom: 1px solid #333; font-size: 11px;
+            align-items: center; text-align: center; cursor: pointer; transition: background 0.2s;
+            color: #eee; font-family: monospace;
+        }
+        .ledger-row:hover { background: #333; }
+        .ledger-area { font-family: 'Segoe UI', Arial, sans-serif; text-align: left; padding-left: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Pulse Animation for Fresh Earthquakes */
+        @keyframes eqPulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(2.5); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .fresh-eq-glow { animation: eqPulse 2s infinite ease-in-out; }
+    </style>
 </head>
 <body>
 
@@ -151,59 +210,101 @@
     <h1>Volcano Watchers Iceland Seismic Network</h1>
     <p>Click a monitoring icon to get started</p>
 </div>
+
+<div id="eq-filter-overlay">
+    <div class="filter-group">
+        <label>Magnitude:</label>
+        <select id="filter-mag" onchange="executeClientFiltering()">
+            <option value="0">M 0.0+</option>
+            <option value="1">M 1.0+</option>
+            <option value="2">M 2.0+</option>
+            <option value="3">M 3.0+</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Age:</label>
+        <select id="filter-age" onchange="executeClientFiltering()">
+            <option value="all">All Available</option>
+            <option value="1">Past 1 Hour</option>
+            <option value="4">Past 4 Hours</option>
+            <option value="12">Past 12 Hours</option>
+            <option value="24">Past 24 Hours</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+            <input type="checkbox" id="filter-audio" checked> Audio Alerts
+        </label>
+    </div>
+    <div style="font-size:10px; color:#888; margin-left:5px;" id="eq-counter">Loaded: 0</div>
+</div>
+
+<div id="eq-legend-overlay">
+    <div style="font-weight:bold; margin-bottom:2px; border-bottom:1px solid #444; padding-bottom:4px;">EQ Recency</div>
+    <div class="legend-item"><div class="legend-color" style="background:#ff0000;"></div><span>0 - 1 Hours Old</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#ffaa00;"></div><span>1 - 4 Hours Old</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#ffff00;"></div><span>4 - 24 Hours Old</span></div>
+    <div class="legend-item"><div class="legend-color" style="background:#3388ff;"></div><span>> 24 Hours Old</span></div>
+</div>
     
-    <div id="sidebar" class="leaflet-sidebar collapsed">
-        <div class="leaflet-sidebar-tabs">
-            <ul role="tablist">
-                <li><a href="#home" role="tab">📈</a></li>
-                <li><a href="#gps" role="tab"><i class="fa fa-location-arrow"></i></a></li>
-            </ul>
-        </div>
-        <div class="leaflet-sidebar-content">
-            <div class="leaflet-sidebar-pane" id="home">
-                <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
-                <div style="padding:15px;">
-                    
-                 <div style="position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 20px;">
-    <input type="text" id="stationSearch" placeholder="Search station (e.g. ASH)..." 
-           style="width: 100%; padding: 10px; padding-right: 35px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; box-sizing: border-box;">
-   <button id="clearSearch" title="Clear Search" 
-        style="position: absolute; right: 8px; background: none; border: none; color: #888; cursor: pointer; font-size: 18px; display: none; line-height: 1; font-weight: bold;">&times;</button>
-</div>
-
-                  <div id="station-data">
-                        <p>Select a station on the map to begin monitoring.</p>
-                    </div>
-
-                    <div style="margin-top: 30px; border-top: 1px solid #444; padding-top: 10px; text-align: center;">
-                        <p style="font-size: 11px; color: #888; margin: 0;">Created & Maintained by <br><b>VOLCANOWATCHERS</b></p>
-                    </div>
-                </div> 
-            </div> 
-
-            <div class="leaflet-sidebar-pane" id="gps">
-                <h2 class="leaflet-sidebar-header" style="background-color: #2e7d32;">GPS Deformation (Uplift)<span class="leaflet-sidebar-close">×</span></h2>
-                
-               <div style="padding: 15px 10px 5px 10px; position: relative;">
-    <input type="text" id="gpsSearch" placeholder="Search GPS station (e.g. SENG)..." 
-           style="width: 100%; padding: 10px; padding-right: 35px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
-    <button id="clearGpsSearch" style="display: none; position: absolute; right: 18px; top: 25px; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; line-height: 1; font-weight: bold;">&times;</button>
-</div>
-                
-                <div id="gps-data" style="padding:15px;">
-                    <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>
+<div id="sidebar" class="leaflet-sidebar collapsed">
+    <div class="leaflet-sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab">📈</a></li>
+            <li><a href="#gps" role="tab"><i class="fa fa-location-arrow"></i></a></li>
+            <li><a href="#earthquakes" role="tab"><i class="fa fa-exclamation-triangle eq-tab-icon"></i></a></li>
+        </ul>
+    </div>
+    <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="home">
+            <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Iceland Seismic Network<span class="leaflet-sidebar-close">×</span></h2>
+            <div style="padding:15px;">
+                <div style="position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 20px;">
+                    <input type="text" id="stationSearch" placeholder="Search station (e.g. ASH)..." 
+                           style="width: 100%; padding: 10px; padding-right: 35px; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #333; box-sizing: border-box;">
+                    <button id="clearSearch" title="Clear Search" 
+                            style="position: absolute; right: 8px; background: none; border: none; color: #888; cursor: pointer; font-size: 18px; display: none; line-height: 1; font-weight: bold;">&times;</button>
+                </div>
+                <div id="station-data">
+                    <p>Select a station on the map to begin monitoring.</p>
+                </div>
+                <div style="margin-top: 30px; border-top: 1px solid #444; padding-top: 10px; text-align: center;">
+                    <p style="font-size: 11px; color: #888; margin: 0;">Created & Maintained by <br><b>VOLCANOWATCHERS</b></p>
                 </div>
             </div> 
         </div> 
+
+        <div class="leaflet-sidebar-pane" id="gps">
+            <h2 class="leaflet-sidebar-header" style="background-color: #2e7d32;">GPS Deformation (Uplift)<span class="leaflet-sidebar-close">×</span></h2>
+            <div style="padding: 15px 10px 5px 10px; position: relative;">
+                <input type="text" id="gpsSearch" placeholder="Search GPS station (e.g. SENG)..." 
+                       style="width: 100%; padding: 10px; padding-right: 35px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+                <button id="clearGpsSearch" style="display: none; position: absolute; right: 18px; top: 25px; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; line-height: 1; font-weight: bold;">&times;</button>
+            </div>
+            <div id="gps-data" style="padding:15px;">
+                <p style="text-align: center; color: #444; font-weight: bold; margin-top: 20px;">Select a GPS station on the map to begin monitoring.</p>
+            </div>
+        </div> 
+
+        <div class="leaflet-sidebar-pane" id="earthquakes">
+            <h2 class="leaflet-sidebar-header" style="background-color: #e65100;">Seismic Ledger Panel<span class="leaflet-sidebar-close">×</span></h2>
+            <div class="ledger-container">
+                <div class="ledger-header">
+                    <span>TIME</span><span>MAG</span><span>DEP</span><span style="text-align:left; padding-left:5px;">EPICENTRE</span>
+                </div>
+                <div id="ledger-rows-container">
+                    </div>
+            </div>
+        </div>
     </div> 
+</div> 
 
-    <div id="map"></div>
+<div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
 
-    <script>
-       
+<script>
 // ==========================================
 // 1. INITIALIZE MAP (STABLE, FIXED POSITION)
 // ==========================================
@@ -212,28 +313,22 @@ var map = L.map('map', {
     zoomControl: false,
     minZoom: 6,
     scrollWheelZoom: true,
-    // WIDENED BOUNDS: Dropped western wall to -26.50, and pushed northern wall to 67.20
     maxBounds: [[62.80, -26.50], [67.20, -13.00]],
     maxBoundsViscosity: 1.0
 }).setView([64.90, -18.3], 7);
 
-// Existing Layers
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Esri Satellite'
 });
-
-// FIXED: CartoDB Dark Matter - Completely free, no API keys, no 401 errors!
 var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 20
 });
 
-// Default to loading the topographic map first
 topo.addTo(map);
 
-// Added "Dark Mode" to your layer switcher control
 var baseMaps = { 
     "Topographic": topo, 
     "Satellite": satellite,
@@ -245,36 +340,45 @@ L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
 L.control.zoom({ position: 'topright' }).addTo(map);
 
 // ==========================================
-// 2. INITIALIZE SIDEBAR
+// EARTHQUAKE TRACKER ENGINE DATA STORAGE
+// ==========================================
+let earthquakeDataStorage = [];
+let seismicMapLayerGroup = L.layerGroup().addTo(map);
+let processedQuakeRegistry = new Set();
+let audioContextInstance = null;
+
+// ==========================================
+// 2. INITIALIZE SIDEBAR & CO-ORDINATED LAYERS
 // ==========================================
 var sidebar = L.control.sidebar({ container: 'sidebar' }).addTo(map);
 
-// --- THE MAP FILTER LOGIC (NO FLYING OR FLICKERING) ---
 sidebar.on('content', function (e) {
-    // Hide the welcome overlay as soon as a tab is opened
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '0';
     
+    // Toggle visibility of floating interactive filters
+    if (e.id === 'earthquakes') {
+        document.getElementById('eq-filter-overlay').classList.add('visible');
+        document.getElementById('eq-legend-overlay').classList.add('visible');
+    } else {
+        document.getElementById('eq-filter-overlay').classList.remove('visible');
+        document.getElementById('eq-legend-overlay').classList.remove('visible');
+    }
+
+    // Toggle Station Layer visibility rules
     if (e.id === 'gps') {
-        // --- GPS TAB OPENED: Show ONLY Triangles ---
         allMarkers.forEach(marker => {
             const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
-            if (station && station.type === 'gps') {
-                marker.addTo(map);
-            } else {
-                map.removeLayer(marker);
-            }
+            if (station && station.type === 'gps') { marker.addTo(map); } else { map.removeLayer(marker); }
         });
     } else if (e.id === 'home') {
-        // --- SEISMIC TAB OPENED: Show ONLY Red Dots ---
         allMarkers.forEach(marker => {
             const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
-            if (station && station.type === 'gps') {
-                map.removeLayer(marker);
-            } else {
-                marker.addTo(map);
-            }
+            if (station && station.type === 'gps') { map.removeLayer(marker); } else { marker.addTo(map); }
         });
+    } else if (e.id === 'earthquakes') {
+        // Clear infrastructure telemetry dots when scanning actual earthquakes
+        allMarkers.forEach(marker => map.removeLayer(marker));
     }
 });
 
@@ -285,21 +389,19 @@ function resetMap() {
     const searchInput = document.getElementById('stationSearch');
     if (searchInput) searchInput.value = '';
     
-    // This removes every single marker from the map
     allMarkers.forEach(marker => map.removeLayer(marker));
-    
-    // Snap back cleanly to our optimal static position
     map.setView([64.90, -18.3], 7);
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
+    
+    document.getElementById('eq-filter-overlay').classList.remove('visible');
+    document.getElementById('eq-legend-overlay').classList.remove('visible');
 }
 sidebar.on('closing', resetMap);
-       
-        // 3. Station Data
-           var stations = [
-             // GPS STATIONS (The Green Triangles)
-   
+        
+// 3. Station Data Array
+var stations = [
     { id: "hs02", name: "HS Orka 2 (GPS)", lat: 63.8726, lon: -22.4552, type: "gps", url: "HS02" },
     { id: "seng", name: "Svartsengi", lat: 63.88225, lon: -22.43367, type: "gps", url: "SENG" },
     { id: "ofel", name: "Öldufell (Katla)", lat: 63.75205, lon: -18.84182, type: "gps", url: "OFEL", folder: "katla" },
@@ -307,218 +409,218 @@ sidebar.on('closing', resetMap);
     { id: "alfd", name: "Álftadalur (Askja)", lat: 64.9881, lon: -16.0377, type: "gps", url: "ALFD", folder: "askja" },
     { id: "aust", name: "Austmannsbunga (Katla)", lat: 63.67449, lon: -19.07990, type: "gps", url: "AUST", folder: "katla" },
     { id: "ausv", name: "Austurvegur", lat: 63.8437, lon: -22.4148, type: "gps", url: "AUSV" }, 
-{ id: "baug", name: "Baughóll", lat: 66.03778, lon: -17.33492, type: "gps", url: "BAUG", folder: "tjornes" },
-{ id: "brtt", name: "Brettingsstaðir", lat: 66.12349, lon: -17.91482, type: "gps", url: "BRTT", folder: "tjornes" },
-{ id: "dync", name: "Dyngjuháls", lat: 64.79059, lon: -17.36626, type: "gps", url: "DYNC", folder: "bardarbunga" },
-{ id: "dyng", name: "Fjórðungsalda", lat: 65.05629, lon: -16.65184, type: "gps", url: "DYNG", folder: "askja" },
-{ id: "dyny", name: "Dyngjufjöll", lat: 65.0163, lon: -17.1159, type: "gps", url: "DYNY", folder: "askja" },
-{ id: "eldc", name: "Eldvörp", lat: 63.86316, lon: -22.52576, type: "gps", url: "ELDC" },
-{ id: "eley", name: "Eldey", lat: 63.74083, lon: -22.95789, type: "gps", url: "ELEY" },
-{ id: "entc", name: "Enta", lat: 63.70826, lon: -19.19069, type: "gps", url: "ENTC", folder: "katla" },
-{ id: "fagc", name: "Fagurhólsmýri", lat: 63.87465, lon: -16.65335, type: "gps", url: "FAGC", folder: "oraefajokull" },
-{ id: "fagd", name: "Fagradalsfjall", lat: 63.91671, lon: -22.28884, type: "gps", url: "FAGD" },
-{ id: "fedg", name: "Feðgar", lat: 64.02587, lon: -19.68901, type: "gps", url: "FEDG", folder: "hekla" },
-{ id: "fefc", name: "Festarfjall", lat: 63.85726, lon: -22.31316, type: "gps", url: "FEFC" },
-{ id: "fim2", name: "Fimmvörðuháls (Katla)", lat: 63.61003, lon: -19.43389, type: "gps", url: "FIM2", folder: "katla" },
-{ id: "fjoc", name: "Fjórðungsalda", lat: 64.87514, lon: -18.00644, type: "gps", url: "FJOC", folder: "bardarbunga" },
-{ id: "ftey", name: "Flatey", lat: 66.16031, lon: -17.84787, type: "gps", url: "FTEY", folder: "tjornes" },
-{ id: "gake", name: "Garður í Kelduhverfi", lat: 66.07806, lon: -16.76470, type: "gps", url: "GAKE" },
-{ id: "gevk", name: "Gerðavallakriki", lat: 63.83536, lon: -22.47153, type: "gps", url: "GEVK" },
-{ id: "gfel", name: "Geitafell", lat: 63.94815, lon: -21.53064, type: "gps", url: "GFEL" },
-{ id: "gfum", name: "Grímsfjall", lat: 64.40716, lon: -17.26704, type: "gps", url: "GFUM" },
-{ id: "gigo", name: "Gígöldur", lat: 64.84008, lon: -17.01878, type: "gps", url: "GIGO" },
-{ id: "gjog", name: "Gjögurtá", lat: 65.99411, lon: -21.34617, type: "gps", url: "GJOG" },
-{ id: "gler", name: "Glerhaus", lat: 64.02290, lon: -19.80248, type: "gps", url: "GLER" },
-{ id: "gmey", name: "Grímsey", lat: 66.53900, lon: -18.01901, type: "gps", url: "GMEY" },
-{ id: "gola", name: "Godaland", lat: 63.65961, lon: -19.32230, type: "gps", url: "GOLA" },
-{ id: "gonh", name: "Gónhóll", lat: 63.88564, lon: -22.27045, type: "gps", url: "GONH" },
-{ id: "gran", name: "Granastaðir", lat: 65.91870, lon: -17.57844, type: "gps", url: "GRAN" },
-{ id: "grfs", name: "Graenufjoll (Katla)", lat: 63.52657, lon: -19.10935, type: "gps", url: "GRFS" },
-{ id: "griv", name: "Grindavik", lat: 63.85920, lon: -22.45165, type: "gps", url: "GRIV" },
-{ id: "grvm", name: "Grindavík Miðja", lat: 63.84333, lon: -22.43040, type: "gps", url: "GRVM" },
-{ id: "grvv", name: "Grindavík Vestur", lat: 63.84559, lon: -22.44489, type: "gps", url: "GRVV" },   
-{ id: "hafc", name: "Hafnir", lat: 63.92733, lon: -22.67992, type: "gps", url: "HAFC" },
-{ id: "hafs", name: "Hamarinn", lat: 64.48010, lon: -17.82308, type: "gps", url: "HAFS" },
-{ id: "haud", name: "Haukadalur", lat: 63.96854, lon: -19.96436, type: "gps", url: "HAUD" },
-{ id: "helc", name: "Hella", lat: 65.94402, lon: -18.38732, type: "gps", url: "HELC" },
-{ id: "helf", name: "Helgafell", lat: 64.02282, lon: -21.85199, type: "gps", url: "HELF" },
-{ id: "herv", name: "Herdísarvík", lat: 63.86585, lon: -21.87770, type: "gps", url: "HERV" },
-{ id: "hesa", name: "Hestalda", lat: 64.04685, lon: -19.56062, type: "gps", url: "HESA" },
-{ id: "hlid", name: "Hlíðardalsskóli", lat: 63.92113, lon: -21.38970, type: "gps", url: "HLID" },
-{ id: "hofn", name: "Höfn", lat: 64.26737, lon: -15.19789, type: "gps", url: "HOFN" },
-{ id: "hotj", name: "Hólar", lat: 66.16165, lon: -17.24430, type: "gps", url: "HOTJ" },
-{ id: "hrac", name: "Hraun", lat: 66.10995, lon: -20.12254, type: "gps", url: "HRAC" },
-{ id: "hrag", name: "Hrafnagjá", lat: 63.88787, lon: -22.55721, type: "gps", url: "HRAG" },    
-{ id: "hric", name: "Hrímalda", lat: 64.95042, lon: -16.92410, type: "gps", url: "HRIC" },
-{ id: "husm", name: "Húsmúli", lat: 64.06665, lon: -21.41725, type: "gps", url: "HUSM" },
-{ id: "hvas", name: "Hvassahraun", lat: 64.02442, lon: -22.12777, type: "gps", url: "HVAS" },
-{ id: "hveh", name: "Hverahlíð", lat: 64.00769, lon: -21.35650, type: "gps", url: "HVEH" },
-{ id: "hver", name: "Hveragerði", lat: 64.01715, lon: -21.18480, type: "gps", url: "HVER" },
-{ id: "hvol", name: "Láguhvolar", lat: 63.52630, lon: -18.84750, type: "gps", url: "HVOL" },
-{ id: "hvsk", name: "Hvalskarð", lat: 63.93943, lon: -21.71451, type: "gps", url: "HVSK" },    
-{ id: "insk", name: "Innri-Skúti", lat: 64.68299, lon: -19.53376, type: "gps", url: "INSK" },
-{ id: "inta", name: "Inntakshús", lat: 64.94024, lon: -15.78275, type: "gps", url: "INTA" },
-{ id: "isak", name: "Ísakot", lat: 64.11933, lon: -19.74724, type: "gps", url: "ISAK" },
-{ id: "joku", name: "Jökulheimar", lat: 64.30953, lon: -18.23999, type: "gps", url: "JOKU" },    
-{ id: "kalf", name: "Kálfafell", lat: 63.94726, lon: -17.68881, type: "gps", url: "KALF" },
-{ id: "kast", name: "Kast", lat: 63.88003, lon: -22.32323, type: "gps", url: "KAST" },
-{ id: "keic", name: "Keilir", lat: 63.93024, lon: -22.18887, type: "gps", url: "KEIC" },
-{ id: "kisa", name: "Kista", lat: 64.67418, lon: -17.56214, type: "gps", url: "KISA" },
-{ id: "klvc", name: "Kleifarvatn", lat: 63.91148, lon: -21.95792, type: "gps", url: "KLVC" },
-{ id: "kosk", name: "Kópasker", lat: 66.30322, lon: -16.44346, type: "gps", url: "KOSK" },
-{ id: "kriv", name: "Krísuvík", lat: 63.87823, lon: -22.07722, type: "gps", url: "KRIV" },
-{ id: "kvec", name: "Kverkfjöll", lat: 64.74522, lon: -16.65194, type: "gps", url: "KVEC" },
-{ id: "kvis", name: "Kvíslarhóll", lat: 66.10072, lon: -17.27170, type: "gps", url: "KVIS" },
-{ id: "kvsk", name: "Kvísker", lat: 63.98183, lon: -16.43347, type: "gps", url: "KVSK" },      
-{ id: "lisf", name: "Litla-Skógfell", lat: 63.92326, lon: -22.36694, type: "gps", url: "LISF" },              
-{ id: "mana", name: "Mánáreyjar", lat: 66.29768, lon: -17.11940, type: "gps", url: "MANA" },
-{ id: "moha", name: "Móhálsadalur", lat: 63.91996, lon: -22.05948, type: "gps", url: "MOHA" },
-{ id: "namc", name: "Stapafell náma", lat: 63.91543, lon: -22.54350, type: "gps", url: "NAMC" },
-{ id: "nbio", name: "Nordan", lat: 63.89768, lon: -22.47168, type: "gps", url: "NBIO" },
-{ id: "nvel", name: "Nesjavellir", lat: 64.10881, lon: -21.25480, type: "gps", url: "NVEL" },
-{ id: "nyla", name: "Nýlenda", lat: 63.97358, lon: -22.73818, type: "gps", url: "NYLA" },
-{ id: "oddf", name: "Oddafell", lat: 63.94871, lon: -22.11760, type: "gps", url: "ODDF" },
-{ id: "olac", name: "Ólafsgígar", lat: 65.03819, lon: -16.79891, type: "gps", url: "OLAC" },
-{ id: "orfc", name: "Orf Gróðurhús", lat: 63.85516, lon: -22.41922, type: "gps", url: "ORFC" },    
-{ id: "reyk", name: "Reykjavík", lat: 64.13888, lon: -21.95590, type: "gps", url: "REYK" },
-{ id: "rfel", name: "Rjúpnafell", lat: 63.61743, lon: -18.67140, type: "gps", url: "RFEL" },
-{ id: "rhof", name: "Raufarhöfn", lat: 66.46112, lon: -15.94670, type: "gps", url: "RHOF" },
-{ id: "rifc", name: "Rifnihnjúkur", lat: 64.92445, lon: -16.38772, type: "gps", url: "RIFC" },
-{ id: "rjuc", name: "Rjúpnabrekkukvísl", lat: 64.74311, lon: -17.52729, type: "gps", url: "RJUC" },
-{ id: "rvit", name: "Reykjanesviti", lat: 63.81609, lon: -22.70417, type: "gps", url: "RVIT" },      
-{ id: "safh", name: "Sandfellshæð", lat: 63.85649, lon: -22.59933, type: "gps", url: "SAFH" },
-{ id: "sarp", name: "Sarpur", lat: 64.46714, lon: -21.26628, type: "gps", url: "SARP" },
-{ id: "saud", name: "Sauðárháls", lat: 64.89944, lon: -15.88357, type: "gps", url: "SAUD" },
-{ id: "saur", name: "Saurbær", lat: 63.98433, lon: -20.42542, type: "gps", url: "SAUR" },
-{ id: "self", name: "Selfoss", lat: 63.92898, lon: -21.03222, type: "gps", url: "SELF" },
-{ id: "sey5", name: "Seyðisfjörður", lat: 65.25819, lon: -13.99379, type: "gps", url: "SEY5" },
-{ id: "sifj", name: "Siglufjörður", lat: 66.13806, lon: -18.89924, type: "gps", url: "SIFJ" },
-{ id: "sjuk", name: "Sjúkrahúsið", lat: 66.04923, lon: -17.33959, type: "gps", url: "SJUK" },      
-{ id: "skda", name: "Skriða", lat: 64.37693, lon: -20.66667, type: "gps", url: "SKDA" },
-{ id: "skfc", name: "Skaftafell", lat: 64.02605, lon: -16.97405, type: "gps", url: "SKFC" },
-{ id: "sksh", name: "Skipastígshraun", lat: 63.86814, lon: -22.48035, type: "gps", url: "SKSH" },
-{ id: "slec", name: "Slettubjorg", lat: 63.93698, lon: -16.63542, type: "gps", url: "SLEC" },
-{ id: "snae", name: "Snæbýli", lat: 63.73629, lon: -18.63224, type: "gps", url: "SNAE" },
-{ id: "ste2", name: "Steinsholt", lat: 63.67695, lon: -19.60852, type: "gps", url: "STE2" },
-{ id: "stor", name: "Stórólfshvoll", lat: 63.75267, lon: -20.21210, type: "gps", url: "STOR" },
-{ id: "sudv", name: "Suðurstrandavegur", lat: 63.84961, lon: -22.37409, type: "gps", url: "SUDV" },
-{ id: "svie", name: "Svínafellsheiði", lat: 64.00907, lon: -16.80182, type: "gps", url: "SVIE" },
-{ id: "syrf", name: "Sýrfell", lat: 63.83587, lon: -22.65408, type: "gps", url: "SYRF" },
-{ id: "thob", name: "Þorbjörn", lat: 63.86419, lon: -22.43922, type: "gps", url: "THOB" },
-{ id: "thoc", name: "Þorvaldshraun", lat: 64.93372, lon: -16.67557, type: "gps", url: "THOC" },
-{ id: "undh", name: "Undirhlíð", lat: 63.96900, lon: -21.95625, type: "gps", url: "UNDH" },
-{ id: "urhc", name: "Urðarháls", lat: 64.82028, lon: -17.14718, type: "gps", url: "URHC" },
-{ id: "varg", name: "Vargsnes", lat: 66.03256, lon: -17.68022, type: "gps", url: "VARG" },
-{ id: "vmey", name: "Vestmannaeyjar", lat: 63.42699, lon: -20.29347, type: "gps", url: "VMEY" },
-{ id: "vmos", name: "Vestan við möstur", lat: 63.84683, lon: -22.48717, type: "gps", url: "VMOS" },
-{ id: "vogc", name: "Vogar", lat: 63.97920, lon: -22.33125, type: "gps", url: "VOGC" },
-{ id: "vogs", name: "Vogsósar", lat: 63.85268, lon: -21.70364, type: "gps", url: "VOGS" },
-{ id: "vonc", name: "Vonarskarð", lat: 64.67399, lon: -17.75432, type: "gps", url: "VONC" },
-  { id: "tanc", name: "Tanni", lat: 65.07946, lon: -16.73563, type: "gps", url: "TANC" },
-  { id: "mofc", name: "Móflöt", lat: 64.98387, lon: -16.66745, type: "gps", url: "MOFC" },
-  { id: "kasc", name: "KASK", lat: 65.06075, lon: -16.76465, type: "gps", url: "KASC" },
-  { id: "hita", name: "Hítardalur", lat: 64.80332, lon: -22.04358, type: "gps", url: "HITA" },
-  { id: "lfel", name: "Lambafell", lat: 64.52566, lon: -19.75897, type: "gps", url: "LFEL" },
-  { id: "budh", name: "Búðarháls", lat: 64.24031, lon: -19.32487, type: "gps", url: "BUDH" },
-  { id: "soho", name: "Sólheimaheiði", lat: 63.55260, lon: -19.24632, type: "gps", url: "SOHO" },   
-  { id: "gusk", name: "Gufuskálar", lat: 64.89145, lon: -23.92313, type: "gps", url: "GUSK" },
-  { id: "bald", name: "Búrfellsalda", lat: 64.92426, lon: -15.74923, type: "gps", url: "BALD" },
-  { id: "blei", name: "Bleikáluháls", lat: 65.08356, lon: -18.64733, type: "gps", url: "BLEI" },   
-  { id: "bjtv", name: "Bjargtangarviti", lat: 65.50346, lon: -24.53106, type: "gps", url: "BJTV" },
-            { id: "klv", name: "Kleifarvatn", lat: 63.91447, lon: -21.95979, url: "klv" },
-            { id: "odf", name: "Oddafell", lat: 63.94690, lon: -22.11900, url: "odf" },
-            { id: "eld", name: "Eldey", lat: 63.74067, lon: -22.95803, url: "eld" },
-            { id: "fad", name: "Fagridalur", lat: 63.91668, lon: -22.28938, url: "fad" },
-            { id: "grv", name: "Grindavík", lat: 63.85716, lon: -22.45583, url: "grv" },
-            { id: "rne", name: "Reykjanesviti", lat: 63.81681, lon: -22.70563, url: "rne" },
-            { id: "vog", name: "Vogar", lat: 63.96967, lon: -22.39285, url: "vog" },
-            { id: "moh", name: "Móhálshnúkar", lat: 63.92269, lon: -22.06688, url: "moh" },
-            { id: "ash", name: "Afstapahraun", lat: 63.98167, lon: -22.14986, url: "ash" },
-            { id: "kri", name: "Krýsuvík", lat: 63.8781, lon: -22.07646, url: "kri" },
-            { id: "iss", name: "Ísólfsskáli-S", lat: 63.86524, lon: -22.30963, url: "iss" },
-            { id: "lag", name: "Lágar", lat: 63.90491, lon: -22.48844, url: "lag" },
-            { id: "rah", name: "Rauðhólar", lat: 63.85285, lon: -22.56795, url: "rah" },
-            { id: "lfe", name: "Lágafell", lat: 63.88183, lon: -22.53423, url: "lfe" },
-            { id: "ger", name: "Gerðar", lat: 63.82804, lon: -22.47186, url: "ger" },
-            { id: "hrv", name: "Hafrafells-Vatnsfell ", lat: 63.90707, lon: -22.19159, url: "hrv" },
-            { id: "hvs", name: "Hveragerði", lat: 63.939395, lon: -21.714498, url: "hvs" },
-            { id: "bja", name: "Bjarnarflag", lat: 63.946, lon: -21.303, url: "bja" },
-            { id: "hei", name: "Heiðarsporður", lat: 64.200, lon: -21.237, url: "hei" },
-            { id: "ada", name: "Adalbol", lat: 65.032106, lon: -15.399528, url: "ada" },
-            { id: "alf", name: "Alftagrof", lat: 63.490613, lon: -19.188062, url: "alf" },
-            { id: "asb", name: "Asbjarnarstadir", lat: 64.750851, lon: -21.320842, url: "asb" },
-            { id: "ask", name: "Askja", lat: 65.053807, lon: -16.644591, url: "ask" },
-            { id: "asm", name: "Asmuli", lat: 63.833146, lon: -20.611921, url: "asm" },
-            { id: "aus", name: "Austmannsbunga", lat: 63.684091, lon: -19.077611, url: "aus" },
-            { id: "bjk", name: "Bruarjokull", lat: 64.465884, lon: -16.769616, url: "bjk" },
-            { id: "ble", name: "Bleikáluháls", lat: 65.07795, lon: -18.63868, url: "ble" },
-            { id: "bre", name: "Brettingsstadir", lat: 66.124849, lon: -17.909947, url: "bre" },
-            { id: "dim", name: "Dimmadalsas", lat: 65.961592, lon: -16.933611, url: "dim" },
-            { id: "djk", name: "Dyngjujökull", lat: 64.50405, lon: -17.23571, url: "djk" },
-            { id: "dyn", name: "Dyngjuhals", lat: 64.790530, lon: -17.356029, url: "dyn" },
-            { id: "eda", name: "Engjadalur", lat: 64.074700, lon: -21.387901, url: "eda" },
-            { id: "esk", name: "Eysrtri-Skogar", lat: 63.525355, lon: -19.449540, url: "esk" },
-            { id: "fag", name: "Fagurholmsmyri", lat: 63.875176, lon: -16.651050, url: "fag" },
-            { id: "fal", name: "Fallsjokull", lat: 63.959511, lon: -16.820789, url: "fal" },
-            { id: "fed", name: "Fedgar", lat: 64.02508, lon: -19.69086, url: "fed" },
-            { id: "fja", name: "Fjallsendi", lat: 65.019235, lon: -17.067830, url: "fja" },
-            { id: "gei", name: "Geitafell", lat: 63.946510, lon: -21.527603, url: "gei" },
-            { id: "god", name: "Godabunga", lat: 63.65976, lon: -19.32236, url: "god" },
-            { id: "gra", name: "Granastaðir", lat: 65.9176, lon: -17.57855, url: "gra" },
-            { id: "grf", name: "Grímsfjall", lat: 64.40656, lon: -17.26713, url: "grf" },
-            { id: "gri", name: "Grimsey", lat: 66.54152, lon: -18.00951, url: "gri" },
-            { id: "grs", name: "Grímsstaðir", lat: 65.63811, lon: -16.12409, url: "grs" },
-            { id: "gst", name: "Grásteinn", lat: 64.692483, lon: -21.953373, url: "gst" },
-            { id: "gil", name: "Gilhagi", lat: 66.07734, lon: -16.35131, url: "gil" },
-            { id: "gyg", name: "Gýgjahólskot", lat: 64.28107, lon: -20.21483, url: "gyg" },
-            { id: "hau", name: "Haukadalur", lat: 63.96851, lon: -19.96471, url: "hau" },
-            { id: "hed", name: "Héðinshöfði", lat: 66.0808, lon: -17.30975, url: "hed" },
-            { id: "hes", name: "Hestalda", lat: 64.0468, lon: -19.5604, url: "hes" },
-            { id: "hit", name: "Hítardalur", lat: 64.803308, lon: -22.043553, url: "hit" },
-            { id: "hla", name: "Hella", lat: 65.94441, lon: -18.38724, url: "hla" },
-            { id: "hrn", name: "Hraun", lat: 66.11, lon: -20.12252, url: "hrn" },
-            { id: "hus", name: "Húsbóndi", lat: 64.2955, lon: -17.6565, url: "hus" },
-            { id: "hvo", name: "Lágu-Hvolar", lat: 63.5261, lon: -18.84781, url: "hvo" },
-            { id: "ier", name: "Innri eyrar", lat: 64.097587, lon: -18.139063, url: "ier" },
-            { id: "jok", name: "Jökulheimar", lat: 64.31529, lon: -18.22546, url: "jok" },
-            { id: "kas", name: "Kaldarsel", lat: 64.022465, lon: -21.853764, url: "kas" },
-            { id: "kal", name: "Kálfafell", lat: 63.94761, lon: -17.68698, url: "kal" },
-            { id: "kis", name: "Kista", lat: 64.67413, lon: -17.56167, url: "kis" },
-            { id: "kre", name: "Krepputunguhraun", lat: 64.78369, lon: -16.38282, url: "kre" },
-            { id: "kro", name: "Krókur", lat: 64.09806, lon: -21.11976, url: "kro" },
-            { id: "ksk", name: "Kárasker", lat: 64.1613, lon: -16.4737, url: "ksk" },
-            { id: "kvi", name: "Kvísker", lat: 63.9822, lon: -16.43286, url: "kvi" },
-            { id: "kvo", name: "Krókóttuvötn", lat: 65.71392, lon: -16.8813, url: "kvo" },
-            { id: "lat", name: "Latur", lat: 63.858863, lon: -22.183813, url: "lat" },
-            { id: "lei", name: "Leirhöfn", lat: 66.40665, lon: -16.48957, url: "lei" },
-            { id: "lsk", name: "Litla-Skógfell", lat: 63.922795, lon: -22.368852, url: "lsk" },
-            { id: "mel", name: "Melhnausar", lat: 65.57002, lon: -16.65725, url: "mel" },
-            { id: "mid", name: "Miðmörk", lat: 63.658072, lon: -19.88524, url: "mid" },
-            { id: "mjo", name: "Mjóaskarð", lat: 63.93295, lon: -19.67238, url: "mjo" },
-            { id: "mko", name: "Mókollar", lat: 64.9784, lon: -16.33826, url: "mko" },
-            { id: "mor", name: "Morastaðir", lat: 64.30177, lon: -21.7511, url: "mor" },
-            { id: "nyl", name: "Nýlenda", lat: 63.97368, lon: -22.73792, url: "nyl" },
-            { id: "oso", name: "Ósöldur", lat: 64.34091, lon: -18.8463, url: "oso" },
-            { id: "ren", name: "Reynihlíð", lat: 65.64699, lon: -16.90591, url: "ren" },
-            { id: "rju", name: "Rjúpnafell", lat: 63.61745, lon: -18.6721, url: "rju" },
-            { id: "san", name: "Sandskeið", lat: 64.05601, lon: -21.57013, url: "san" },
-            { id: "sau", name: "Saurbær", lat: 63.98983, lon: -20.41519, url: "sau" },
-            { id: "sig", name: "Siglufjörður", lat: 66.13229, lon: -18.91483, url: "sig" },
-            { id: "ska", name: "Skriða", lat: 66.1303, lon: -23.25454, url: "ska" },
-            { id: "sly", name: "Slysaalda", lat: 63.82402, lon: -19.11732, url: "sly" },
-            { id: "sol", name: "Sölvholt", lat: 63.92896, lon: -20.94357, url: "sol" },
-            { id: "ste", name: "Stélbrattur", lat: 64.8559, lon: -19.6275, url: "ste" },
-            { id: "sth", name: "Stórihver", lat: 63.9623, lon: -19.1526, url: "sth" },
-            { id: "sva", name: "Svartárkot", lat: 65.33691, lon: -17.25454, url: "sva" },
-            { id: "tag", name: "Tághálsar", lat: 64.86704, lon: -23.73238, url: "tag" },
-            { id: "tho", name: "Þorvaldshraun", lat: 64.93372, lon: -16.67558, url: "tho" },
-            { id: "ves", name: "Vestmannaeyjar (S)", lat: 63.44291, lon: -20.28664, url: "ves" },
-            { id: "vey", name: "Vestmannaeyjar (N)", lat: 63.419082, lon: -20.278708, url: "vey" },
-            { id: "von", name: "Vonarskarð", lat: 64.671338, lon: -17.763236, url: "von" },
-            { id: "vos", name: "Vogsosar", lat: 63.852759, lon: -21.702033, url: "vos" },
-            { id: "vot", name: "Vöttur", lat: 64.27081, lon: -17.18254, url: "vot" },
-            { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
-     ];
+    { id: "baug", name: "Baughóll", lat: 66.03778, lon: -17.33492, type: "gps", url: "BAUG", folder: "tjornes" },
+    { id: "brtt", name: "Brettingsstaðir", lat: 66.12349, lon: -17.91482, type: "gps", url: "BRTT", folder: "tjornes" },
+    { id: "dync", name: "Dyngjuháls", lat: 64.79059, lon: -17.36626, type: "gps", url: "DYNC", folder: "bardarbunga" },
+    { id: "dyng", name: "Fjórðungsalda", lat: 65.05629, lon: -16.65184, type: "gps", url: "DYNG", folder: "askja" },
+    { id: "dyny", name: "Dyngjufjöll", lat: 65.0163, lon: -17.1159, type: "gps", url: "DYNY", folder: "askja" },
+    { id: "eldc", name: "Eldvörp", lat: 63.86316, lon: -22.52576, type: "gps", url: "ELDC" },
+    { id: "eley", name: "Eldey", lat: 63.74083, lon: -22.95789, type: "gps", url: "ELEY" },
+    { id: "entc", name: "Enta", lat: 63.70826, lon: -19.19069, type: "gps", url: "ENTC", folder: "katla" },
+    { id: "fagc", name: "Fagurhólsmýri", lat: 63.87465, lon: -16.65335, type: "gps", url: "FAGC", folder: "oraefajokull" },
+    { id: "fagd", name: "Fagradalsfjall", lat: 63.91671, lon: -22.28884, type: "gps", url: "FAGD" },
+    { id: "fedg", name: "Feðgar", lat: 64.02587, lon: -19.68901, type: "gps", url: "FEDG", folder: "hekla" },
+    { id: "fefc", name: "Festarfjall", lat: 63.85726, lon: -22.31316, type: "gps", url: "FEFC" },
+    { id: "fim2", name: "Fimmvörðuháls (Katla)", lat: 63.61003, lon: -19.43389, type: "gps", url: "FIM2", folder: "katla" },
+    { id: "fjoc", name: "Fjórðungsalda", lat: 64.87514, lon: -18.00644, type: "gps", url: "FJOC", folder: "bardarbunga" },
+    { id: "ftey", name: "Flatey", lat: 66.16031, lon: -17.84787, type: "gps", url: "FTEY", folder: "tjornes" },
+    { id: "gake", name: "Garður í Kelduhverfi", lat: 66.07806, lon: -16.76470, type: "gps", url: "GAKE" },
+    { id: "gevk", name: "Gerðavallakriki", lat: 63.83536, lon: -22.47153, type: "gps", url: "GEVK" },
+    { id: "gfel", name: "Geitafell", lat: 63.94815, lon: -21.53064, type: "gps", url: "GFEL" },
+    { id: "gfum", name: "Grímsfjall", lat: 64.40716, lon: -17.26704, type: "gps", url: "GFUM" },
+    { id: "gigo", name: "Gígöldur", lat: 64.84008, lon: -17.01878, type: "gps", url: "GIGO" },
+    { id: "gjog", name: "Gjögurtá", lat: 65.99411, lon: -21.34617, type: "gps", url: "GJOG" },
+    { id: "gler", name: "Glerhaus", lat: 64.02290, lon: -19.80248, type: "gps", url: "GLER" },
+    { id: "gmey", name: "Grímsey", lat: 66.53900, lon: -18.01901, type: "gps", url: "GMEY" },
+    { id: "gola", name: "Godaland", lat: 63.65961, lon: -19.32230, type: "gps", url: "GOLA" },
+    { id: "gonh", name: "Gónhóll", lat: 63.88564, lon: -22.27045, type: "gps", url: "GONH" },
+    { id: "gran", name: "Granastaðir", lat: 65.91870, lon: -17.57844, type: "gps", url: "GRAN" },
+    { id: "grfs", name: "Graenufjoll (Katla)", lat: 63.52657, lon: -19.10935, type: "gps", url: "GRFS" },
+    { id: "griv", name: "Grindavik", lat: 63.85920, lon: -22.45165, type: "gps", url: "GRIV" },
+    { id: "grvm", name: "Grindavík Miðja", lat: 63.84333, lon: -22.43040, type: "gps", url: "GRVM" },
+    { id: "grvv", name: "Grindavík Vestur", lat: 63.84559, lon: -22.44489, type: "gps", url: "GRVV" },   
+    { id: "hafc", name: "Hafnir", lat: 63.92733, lon: -22.67992, type: "gps", url: "HAFC" },
+    { id: "hafs", name: "Hamarinn", lat: 64.48010, lon: -17.82308, type: "gps", url: "HAFS" },
+    { id: "haud", name: "Haukadalur", lat: 63.96854, lon: -19.96436, type: "gps", url: "HAUD" },
+    { id: "helc", name: "Hella", lat: 65.94402, lon: -18.38732, type: "gps", url: "HELC" },
+    { id: "helf", name: "Helgafell", lat: 64.02282, lon: -21.85199, type: "gps", url: "ELF" },
+    { id: "herv", name: "Herdísarvík", lat: 63.86585, lon: -21.87770, type: "gps", url: "HERV" },
+    { id: "hesa", name: "Hestalda", lat: 64.04685, lon: -19.56062, type: "gps", url: "HESA" },
+    { id: "hlid", name: "Hlíðardalsskóli", lat: 63.92113, lon: -21.38970, type: "gps", url: "HLID" },
+    { id: "hofn", name: "Höfn", lat: 64.26737, lon: -15.19789, type: "gps", url: "HOFN" },
+    { id: "hotj", name: "Hólar", lat: 66.16165, lon: -17.24430, type: "gps", url: "HOTJ" },
+    { id: "hrac", name: "Hraun", lat: 66.10995, lon: -20.12254, type: "gps", url: "HRAC" },
+    { id: "hrag", name: "Hrafnagjá", lat: 63.88787, lon: -22.55721, type: "gps", url: "HRAG" },    
+    { id: "hric", name: "Hrímalda", lat: 64.95042, lon: -16.92410, type: "gps", url: "HRIC" },
+    { id: "husm", name: "Húsmúli", lat: 64.06665, lon: -21.41725, type: "gps", url: "HUSM" },
+    { id: "hvas", name: "Hvassahraun", lat: 64.02442, lon: -22.12777, type: "gps", url: "HVAS" },
+    { id: "hveh", name: "Hverahlíð", lat: 64.00769, lon: -21.35650, type: "gps", url: "HVEH" },
+    { id: "hver", name: "Hveragerði", lat: 64.01715, lon: -21.18480, type: "gps", url: "HVER" },
+    { id: "hvol", name: "Láguhvolar", lat: 63.52630, lon: -18.84750, type: "gps", url: "HVOL" },
+    { id: "hvsk", name: "Hvalskarð", lat: 63.93943, lon: -21.71451, type: "gps", url: "HVSK" },    
+    { id: "insk", name: "Innri-Skúti", lat: 64.68299, lon: -19.53376, type: "gps", url: "INSK" },
+    { id: "inta", name: "Inntakshús", lat: 64.94024, lon: -15.78275, type: "gps", url: "INTA" },
+    { id: "isak", name: "Ísakot", lat: 64.11933, lon: -19.74724, type: "gps", url: "ISAK" },
+    { id: "joku", name: "Jökulheimar", lat: 64.30953, lon: -18.23999, type: "gps", url: "JOKU" },    
+    { id: "kalf", name: "Kálfafell", lat: 63.94726, lon: -17.68881, type: "gps", url: "KALF" },
+    { id: "kast", name: "Kast", lat: 63.88003, lon: -22.32323, type: "gps", url: "KAST" },
+    { id: "keic", name: "Keilir", lat: 63.93024, lon: -22.18887, type: "gps", url: "KEIC" },
+    { id: "kisa", name: "Kista", lat: 64.67418, lon: -17.56214, type: "gps", url: "KISA" },
+    { id: "klvc", name: "Kleifarvatn", lat: 63.91148, lon: -21.95792, type: "gps", url: "KLVC" },
+    { id: "kosk", name: "Kópasker", lat: 66.30322, lon: -16.44346, type: "gps", url: "KOSK" },
+    { id: "kriv", name: "Krísuvík", lat: 63.87823, lon: -22.07722, type: "gps", url: "KRIV" },
+    { id: "kvec", name: "Kverkfjöll", lat: 64.74522, lon: -16.65194, type: "gps", url: "KVEC" },
+    { id: "kvis", name: "Kvíslarhóll", lat: 66.10072, lon: -17.27170, type: "gps", url: "KVIS" },
+    { id: "kvsk", name: "Kvísker", lat: 63.98183, lon: -16.43347, type: "gps", url: "KVSK" },      
+    { id: "lisf", name: "Litla-Skógfell", lat: 63.92326, lon: -22.36694, type: "gps", url: "LISF" },              
+    { id: "mana", name: "Mánáreyjar", lat: 66.29768, lon: -17.11940, type: "gps", url: "MANA" },
+    { id: "moha", name: "Móhálsadalur", lat: 63.91996, lon: -22.05948, type: "gps", url: "MOHA" },
+    { id: "namc", name: "Stapafell náma", lat: 63.91543, lon: -22.54350, type: "gps", url: "NAMC" },
+    { id: "nbio", name: "Nordan", lat: 63.89768, lon: -22.47168, type: "gps", url: "NBIO" },
+    { id: "nvel", name: "Nesjavellir", lat: 64.10881, lon: -21.25480, type: "gps", url: "NVEL" },
+    { id: "nyla", name: "Nýlenda", lat: 63.97358, lon: -22.73818, type: "gps", url: "NYLA" },
+    { id: "oddf", name: "Oddafell", lat: 63.94871, lon: -22.11760, type: "gps", url: "ODDF" },
+    { id: "olac", name: "Ólafsgígar", lat: 65.03819, lon: -16.79891, type: "gps", url: "OLAC" },
+    { id: "orfc", name: "Orf Gróðurhús", lat: 63.85516, lon: -22.41922, type: "gps", url: "ORFC" },    
+    { id: "reyk", name: "Reykjavík", lat: 64.13888, lon: -21.95590, type: "gps", url: "REYK" },
+    { id: "rfel", name: "Rjúpnafell", lat: 63.61743, lon: -18.67140, type: "gps", url: "RFEL" },
+    { id: "rhof", name: "Raufarhöfn", lat: 66.46112, lon: -15.94670, type: "gps", url: "RHOF" },
+    { id: "rifc", name: "Rifnihnjúkur", lat: 64.92445, lon: -16.38772, type: "gps", url: "RIFC" },
+    { id: "rjuc", name: "Rjúpnabrekkukvísl", lat: 64.74311, lon: -17.52729, type: "gps", url: "RJUC" },
+    { id: "rvit", name: "Reykjanesviti", lat: 63.81609, lon: -22.70417, type: "gps", url: "RVIT" },      
+    { id: "safh", name: "Sandfellshæð", lat: 63.85649, lon: -22.59933, type: "gps", url: "SAFH" },
+    { id: "sarp", name: "Sarpur", lat: 64.46714, lon: -21.26628, type: "gps", url: "SARP" },
+    { id: "saud", name: "Sauðárháls", lat: 64.89944, lon: -15.88357, type: "gps", url: "SAUD" },
+    { id: "saur", name: "Saurbær", lat: 63.98433, lon: -20.42542, type: "gps", url: "SAUR" },
+    { id: "self", name: "Selfoss", lat: 63.92898, lon: -21.03222, type: "gps", url: "SELF" },
+    { id: "sey5", name: "Seyðisfjörður", lat: 65.25819, lon: -13.99379, type: "gps", url: "SEY5" },
+    { id: "sifj", name: "Siglufjörður", lat: 66.13806, lon: -18.89924, type: "gps", url: "SIFJ" },
+    { id: "sjuk", name: "Sjúkrahúsið", lat: 66.04923, lon: -17.33959, type: "gps", url: "SJUK" },      
+    { id: "skda", name: "Skriða", lat: 64.37693, lon: -20.66667, type: "gps", url: "SKDA" },
+    { id: "skfc", name: "Skaftafell", lat: 64.02605, lon: -16.97405, type: "gps", url: "SKFC" },
+    { id: "sksh", name: "Skipastígshraun", lat: 63.86814, lon: -22.48035, type: "gps", url: "SKSH" },
+    { id: "slec", name: "Slettubjorg", lat: 63.93698, lon: -16.63542, type: "gps", url: "SLEC" },
+    { id: "snae", name: "Snæbýli", lat: 63.73629, lon: -18.63224, type: "gps", url: "SNAE" },
+    { id: "ste2", name: "Steinsholt", lat: 63.67695, lon: -19.60852, type: "gps", url: "STE2" },
+    { id: "stor", name: "Stórólfshvoll", lat: 63.75267, lon: -20.21210, type: "gps", url: "STOR" },
+    { id: "sudv", name: "Suðurstrandavegur", lat: 63.84961, lon: -22.37409, type: "gps", url: "SUDV" },
+    { id: "svie", name: "Svínafellsheiði", lat: 64.00907, lon: -16.80182, type: "gps", url: "SVIE" },
+    { id: "syrf", name: "Sýrfell", lat: 63.83587, lon: -22.65408, type: "gps", url: "SYRF" },
+    { id: "thob", name: "Þorbjörn", lat: 63.86419, lon: -22.43922, type: "gps", url: "THOB" },
+    { id: "thoc", name: "Þorvaldshraun", lat: 64.93372, lon: -16.67557, type: "gps", url: "THOC" },
+    { id: "undh", name: "Undirhlíð", lat: 63.96900, lon: -21.95625, type: "gps", url: "UNDH" },
+    { id: "urhc", name: "Urðarháls", lat: 64.82028, lon: -17.14718, type: "gps", url: "URHC" },
+    { id: "varg", name: "Vargsnes", lat: 66.03256, lon: -17.68022, type: "gps", url: "VARG" },
+    { id: "vmey", name: "Vestmannaeyjar", lat: 63.42699, lon: -20.29347, type: "gps", url: "VMEY" },
+    { id: "vmos", name: "Vestan við möstur", lat: 63.84683, lon: -22.48717, type: "gps", url: "VMOS" },
+    { id: "vogc", name: "Vogar", lat: 63.97920, lon: -22.33125, type: "gps", url: "VOGC" },
+    { id: "vogs", name: "Vogsósar", lat: 63.85268, lon: -21.70364, type: "gps", url: "VOGS" },
+    { id: "vonc", name: "Vonarskarð", lat: 64.67399, lon: -17.75432, type: "gps", url: "VONC" },
+    { id: "tanc", name: "Tanni", lat: 65.07946, lon: -16.73563, type: "gps", url: "TANC" },
+    { id: "mofc", name: "Móflöt", lat: 64.98387, lon: -16.66745, type: "gps", url: "MOFC" },
+    { id: "kasc", name: "KASK", lat: 65.06075, lon: -16.76465, type: "gps", url: "KASC" },
+    { id: "hita", name: "Hítardalur", lat: 64.80332, lon: -22.04358, type: "gps", url: "HITA" },
+    { id: "lfel", name: "Lambafell", lat: 64.52566, lon: -19.75897, type: "gps", url: "LFEL" },
+    { id: "budh", name: "Búðarháls", lat: 64.24031, lon: -19.32487, type: "gps", url: "BUDH" },
+    { id: "soho", name: "Sólheimaheiði", lat: 63.55260, lon: -19.24632, type: "gps", url: "SOHO" },   
+    { id: "gusk", name: "Gufuskálar", lat: 64.89145, lon: -23.92313, type: "gps", url: "GUSK" },
+    { id: "bald", name: "Búrfellsalda", lat: 64.92426, lon: -15.74923, type: "gps", url: "BALD" },
+    { id: "blei", name: "Bleikáluháls", lat: 65.08356, lon: -18.64733, type: "gps", url: "BLEI" },   
+    { id: "bjtv", name: "Bjargtangarviti", lat: 65.50346, lon: -24.53106, type: "gps", url: "BJTV" },
+    { id: "klv", name: "Kleifarvatn", lat: 63.91447, lon: -21.95979, url: "klv" },
+    { id: "odf", name: "Oddafell", lat: 63.94690, lon: -22.11900, url: "odf" },
+    { id: "eld", name: "Eldey", lat: 63.74067, lon: -22.95803, url: "eld" },
+    { id: "fad", name: "Fagridalur", lat: 63.91668, lon: -22.28938, url: "fad" },
+    { id: "grv", name: "Grindavík", lat: 63.85716, lon: -22.45583, url: "grv" },
+    { id: "rne", name: "Reykjanesviti", lat: 63.81681, lon: -22.70563, url: "rne" },
+    { id: "vog", name: "Vogar", lat: 63.96967, lon: -22.39285, url: "vog" },
+    { id: "moh", name: "Móhálshnúkar", lat: 63.92269, lon: -22.06688, url: "moh" },
+    { id: "ash", name: "Afstapahraun", lat: 63.98167, lon: -22.14986, url: "ash" },
+    { id: "kri", name: "Krýsuvík", lat: 63.8781, lon: -22.07646, url: "kri" },
+    { id: "iss", name: "Ísólfsskáli-S", lat: 63.86524, lon: -22.30963, url: "iss" },
+    { id: "lag", name: "Lágar", lat: 63.90491, lon: -22.48844, url: "lag" },
+    { id: "rah", name: "Rauðhólar", lat: 63.85285, lon: -22.56795, url: "rah" },
+    { id: "lfe", name: "Lágafell", lat: 63.88183, lon: -22.53423, url: "lfe" },
+    { id: "ger", name: "Gerðar", lat: 63.82804, lon: -22.47186, url: "ger" },
+    { id: "hrv", name: "Hafrafells-Vatnsfell ", lat: 63.90707, lon: -22.19159, url: "hrv" },
+    { id: "hvs", name: "Hveragerði", lat: 63.939395, lon: -21.714498, url: "hvs" },
+    { id: "bja", name: "Bjarnarflag", lat: 63.946, lon: -21.303, url: "bja" },
+    { id: "hei", name: "Heiðarsporður", lat: 64.200, lon: -21.237, url: "hei" },
+    { id: "ada", name: "Adalbol", lat: 65.032106, lon: -15.399528, url: "ada" },
+    { id: "alf", name: "Alftagrof", lat: 63.490613, lon: -19.188062, url: "alf" },
+    { id: "asb", name: "Asbjarnarstadir", lat: 64.750851, lon: -21.320842, url: "asb" },
+    { id: "ask", name: "Askja", lat: 65.053807, lon: -16.644591, url: "ask" },
+    { id: "asm", name: "Asmuli", lat: 63.833146, lon: -20.611921, url: "asm" },
+    { id: "aus", name: "Austmannsbunga", lat: 63.684091, lon: -19.077711, url: "aus" },
+    { id: "bjk", name: "Bruarjokull", lat: 64.465884, lon: -16.769616, url: "bjk" },
+    { id: "ble", name: "Bleikáluháls", lat: 65.07795, lon: -18.63868, url: "ble" },
+    { id: "bre", name: "Brettingsstadir", lat: 66.124849, lon: -17.909947, url: "bre" },
+    { id: "dim", name: "Dimmadalsas", lat: 65.961592, lon: -16.933611, url: "dim" },
+    { id: "djk", name: "Dyngjujökull", lat: 64.50405, lon: -17.23571, url: "djk" },
+    { id: "dyn", name: "Dyngjuhals", lat: 64.790530, lon: -17.356029, url: "dyn" },
+    { id: "eda", name: "Engjadalur", lat: 64.074700, lon: -21.387901, url: "eda" },
+    { id: "esk", name: "Eysrtri-Skogar", lat: 63.525355, lon: -19.449540, url: "esk" },
+    { id: "fag", name: "Fagurholmsmyri", lat: 63.875176, lon: -16.651050, url: "fag" },
+    { id: "fal", name: "Fallsjokull", lat: 63.959511, lon: -16.820789, url: "fal" },
+    { id: "fed", name: "Fedgar", lat: 64.02508, lon: -19.69086, url: "fed" },
+    { id: "fja", name: "Fjallsendi", lat: 65.019235, lon: -17.067830, url: "fja" },
+    { id: "gei", name: "Geitafell", lat: 63.946510, lon: -21.527603, url: "gei" },
+    { id: "god", name: "Godabunga", lat: 63.65976, lon: -19.32236, url: "god" },
+    { id: "gra", name: "Granastaðir", lat: 65.9176, lon: -17.57855, url: "gra" },
+    { id: "grf", name: "Grímsfjall", lat: 64.40656, lon: -17.26713, url: "grf" },
+    { id: "gri", name: "Grimsey", lat: 66.54152, lon: -18.00951, url: "gri" },
+    { id: "grs", name: "Grímsstaðir", lat: 65.63811, lon: -16.12409, url: "grs" },
+    { id: "gst", name: "Grásteinn", lat: 64.692483, lon: -21.953373, url: "gst" },
+    { id: "gil", name: "Gilhagi", lat: 66.07734, lon: -16.35131, url: "gil" },
+    { id: "gyg", name: "Gýgjahólskot", lat: 64.28107, lon: -20.21483, url: "gyg" },
+    { id: "hau", name: "Haukadalur", lat: 63.96851, lon: -19.96471, url: "hau" },
+    { id: "hed", name: "Héðinshöfði", lat: 66.0808, lon: -17.30975, url: "hed" },
+    { id: "hes", name: "Hestalda", lat: 64.0468, lon: -19.5604, url: "hes" },
+    { id: "hit", name: "Hítardalur", lat: 64.803308, lon: -22.043553, url: "hit" },
+    { id: "hla", name: "Hella", lat: 65.94441, lon: -18.38724, url: "hla" },
+    { id: "hrn", name: "Hraun", lat: 66.11, lon: -20.12252, url: "hrn" },
+    { id: "hus", name: "Húsbóndi", lat: 64.2955, lon: -17.6565, url: "hus" },
+    { id: "hvo", name: "Lágu-Hvolar", lat: 63.5261, lon: -18.84781, url: "hvo" },
+    { id: "ier", name: "Innri eyrar", lat: 64.097587, lon: -18.139063, url: "ier" },
+    { id: "jok", name: "Jökulheimar", lat: 64.31529, lon: -18.22546, url: "jok" },
+    { id: "kas", name: "Kaldarsel", lat: 64.022465, lon: -21.853764, url: "kas" },
+    { id: "kal", name: "Kálfafell", lat: 63.94761, lon: -17.68698, url: "kal" },
+    { id: "kis", name: "Kista", lat: 64.67413, lon: -17.56167, url: "kis" },
+    { id: "kre", name: "Krepputunguhraun", lat: 64.78369, lon: -16.38282, url: "kre" },
+    { id: "kro", name: "Krókur", lat: 64.09806, lon: -21.11976, url: "kro" },
+    { id: "ksk", name: "Kárasker", lat: 64.1613, lon: -16.4737, url: "ksk" },
+    { id: "kvi", name: "Kvísker", lat: 63.9822, lon: -16.43286, url: "kvi" },
+    { id: "kvo", name: "Krókóttuvötn", lat: 65.71392, lon: -16.8813, url: "kvo" },
+    { id: "lat", name: "Latur", lat: 63.858863, lon: -22.183813, url: "lat" },
+    { id: "lei", name: "Leirhöfn", lat: 66.40665, lon: -16.48957, url: "lei" },
+    { id: "lsk", name: "Litla-Skógfell", lat: 63.922795, lon: -22.368852, url: "lsk" },
+    { id: "mel", name: "Melhnausar", lat: 65.57002, lon: -16.65725, url: "mel" },
+    { id: "mid", name: "Miðmörk", lat: 63.658072, lon: -19.88524, url: "mid" },
+    { id: "mjo", name: "Mjóaskarð", lat: 63.93295, lon: -19.67238, url: "mjo" },
+    { id: "mko", name: "Mókollar", lat: 64.9784, lon: -16.33826, url: "mko" },
+    { id: "mor", name: "Morastaðir", lat: 64.30177, lon: -21.7511, url: "mor" },
+    { id: "nyl", name: "Nýlenda", lat: 63.97368, lon: -22.73792, url: "nyl" },
+    { id: "oso", name: "Ósöldur", lat: 64.34091, lon: -18.8463, url: "oso" },
+    { id: "ren", name: "Reynihlíð", lat: 65.64699, lon: -16.90591, url: "ren" },
+    { id: "rju", name: "Rjúpnafell", lat: 63.61745, lon: -18.6721, url: "rju" },
+    { id: "san", name: "Sandskeið", lat: 64.05601, lon: -21.57013, url: "san" },
+    { id: "sau", name: "Saurbær", lat: 63.98983, lon: -20.41519, url: "sau" },
+    { id: "sig", name: "Siglufjörður", lat: 66.13229, lon: -18.91483, url: "sig" },
+    { id: "ska", name: "Skriða", lat: 66.1303, lon: -23.25454, url: "ska" },
+    { id: "sly", name: "Slysaalda", lat: 63.82402, lon: -19.11732, url: "sly" },
+    { id: "sol", name: "Sölvholt", lat: 63.92896, lon: -20.94357, url: "sol" },
+    { id: "ste", name: "Stélbrattur", lat: 64.8559, lon: -19.6275, url: "ste" },
+    { id: "sth", name: "Stórihver", lat: 63.9623, lon: -19.1526, url: "sth" },
+    { id: "sva", name: "Svartárkot", lat: 65.33691, lon: -17.25454, url: "sva" },
+    { id: "tag", name: "Tághálsar", lat: 64.86704, lon: -23.73238, url: "tag" },
+    { id: "tho", name: "Þorvaldshraun", lat: 64.93372, lon: -16.67558, url: "tho" },
+    { id: "ves", name: "Vestmannaeyjar (S)", lat: 63.44291, lon: -20.28664, url: "ves" },
+    { id: "vey", name: "Vestmannaeyjar (N)", lat: 63.419082, lon: -20.278708, url: "vey" },
+    { id: "von", name: "Vonarskarð", lat: 64.671338, lon: -17.763236, url: "von" },
+    { id: "vos", name: "Vogsosar", lat: 63.852759, lon: -21.702033, url: "vos" },
+    { id: "vot", name: "Vöttur", lat: 64.27081, lon: -17.18254, url: "vot" },
+    { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
+];
              
 // ==========================================
 // 5. MARKER STYLE AND LABEL ADJUSTMENTS
@@ -598,7 +700,7 @@ stations.forEach(st => {
                 </div>`;
         }
     });
-});// <-- THIS is the crucial missing bracket that was causing the blank screen!
+});
 
 // ==========================================
 // 1. WELCOME OVERLAY HELPER FUNCTIONS
@@ -616,12 +718,10 @@ function showWelcomeOverlay() {
 // ==========================================
 // 2. SIDEBAR EVENT LISTENERS
 // ==========================================
-// Hide the welcome overlay the instant ANY tab is opened or clicked
 sidebar.on('content', function(e) {
     hideWelcomeOverlay();
 });
 
-// Clear sidebar content when it is closed completely
 sidebar.on('closing', function () {
     const seismicContainer = document.getElementById('station-data');
     const gpsContainer = document.getElementById('gps-data');
@@ -641,7 +741,6 @@ sidebar.on('closing', function () {
     if (gpsClear) gpsClear.style.display = 'none';
     if (seismicClear) seismicClear.style.display = 'none';
     
-    // Bring back the landing banner ONLY if the sidebar is shut
     showWelcomeOverlay();
 });
 
@@ -666,7 +765,6 @@ if (seismicSearchInput) {
             hideWelcomeOverlay(); 
         }
 
-        // FIX: Re-draw seismic dots by matching their IDs back to the original station type
         allMarkers.forEach(m => {
             const originalData = stations.find(s => s.id.toLowerCase() === m.stationID);
             if (originalData && originalData.type !== 'gps') { 
@@ -724,7 +822,6 @@ if (gpsSearchInput) {
             hideWelcomeOverlay(); 
         }
 
-        // FIX: Re-draw green GPS triangles instantly when clearing search
         allMarkers.forEach(m => {
             const originalData = stations.find(s => s.id.toLowerCase() === m.stationID);
             if (originalData && originalData.type === 'gps') {
@@ -763,6 +860,207 @@ if (gpsSearchInput) {
         });
     }
 }
+
+// =========================================================================
+// EARTHQUAKE CORE DATA PIPELINE & AUDIO ENGINE
+// =========================================================================
+
+function triggerSyntheticChirp(magnitude, depth) {
+    try {
+        if (!document.getElementById('filter-audio').checked) return;
+        if (!audioContextInstance) {
+            audioContextInstance = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContextInstance.state === 'suspended') {
+            audioContextInstance.resume();
+        }
+        
+        const osc = audioContextInstance.createOscillator();
+        const gain = audioContextInstance.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioContextInstance.destination);
+        
+        // Base frequency mapped to size/impact
+        const baseHz = 150 + (magnitude * 80);
+        // Inverse depth modifier (shallow quakes sound sharp, deep sound low)
+        const depthMod = Math.max(10, 30 - depth) * 5;
+        
+        osc.type = magnitude > 2.5 ? 'sawtooth' : 'sine';
+        osc.frequency.setValueAtTime(baseHz + depthMod, audioContextInstance.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseHz / 2, audioContextInstance.currentTime + 0.3);
+        
+        gain.gain.setValueAtTime(Math.min(0.2, 0.05 * magnitude), audioContextInstance.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioContextInstance.currentTime + 0.3);
+        
+        osc.start();
+        osc.stop(audioContextInstance.currentTime + 0.3);
+    } catch(err) {
+        console.warn("Audio Context blocked or uninitialised: ", err);
+    }
+}
+
+function resolveAgeHexColor(hoursOld) {
+    if (hoursOld <= 1) return '#ff0000'; // Hot Red
+    if (hoursOld <= 4) return '#ffaa00'; // Orange
+    if (hoursOld <= 24) return '#ffff00'; // Yellow
+    return '#3388ff'; // Cool Blue
+}
+
+function executeClientFiltering() {
+    seismicMapLayerGroup.clearLayers();
+    const ledgerContainer = document.getElementById('ledger-rows-container');
+    ledgerContainer.innerHTML = '';
+
+    const magFloor = parseFloat(document.getElementById('filter-mag').value);
+    const ageCeiling = document.getElementById('filter-age').value;
+    
+    let filteredList = earthquakeDataStorage.filter(eq => {
+        if (eq.magnitude < magFloor) return false;
+        if (ageCeiling !== 'all' && eq.hoursOld > parseFloat(ageCeiling)) return false;
+        return true;
+    });
+
+    document.getElementById('eq-counter').innerText = `Loaded: ${filteredList.length}`;
+
+    filteredList.forEach(eq => {
+        // Render Map Component
+        const radSize = Math.max(4, eq.magnitude * 5);
+        const colour = resolveAgeHexColor(eq.hoursOld);
+        
+        let markerStyles = {
+            radius: radSize,
+            fillColor: colour,
+            color: '#ffffff',
+            weight: 1,
+            opacity: 0.9,
+            fillOpacity: 0.65
+        };
+
+        if (eq.hoursOld <= 1) {
+            markerStyles.className = 'fresh-eq-glow';
+            markerStyles.fillOpacity = 0.9;
+            markerStyles.weight = 2;
+        }
+
+        const mapMarker = L.circleMarker([eq.lat, eq.lon], markerStyles);
+        
+        mapMarker.bindPopup(`
+            <div style="font-family:'Segoe UI',Arial; padding:2px; color:#333;">
+                <b style="color:#e65100; font-size:13px;">M ${eq.magnitude.toFixed(1)} - Earthquake</b><br>
+                <hr style="margin:4px 0; border:0; border-top:1px solid #ccc;">
+                <b>Location:</b> ${eq.area}<br>
+                <b>Depth:</b> ${eq.depth.toFixed(1)} km<br>
+                <b>Time:</b> ${eq.humanTime}<br>
+                <b>Age:</b> ${eq.hoursOld.toFixed(1)} hours ago
+            </div>
+        `);
+        seismicMapLayerGroup.addLayer(mapMarker);
+
+        // Render Sidebar Ledger UI Row
+        const row = document.createElement('div');
+        row.className = 'ledger-row';
+        row.style.borderLeft = `4px solid ${colour}`;
+        
+        // Emphasise significant quakes inside list text elements
+        const textWeight = eq.magnitude >= 2.0 ? 'font-weight:bold; color:#fff;' : 'color:#ccc;';
+
+        row.innerHTML = `
+            <span style="${textWeight}">${eq.humanTime}</span>
+            <span style="color:${colour}; font-weight:bold;">M ${eq.magnitude.toFixed(1)}</span>
+            <span style="${textWeight}">${eq.depth.toFixed(1)}km</span>
+            <span class="ledger-area" style="${textWeight}" title="${eq.area}">${eq.area}</span>
+        `;
+
+        row.onclick = () => {
+            map.setView([eq.lat, eq.lon], 10);
+            mapMarker.openPopup();
+        };
+
+        ledgerContainer.appendChild(row);
+    });
+}
+
+async function fetchEarthquakeTelemetry() {
+    try {
+        const response = await fetch('http://localhost:3000/api/earthquakes');
+        if (!response.ok) throw new Error("Proxy target inaccessible");
+        const rawJson = await response.json();
+        processDataset(rawJson);
+    } catch (error) {
+        console.warn("Local proxy offline. Initialising sandbox simulation fallback schema Matrix...");
+        generateSandboxData();
+    }
+}
+
+function processDataset(dataArray) {
+    let freshDetectFlags = false;
+
+    earthquakeDataStorage = dataArray.map(item => {
+        const timestamp = new Date(item.timestamp);
+        const elapsedHr = (new Date() - timestamp) / 3600000;
+        
+        const quakeID = `${item.lat}_${item.lon}_${item.timestamp}`;
+        
+        if (!processedQuakeRegistry.has(quakeID)) {
+            processedQuakeRegistry.add(quakeID);
+            // Alert user if newly discovered event falls inside 1 hour active buffer windows
+            if (elapsedHr <= 1.0) { freshDetectFlags = true; }
+        }
+
+        return {
+            lat: item.lat,
+            lon: item.lon,
+            magnitude: item.magnitude,
+            depth: item.depth,
+            area: item.area || "Reykjanes",
+            humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            hoursOld: elapsedHr
+        };
+    }).sort((x, y) => x.hoursOld - y.hoursOld);
+
+    if (freshDetectFlags && earthquakeDataStorage.length > 0) {
+        const leadEvent = earthquakeDataStorage[0];
+        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
+    }
+
+    executeClientFiltering();
+}
+
+function generateSandboxData() {
+    // Generate simulated volcanic cluster points over standard active systems (Reykjanes, Askja, Katla)
+    const faultLines = [
+        { name: "Grindavík Sveg", lat: 63.86, lon: -22.42 },
+        { name: "Askja Caldera", lat: 65.03, lon: -16.75 },
+        { name: "Katla Subglacial", lat: 63.64, lon: -19.12 }
+    ];
+
+    let simulationArray = [];
+    const nowTime = new Date();
+
+    for (let index = 0; index < 35; index++) {
+        const line = faultLines[Math.floor(Math.random() * faultLines.length)];
+        const simulatedOffsetTime = Math.random() * 30; // hours back
+        
+        const simulatedMag = parseFloat((Math.random() * 3.8).toFixed(1));
+        const simulatedDepth = parseFloat((Math.random() * 12).toFixed(1));
+        
+        simulationArray.push({
+            timestamp: new Date(nowTime.getTime() - (simulatedOffsetTime * 3600000)).toISOString(),
+            lat: line.lat + (Math.random() - 0.5) * 0.08,
+            lon: line.lon + (Math.random() - 0.5) * 0.12,
+            magnitude: simulatedMag,
+            depth: simulatedDepth,
+            area: line.name
+        });
+    }
+
+    processDataset(simulationArray);
+}
+
+// Instantiate Polling Engine 
+fetchEarthquakeTelemetry();
+setInterval(fetchEarthquakeTelemetry, 30000); // Poll server every 30 seconds
 </script>
 </body>
 </html>
