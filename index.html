@@ -1037,25 +1037,8 @@ function processDataset(dataArray) {
     executeClientFiltering();
     fixLegendLabels();
 }
-        // Return unified data names matching your mapping expectations
-        return {
-            lat: currentLat,
-            lon: currentLon,
-            magnitude: parseFloat(item.magnitude || item.mag || 0).toFixed(1),
-            depth: parseFloat(item.depth || 0).toFixed(1),
-            // New API uses 'epicenter_text' or 'epicenterText' for names like "Krýsuvík"
-            area: item.epicenter_text || item.epicenterText || item.area || "Unknown Region",
-            humanTime: timestamp.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-            hoursOld: elapsedHr
-        };
-    }).sort((x, y) => x.hoursOld - y.hoursOld);
-
-    if (freshDetectFlags && earthquakeDataStorage.length > 0) {
-        const leadEvent = earthquakeDataStorage[0];
-        triggerSyntheticChirp(leadEvent.magnitude, leadEvent.depth);
-    }
-
-    // This updates your visual ledger list and renders your map markers
+    
+ // This updates your visual ledger list and renders your map markers
     executeClientFiltering();
     
     // Quick layout label update: fix the legend's text directly if it exists on your page
