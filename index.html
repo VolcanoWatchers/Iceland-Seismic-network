@@ -631,11 +631,38 @@ sidebar.on('content', function(e) {
         map.removeLayer(topo);
         map.removeLayer(satellite);
         darkMode.addTo(map);
-    } else {
-        // Default back to Topography for other tabs
+        
+        // HIDE ALL STATIONS (Only show EQ ledger)
+        allMarkers.forEach(marker => map.removeLayer(marker));
+        
+    } else if (e.id === 'gps') {
+        // Show GPS stations only
         map.removeLayer(darkMode);
         map.removeLayer(satellite);
         topo.addTo(map);
+        
+        allMarkers.forEach(marker => {
+            const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
+            if (station && station.type === 'gps') {
+                marker.addTo(map);
+            } else {
+                map.removeLayer(marker);
+            }
+        });
+    } else {
+        // Default behavior - show all non-GPS stations
+        map.removeLayer(darkMode);
+        map.removeLayer(satellite);
+        topo.addTo(map);
+        
+        allMarkers.forEach(marker => {
+            const station = stations.find(s => s.id.toLowerCase() === marker.stationID);
+            if (station && station.type !== 'gps') {
+                marker.addTo(map);
+            } else {
+                map.removeLayer(marker);
+            }
+        });
     }
 });
 
