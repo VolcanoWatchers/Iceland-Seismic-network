@@ -155,9 +155,9 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    z-index: 1000;
+    /* Increase z-index to stay above overlays */
+    z-index: 2000 !important; 
 }
-
 .quake-control-bar select, 
 .quake-control-bar label {
     font-size: 13px;
