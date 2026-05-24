@@ -142,7 +142,28 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-        /* This is the final closing bracket for the CSS section */   
+
+/* New Control Bar Styles */
+.quake-control-bar {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid #444;
+    font-family: sans-serif;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    z-index: 1000;
+}
+
+.quake-control-bar select, 
+.quake-control-bar label {
+    font-size: 13px;
+    cursor: pointer;
+}
+        /* This is the final closing bracket for the CSS section */    
 </style>
 </head>
 <body>
