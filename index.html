@@ -620,6 +620,19 @@ function showWelcomeOverlay() {
 // Hide the welcome overlay the instant ANY tab is opened or clicked
 sidebar.on('content', function(e) {
     hideWelcomeOverlay();
+
+    // AUTO-SWITCH LAYER LOGIC
+    if (e.id === 'quakes') {
+        // Switch to Dark Mode when Earthquake tab is opened
+        map.removeLayer(topo);
+        map.removeLayer(satellite);
+        darkMode.addTo(map);
+    } else {
+        // Default back to Topography for other tabs
+        map.removeLayer(darkMode);
+        map.removeLayer(satellite);
+        topo.addTo(map);
+    }
 });
 
 // Clear sidebar content when it is closed completely
