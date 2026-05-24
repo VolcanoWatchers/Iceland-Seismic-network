@@ -903,16 +903,19 @@ const QuakeControl = L.Control.extend({
 });
 
 const quakeControlInstance = new QuakeControl({ position: 'topleft' });
-
 // 2. Hook it into your sidebar toggle logic
+let isControlVisible = false; // Tracks the state of the control bar
+
 sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
-        if (!map.hasControl(quakeControlInstance)) {
+        if (!isControlVisible) {
             map.addControl(quakeControlInstance);
+            isControlVisible = true;
         }
     } else {
-        if (map.hasControl(quakeControlInstance)) {
+        if (isControlVisible) {
             map.removeControl(quakeControlInstance);
+            isControlVisible = false;
         }
     }
 });
