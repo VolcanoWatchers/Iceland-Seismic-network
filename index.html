@@ -871,27 +871,39 @@ async function fetchEarthquakeData() {
         if (ledger) ledger.innerHTML = '<p>Unable to load data. Please refresh.</p>';
     }
 }
+// Define the list of regions
+const regions = [
+    "All regions", "Reykjanes peninsula", "Reykjanes ridge", "Hengill", 
+    "Southern Iceland (SISZ)", "Vestmannaeyjar", "Mýrdalsjökull (Includes Katla)", 
+    "Vatnajökull (Includes Bárðarbunga and Grímsvötn)", "Askja", "Mývatn", 
+    "Tjörnes fracture zone - small", "Tjörnes fracture zone - large", 
+    "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
+];
+
 // 1. Define the custom control class
 const QuakeControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-control-bar');
+        
+        // Map your region array to HTML options
+        const regionOptions = regions.map(r => `<option value="${r}">${r}</option>`).join('');
+
         div.innerHTML = `
             <label>⏰ 
                 <select id="timeFilter">
-                    <option value="24">24 Hours</option>
-                    <option value="48">48 Hours</option>
+                    <option value="24">24h</option>
+                    <option value="48">48h</option>
                 </select>
             </label>
             <label>📊 
                 <select id="magFilter">
-                    <option value="0">All</option>
+                    <option value="0">All M</option>
+                    <option value="1">M1+</option>
                     <option value="3">M3+</option>
                 </select>
             </label>
             <label>📍 
-                <select id="areaFilter">
-                    <option value="all">All Regions</option>
-                </select>
+                <select id="areaFilter">${regionOptions}</select>
             </label>
             <label>
                 <input type="checkbox" id="audioToggle"> 🔔 Alert M3+
