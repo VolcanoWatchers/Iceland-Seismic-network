@@ -291,6 +291,11 @@ function resetMap() {
     
     // Snap back cleanly to our optimal static position
     map.setView([64.90, -18.3], 7);
+
+    // REVERT TO TOPOGRAPHY ON CLOSE
+    map.removeLayer(darkMode);
+    map.removeLayer(satellite);
+    topo.addTo(map);
     
     const overlay = document.getElementById('welcome-overlay');
     if (overlay) overlay.style.opacity = '1';      
