@@ -906,6 +906,15 @@ const quakeControlInstance = new QuakeControl({ position: 'topleft' });
 // 2. Hook it into your sidebar toggle logic
 let isControlVisible = false; // Tracks the state of the control bar
 
+// Ensure we hide the control if the sidebar closes completely
+sidebar.on('closing', function() {
+    if (isControlVisible) {
+        map.removeControl(quakeControlInstance);
+        isControlVisible = false;
+    }
+});
+
+// Update the tab switching logic
 sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
         if (!isControlVisible) {
@@ -913,6 +922,7 @@ sidebar.on('content', function(e) {
             isControlVisible = true;
         }
     } else {
+        // If we switch to a different tab, hide the control
         if (isControlVisible) {
             map.removeControl(quakeControlInstance);
             isControlVisible = false;
