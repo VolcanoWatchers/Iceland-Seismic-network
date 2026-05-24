@@ -871,7 +871,51 @@ async function fetchEarthquakeData() {
         if (ledger) ledger.innerHTML = '<p>Unable to load data. Please refresh.</p>';
     }
 }
+// 1. Define the custom control class
+const QuakeControl = L.Control.extend({
+    onAdd: function(map) {
+        const div = L.DomUtil.create('div', 'quake-control-bar');
+        div.innerHTML = `
+            <label>⏰ 
+                <select id="timeFilter">
+                    <option value="24">24 Hours</option>
+                    <option value="48">48 Hours</option>
+                </select>
+            </label>
+            <label>📊 
+                <select id="magFilter">
+                    <option value="0">All</option>
+                    <option value="3">M3+</option>
+                </select>
+            </label>
+            <label>📍 
+                <select id="areaFilter">
+                    <option value="all">All Regions</option>
+                </select>
+            </label>
+            <label>
+                <input type="checkbox" id="audioToggle"> 🔔 Alert M3+
+            </label>
+        `;
+        L.DomEvent.disableClickPropagation(div);
+        return div;
+    }
+});
 
+const quakeControlInstance = new QuakeControl({ position: 'topleft' });
+
+// 2. Hook it into your sidebar toggle logic
+sidebar.on('content', function(e) {
+    if (e.id === 'quakes') {
+        if (!map.hasControl(quakeControlInstance)) {
+            map.addControl(quakeControlInstance);
+        }
+    } else {
+        if (map.hasControl(quakeControlInstance)) {
+            map.removeControl(quakeControlInstance);
+        }
+    }
+});
 fetchEarthquakeData();
 setInterval(fetchEarthquakeData, 60000);      
 </script>
