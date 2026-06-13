@@ -887,26 +887,25 @@ function updateQuakeLedger() {
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
-    // The new official IMO gateway for earthquake data
-    const url = 'https://corsproxy.io/?https://api.vedur.is/skjalftalisa/v1/quakes/is/latest';
+    // Using the official FDSN event service (the "pro" standard)
+    const url = 'https://corsproxy.io/?https://api.vedur.is/fdsnws/event/1/query?format=geojson&limit=20&orderby=time';
     
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const data = await response.json();
         
-        // The new structure of the data might have slightly different field names.
-        // We map them to the fields your code expects: time, mag, area.
-        earthquakeDataStorage = data.map(item => ({
-            time: new Date(item.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-            mag: parseFloat(item.magnitude).toFixed(1),
-            area: item.location_text || "Unknown"
-        })).slice(0, 20);
+        // FDSN GeoJSON structure mapping
+        earthquakeDataStorage = data.features.map(f => ({
+            time: new Date(f.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            mag: parseFloat(f.properties.mag).toFixed(1),
+            area: f.properties.place || "Iceland Region"
+        }));
         
         updateQuakeLedger();
     } catch (e) {
         console.error("Fetch failed:", e);
-        if (ledger) ledger.innerHTML = '<p>Feed unavailable (System maintenance/update). Please try again later.</p>';
+        if (ledger) ledger.innerHTML = '<p>Feed currently updating to SeisComP. Please check back.</p>';
     }
 }
 // Define the list of regions
