@@ -887,16 +887,21 @@ function updateQuakeLedger() {
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
-    // We use a clean FDSN service endpoint. 
-    // This is the industry-standard way to request seismic data.
-    const url = 'https://corsproxy.io/?' + encodeURIComponent('https://api.vedur.is/fdsnws/event/1/query?format=geojson&limit=20&orderby=time');
+    // We are now pointing to the new FDSN-compliant endpoint
+    const baseUrl = 'https://api.vedur.is/fdsnws/event/1/query';
+    const params = new URLSearchParams({
+        format: 'geojson',
+        limit: '20',
+        orderby: 'time'
+    });
+    const url = 'https://corsproxy.io/?' + encodeURIComponent(baseUrl + '?' + params.toString());
     
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('API Error');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         
-        // FDSN GeoJSON structure mapping
+        // FDSN GeoJSON structure
         earthquakeDataStorage = data.features.map(f => ({
             time: new Date(f.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
             mag: parseFloat(f.properties.mag).toFixed(1),
@@ -906,7 +911,7 @@ async function fetchEarthquakeData() {
         updateQuakeLedger();
     } catch (e) {
         console.error("Fetch failed:", e);
-        if (ledger) ledger.innerHTML = '<p style="color: #ff5252;">Data feed currently stable. Please refresh.</p>';
+        if (ledger) ledger.innerHTML = '<p style="color: #ff5252;">Data feed unavailable (Status: 502). Please check connection.</p>';
     }
 }
 // Define the list of regions
