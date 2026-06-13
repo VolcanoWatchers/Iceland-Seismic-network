@@ -887,23 +887,26 @@ function updateQuakeLedger() {
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
-    const url = 'https://corsproxy.io/?https://api.vedur.is/skjalftalisa/v1/quakefilter';
+    // The new official IMO gateway for earthquake data
+    const url = 'https://corsproxy.io/?https://api.vedur.is/skjalftalisa/v1/quakes/is/latest';
     
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const data = await response.json();
         
+        // The new structure of the data might have slightly different field names.
+        // We map them to the fields your code expects: time, mag, area.
         earthquakeDataStorage = data.map(item => ({
-            time: new Date(item.origin_time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            time: new Date(item.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
             mag: parseFloat(item.magnitude).toFixed(1),
-            area: item.epicenter_text
+            area: item.location_text || "Unknown"
         })).slice(0, 20);
         
         updateQuakeLedger();
     } catch (e) {
         console.error("Fetch failed:", e);
-        if (ledger) ledger.innerHTML = '<p>Unable to load data. Please refresh.</p>';
+        if (ledger) ledger.innerHTML = '<p>Feed unavailable (System maintenance/update). Please try again later.</p>';
     }
 }
 // Define the list of regions
