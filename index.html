@@ -887,31 +887,25 @@ function updateQuakeLedger() {
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
-    // We are now pointing to the new FDSN-compliant endpoint
-    const baseUrl = 'https://api.vedur.is/fdsnws/event/1/query';
-    const params = new URLSearchParams({
-        format: 'geojson',
-        limit: '20',
-        orderby: 'time'
-    });
-    const url = 'https://corsproxy.io/?' + encodeURIComponent(baseUrl + '?' + params.toString());
+    // Using the secret URL you found (the 'latest.json' feed)
+    const url = 'https://corsproxy.io/?https://skjalftalisa.vedur.is/v1/latest.json';
     
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
+        if (!response.ok) throw new Error('API Error');
+        const json = await response.json();
         
-        // FDSN GeoJSON structure
-        earthquakeDataStorage = data.features.map(f => ({
-            time: new Date(f.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-            mag: parseFloat(f.properties.mag).toFixed(1),
-            area: f.properties.place || "Iceland Region"
-        }));
+        // Mapping the array indices: Index 5 is Mag, Index 1 is Time, Index 7 is Area
+        earthquakeDataStorage = json.d.map(item => ({
+            time: new Date(item[1]).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            mag: parseFloat(item[5]).toFixed(1),
+            area: item[7]
+        })).slice(0, 20);
         
         updateQuakeLedger();
     } catch (e) {
         console.error("Fetch failed:", e);
-        if (ledger) ledger.innerHTML = '<p style="color: #ff5252;">Data feed unavailable (Status: 502). Please check connection.</p>';
+        if (ledger) ledger.innerHTML = '<p>Unable to load data. Please refresh.</p>';
     }
 }
 // Define the list of regions
