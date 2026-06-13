@@ -880,18 +880,20 @@ const regions = [
     "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
 ];
 
-// 1. Define the custom control class
 const QuakeControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-control-bar');
-        
-        // Map your region array to HTML options
         const regionOptions = regions.map(r => `<option value="${r}">${r}</option>`).join('');
 
         div.innerHTML = `
             <label>⏰ 
                 <select id="timeFilter">
-                    <option value="24">24h</option>
+                    <option value="0.5">30m</option>
+                    <option value="1">1h</option>
+                    <option value="3">3h</option>
+                    <option value="6">6h</option>
+                    <option value="12">12h</option>
+                    <option value="24" selected>24h</option>
                     <option value="48">48h</option>
                 </select>
             </label>
@@ -899,15 +901,23 @@ const QuakeControl = L.Control.extend({
                 <select id="magFilter">
                     <option value="0">All M</option>
                     <option value="1">M1+</option>
+                    <option value="2">M2+</option>
                     <option value="3">M3+</option>
+                    <option value="4">M4+</option>
+                    <option value="5">M5+</option>
                 </select>
             </label>
             <label>📍 
                 <select id="areaFilter">${regionOptions}</select>
             </label>
             <label>
-                <input type="checkbox" id="audioToggle"> 🔔 Alert M3+
+                <input type="checkbox" id="audioToggle"> 🔔 M3+
             </label>
+            <div class="quake-legend">
+                <span style="color: #cccccc;">● <M1</span>
+                <span style="color: #ffeb3b;">● M2-3</span>
+                <span style="color: #ff0000;">● M4+</span>
+            </div>
         `;
         L.DomEvent.disableClickPropagation(div);
         return div;
