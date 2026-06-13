@@ -890,6 +890,7 @@ const regions = [
     "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
 ];
 
+// Updated Control Bar (No legend included)
 const QuakeControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-control-bar');
@@ -923,11 +924,6 @@ const QuakeControl = L.Control.extend({
             <label>
                 <input type="checkbox" id="audioToggle"> 🔔 M3+
             </label>
-            <div class="quake-legend">
-                <span style="color: #cccccc;">● <M1</span>
-                <span style="color: #ffeb3b;">● M2-3</span>
-                <span style="color: #ff0000;">● M4+</span>
-            </div>
         `;
         L.DomEvent.disableClickPropagation(div);
         return div;
