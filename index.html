@@ -980,12 +980,13 @@ sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
+            map.addControl(legendInstance); // Added this
             isControlVisible = true;
         }
     } else {
-        // If we switch to a different tab, hide the control
         if (isControlVisible) {
             map.removeControl(quakeControlInstance);
+            map.removeControl(legendInstance); // Added this
             isControlVisible = false;
         }
     }
