@@ -854,7 +854,7 @@ if (gpsSearchInput) {
     }
 }
   // ==========================================
-// 4. RECENT EARTHQUAKES ENGINE (NEW)
+// 4. RECENT EARTHQUAKES ENGINE 
 // ==========================================
 let earthquakeDataStorage = [];
 
@@ -872,7 +872,15 @@ function updateQuakeLedger() {
     earthquakeDataStorage.forEach(eq => {
         const row = document.createElement('div');
         row.style.cssText = "display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #333; font-size: 12px; color: #eee;";
-        row.innerHTML = `<span style="flex:1;">${eq.time}</span><span style="flex:1; color: #ff5252; font-weight: bold;">${eq.mag}</span><span style="flex:2;">${eq.area}</span>`;
+        
+        // Use the new getMagColor function here!
+        const magColor = getMagColor(parseFloat(eq.mag)); 
+        
+        row.innerHTML = `
+            <span style="flex:1;">${eq.time}</span>
+            <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
+            <span style="flex:2;">${eq.area}</span>
+        `;
         ledger.appendChild(row);
     });
 }
