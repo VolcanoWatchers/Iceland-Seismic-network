@@ -904,7 +904,23 @@ const regions = [
     "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
 ];
 
-// 1. Define the custom control class
+//  Define the Legend
+const LegendControl = L.Control.extend({
+    onAdd: function(map) {
+        const div = L.DomUtil.create('div', 'quake-legend-box');
+        div.innerHTML = `
+            <div class="legend-header">Magnitude</div>
+            <div class="legend-item"><span style="color: #cccccc;">●</span> < M1</div>
+            <div class="legend-item"><span style="color: #ffeb3b;">●</span> M2-M3</div>
+            <div class="legend-item"><span style="color: #ff0000;">●</span> M4+</div>
+        `;
+        return div;
+    }
+});
+
+const legendInstance = new LegendControl({ position: 'bottomright' });
+        
+        //  Define the custom control class
 const QuakeControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-control-bar');
