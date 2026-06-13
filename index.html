@@ -155,23 +155,13 @@
     display: flex;
     gap: 15px;
     align-items: center;
-    z-index: 2000 !important;
+    /* Increase z-index to stay above overlays */
+    z-index: 2000 !important; 
 }
-
-.quake-legend {
-    display: flex;
-    gap: 8px;
-    font-size: 11px;
-    margin-left: 5px;
-    border-left: 1px solid #444;
-    padding-left: 10px;
-}
-
-.quake-control-bar select {
-    background: #333;
-    color: #fff;
-    border: 1px solid #555;
-    border-radius: 4px;
+.quake-control-bar select, 
+.quake-control-bar label {
+    font-size: 13px;
+    cursor: pointer;
 }
         /* This is the final closing bracket for the CSS section */    
 </style>
@@ -234,52 +224,6 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
 
     <script>
-const regions = [
-            "All regions", "Reykjanes peninsula", "Reykjanes ridge", "Hengill", 
-            "Southern Iceland (SISZ)", "Vestmannaeyjar", "Mýrdalsjökull (Includes Katla)", 
-            "Vatnajökull (Includes Bárðarbunga and Grímsvötn)", "Askja", "Mývatn", 
-            "Tjörnes fracture zone - small", "Tjörnes fracture zone - large", 
-            "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
-        ];
-
-        const QuakeControl = L.Control.extend({
-            onAdd: function(map) {
-                const div = L.DomUtil.create('div', 'quake-control-bar');
-                const regionOptions = regions.map(r => `<option value="${r}">${r}</option>`).join('');
-                div.innerHTML = `
-                    <label>⏰ <select id="timeFilter">
-                        <option value="0.5">30m</option><option value="1">1h</option><option value="3">3h</option>
-                        <option value="6">6h</option><option value="12">12h</option><option value="24" selected>24h</option>
-                        <option value="48">48h</option>
-                    </select></label>
-                    <label>📊 <select id="magFilter">
-                        <option value="0">All M</option><option value="1">M1+</option><option value="2">M2+</option>
-                        <option value="3">M3+</option><option value="4">M4+</option><option value="5">M5+</option>
-                    </select></label>
-                    <label>📍 <select id="areaFilter">${regionOptions}</select></label>
-                    <label><input type="checkbox" id="audioToggle"> 🔔 M3+</label>
-                `;
-                L.DomEvent.disableClickPropagation(div);
-                return div;
-            }
-        });
-
-        const LegendControl = L.Control.extend({
-            onAdd: function(map) {
-                const div = L.DomUtil.create('div', 'quake-legend-box');
-                div.innerHTML = `
-                    <div class="legend-header">Magnitude</div>
-                    <div class="legend-item"><span style="color: #cccccc;">●</span> <M1</div>
-                    <div class="legend-item"><span style="color: #ffeb3b;">●</span> M2-M3</div>
-                    <div class="legend-item"><span style="color: #ff0000;">●</span> M4+</div>
-                `;
-                return div;
-            }
-        });
-
-        const quakeControlInstance = new QuakeControl({ position: 'topleft' });
-        const legendInstance = new LegendControl({ position: 'bottomright' });
-        
        
 // ==========================================
 // 1. INITIALIZE MAP (STABLE, FIXED POSITION)
@@ -936,21 +880,18 @@ const regions = [
     "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
 ];
 
-// Updated Control Bar (No legend included)
+// 1. Define the custom control class
 const QuakeControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-control-bar');
+        
+        // Map your region array to HTML options
         const regionOptions = regions.map(r => `<option value="${r}">${r}</option>`).join('');
 
         div.innerHTML = `
             <label>⏰ 
                 <select id="timeFilter">
-                    <option value="0.5">30m</option>
-                    <option value="1">1h</option>
-                    <option value="3">3h</option>
-                    <option value="6">6h</option>
-                    <option value="12">12h</option>
-                    <option value="24" selected>24h</option>
+                    <option value="24">24h</option>
                     <option value="48">48h</option>
                 </select>
             </label>
@@ -958,17 +899,14 @@ const QuakeControl = L.Control.extend({
                 <select id="magFilter">
                     <option value="0">All M</option>
                     <option value="1">M1+</option>
-                    <option value="2">M2+</option>
                     <option value="3">M3+</option>
-                    <option value="4">M4+</option>
-                    <option value="5">M5+</option>
                 </select>
             </label>
             <label>📍 
                 <select id="areaFilter">${regionOptions}</select>
             </label>
             <label>
-                <input type="checkbox" id="audioToggle"> 🔔 M3+
+                <input type="checkbox" id="audioToggle"> 🔔 Alert M3+
             </label>
         `;
         L.DomEvent.disableClickPropagation(div);
