@@ -910,9 +910,12 @@ const LegendControl = L.Control.extend({
         const div = L.DomUtil.create('div', 'quake-legend-box');
         div.innerHTML = `
             <div class="legend-header">Magnitude</div>
-            <div class="legend-item"><span style="color: #cccccc;">●</span> < M1</div>
-            <div class="legend-item"><span style="color: #ffeb3b;">●</span> M2-M3</div>
-            <div class="legend-item"><span style="color: #ff0000;">●</span> M4+</div>
+            <div class="legend-item"><span style="color: #2196f3;">●</span> < M0 (Blue)</div>
+            <div class="legend-item"><span style="color: #8bc34a;">●</span> M0+ (Lt Green)</div>
+            <div class="legend-item"><span style="color: #2e7d32;">●</span> M1+ (Dk Green)</div>
+            <div class="legend-item"><span style="color: #ffeb3b;">●</span> M2+ (Yellow)</div>
+            <div class="legend-item"><span style="color: #ff9800;">●</span> M3+ (Amber)</div>
+            <div class="legend-item"><span style="color: #ff0000;">●</span> M4+ (Red)</div>
         `;
         return div;
     }
@@ -991,6 +994,17 @@ sidebar.on('content', function(e) {
         }
     }
 });
+
+//colour helper
+        function getMagColor(mag) {
+    if (mag < 0) return '#2196f3'; // Blue
+    if (mag < 1) return '#8bc34a'; // Light Green
+    if (mag < 2) return '#2e7d32'; // Dark Green
+    if (mag < 3) return '#ffeb3b'; // Yellow
+    if (mag < 4) return '#ff9800'; // Amber
+    return '#ff0000';              // Red
+}
+        
 fetchEarthquakeData();
 setInterval(fetchEarthquakeData, 60000);      
 </script>
