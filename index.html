@@ -887,7 +887,8 @@ function updateQuakeLedger() {
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
-    // Using the secret URL you found (the 'latest.json' feed)
+    const CACHE_KEY = 'quake_data_cache';
+    // The internal feed you discovered
     const url = 'https://corsproxy.io/?https://skjalftalisa.vedur.is/v1/latest.json';
     
     try {
@@ -895,18 +896,48 @@ async function fetchEarthquakeData() {
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
         
-        // Mapping the array indices: Index 5 is Mag, Index 1 is Time, Index 7 is Area
-        earthquakeDataStorage = json.d.map(item => ({
+        // Transform the array data into objects your code understands
+        const freshData = json.d.map(item => ({
             time: new Date(item[1]).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
             mag: parseFloat(item[5]).toFixed(1),
             area: item[7]
         })).slice(0, 20);
+
+        // Save to LocalStorage so it works even if the API goes offline later
+        localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
+        updateQuakeLedger(freshData);
         
-        updateQuakeLedger();
     } catch (e) {
-        console.error("Fetch failed:", e);
-        if (ledger) ledger.innerHTML = '<p>Unable to load data. Please refresh.</p>';
+        console.warn("Fetch failed, loading from cache:", e);
+        
+        // FALLBACK: Load whatever was saved last time
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedData) {
+            updateQuakeLedger(JSON.parse(cachedData));
+        } else if (ledger) {
+            ledger.innerHTML = '<p>Data currently offline. Please try again shortly.</p>';
+        }
     }
+}
+
+// Make sure your update function accepts the data as an argument
+function updateQuakeLedger(data) {
+    const ledger = document.getElementById('quakes-ledger-body');
+    if (!ledger) return;
+    
+    ledger.innerHTML = `<div style="display: flex; border-bottom: 2px solid #555; padding-bottom: 5px; font-weight: bold; color: #888;">
+        <span style="flex:1;">TIME</span><span style="flex:1;">MAG</span><span style="flex:2;">LOCATION</span>
+    </div>`;
+
+    data.forEach(eq => {
+        const row = document.createElement('div');
+        const magColor = getMagColor(parseFloat(eq.mag));
+        row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #eee;";
+        row.innerHTML = `<span style="flex:1;">${eq.time}</span>
+                         <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
+                         <span style="flex:2;">${eq.area}</span>`;
+        ledger.appendChild(row);
+    });
 }
 // Define the list of regions
 const regions = [
