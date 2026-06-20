@@ -939,7 +939,7 @@ function updateQuakeLedger(data) {
     data.forEach(eq => {
         const row = document.createElement('div');
         const magColor = getMagColor(parseFloat(eq.mag));
-        row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #eee;";
+      row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #000; font-weight: 700;";
         row.innerHTML = `<span style="flex:1;">${eq.time}</span>
                          <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
                          <span style="flex:2;">${eq.area}</span>`;
