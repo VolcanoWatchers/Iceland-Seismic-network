@@ -906,7 +906,7 @@ async function fetchEarthquakeData() {
         
         // Transform the array data into objects your code understands
 const freshData = json.features
-    .sort((a, b) => new Date(b.properties.time) - new Date(a.properties.time))
+   .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
     .map(item => ({
     time: new Date(item.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
     mag: parseFloat(item.properties.magnitude).toFixed(1),
