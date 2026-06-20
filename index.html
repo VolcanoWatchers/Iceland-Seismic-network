@@ -279,15 +279,8 @@ var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{
 // Default to loading the topographic map first
 topo.addTo(map);
   const quakeLayer = L.layerGroup();
-   L.circleMarker([64.9, -18.3], {
-    radius: 8,
-    fillColor: '#ff0000',
-    color: '#ffffff',
-    weight: 1,
-    fillOpacity: 0.9
-}).bindPopup('Test earthquake marker').addTo(quakeLayer);     
     
-
+    
 // Added "Dark Mode" to your layer switcher control
 var baseMaps = { 
     "Topographic": topo, 
