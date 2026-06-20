@@ -904,11 +904,11 @@ async function fetchEarthquakeData() {
         const json = await response.json();
         
         // Transform the array data into objects your code understands
-       const freshData = json.features.map(item => ({
-            time: new Date(item[1]).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-            mag: parseFloat(item[5]).toFixed(1),
-            area: item[7]
-        })).slice(0, 20);
+      const freshData = json.features.map(item => ({
+    time: new Date(item.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+    mag: parseFloat(item.properties.magnitude).toFixed(1),
+    area: item.properties.region
+})).slice(0, 20);
 
         // Save to LocalStorage so it works even if the API goes offline later
         localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
