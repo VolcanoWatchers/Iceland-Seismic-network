@@ -878,7 +878,7 @@ function updateQuakeLedger() {
 
     earthquakeDataStorage.forEach(eq => {
         const row = document.createElement('div');
-      row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #222; font-weight: 600;";
+   row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #111; font-weight: 700;";
         
         // Use the new getMagColor function here!
         const magColor = getMagColor(parseFloat(eq.mag)); 
