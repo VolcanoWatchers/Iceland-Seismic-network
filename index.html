@@ -889,29 +889,29 @@ function updateQuakeLedger() {
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
     const CACHE_KEY = 'quake_data_cache';
-    
-    // CHANGE THIS: Point to your new bridge
-    const url = '/api/earthquakes'; 
+    // The internal feed you discovered
+    const url = 'https://corsproxy.io/?https://skjalftalisa.vedur.is/v1/latest.json';
     
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
-    
-        //
-// Map directly to the data array
-const freshData = json.map(item => ({
-    time: new Date(item.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-    mag: parseFloat(item.magnitude).toFixed(1),
-    area: item.humanReadableLocation
-})).slice(0, 20);
+        
+        // Transform the array data into objects your code understands
+        const freshData = json.d.map(item => ({
+            time: new Date(item[1]).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+            mag: parseFloat(item[5]).toFixed(1),
+            area: item[7]
+        })).slice(0, 20);
 
+        // Save to LocalStorage so it works even if the API goes offline later
         localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
         updateQuakeLedger(freshData);
         
     } catch (e) {
         console.warn("Fetch failed, loading from cache:", e);
         
+        // FALLBACK: Load whatever was saved last time
         const cachedData = localStorage.getItem(CACHE_KEY);
         if (cachedData) {
             updateQuakeLedger(JSON.parse(cachedData));
