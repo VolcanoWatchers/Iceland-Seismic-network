@@ -921,7 +921,7 @@ const freshData = json.features
     mag: parseFloat(item.properties.magnitude).toFixed(1),
     depth: parseFloat(item.properties.depth).toFixed(1),
     area: item.properties.region
-})).slice(0, 20);
+})).slice(0, 25);
         // Save to LocalStorage so it works even if the API goes offline later
         localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
         updateQuakeLedger(freshData);
