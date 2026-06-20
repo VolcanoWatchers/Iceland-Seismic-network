@@ -933,7 +933,7 @@ function updateQuakeLedger(data) {
     if (!ledger) return;
     
     ledger.innerHTML = `<div style="display: flex; border-bottom: 2px solid #555; padding-bottom: 5px; font-weight: bold; color: #888;">
-        <span style="flex:1;">TIME</span><span style="flex:1;">MAG</span><span style="flex:2;">LOCATION</span>
+       <span style="flex:1;">TIME</span><span style="flex:1;">MAG</span><span style="flex:1;">DEPTH</span><span style="flex:2;">LOCATION</span>
     </div>`;
 
     data.forEach(eq => {
