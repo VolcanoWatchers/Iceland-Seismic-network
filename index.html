@@ -896,7 +896,7 @@ async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
     const CACHE_KEY = 'quake_data_cache';
     // The internal feed you discovered
-    const url = 'https://corsproxy.io/?https://skjalftalisa.vedur.is/v1/latest.json';
+   const url = 'https://api.vedur.is/quakes/events?start_time=2026-06-20T10%3A22%3A52%2B01%3A00&end_time=2026-06-20T13%3A22%3A52%2B01%3A00&depth_min=0&depth_max=25&size_min=-2&size_max=7&status=reviewed';
     
     try {
         const response = await fetch(url);
