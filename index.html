@@ -885,8 +885,9 @@ function updateQuakeLedger() {
         
         row.innerHTML = `
             <span style="flex:1;">${eq.time}</span>
-            <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
-            <span style="flex:2;">${eq.area}</span>
+         <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
+<span style="flex:1;">${eq.depth} km</span>
+<span style="flex:2;">${eq.area}</span>
         `;
         ledger.appendChild(row);
     });
