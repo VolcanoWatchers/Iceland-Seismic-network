@@ -1,11 +1,12 @@
 export default async function handler(req, res) {
-  // Using the primary IMO data source
-  const imoUrl = 'https://api.vedur.is/en/earthquakes/is/latest';
+  // Using the public earthquake feed URL
+  const imoUrl = 'https://skjalftalisa.vedur.is/v1/latest.json';
 
   try {
     const response = await fetch(imoUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Compatible; VolcanoWatchers/1.0)'
+        'User-Agent': 'Mozilla/5.0',
+        'Referer': 'https://www.vedur.is/'
       }
     });
 
