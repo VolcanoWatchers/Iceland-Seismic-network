@@ -897,11 +897,13 @@ async function fetchEarthquakeData() {
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
-    // Change this part in your index.html
-const freshData = json.d.map(item => ({
-    time: new Date(item[1]).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-    mag: parseFloat(item[5]).toFixed(1),
-    area: item[7]
+    
+        //
+// Map directly to the data array
+const freshData = json.map(item => ({
+    time: new Date(item.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+    mag: parseFloat(item.magnitude).toFixed(1),
+    area: item.humanReadableLocation
 })).slice(0, 20);
 
         localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
