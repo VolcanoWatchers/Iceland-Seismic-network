@@ -905,7 +905,7 @@ async function fetchEarthquakeData() {
         
         // Transform the array data into objects your code understands
       const freshData = json.features.map(item => ({
-    time: new Date(item.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+   time: new Date(item.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
     mag: parseFloat(item.properties.magnitude).toFixed(1),
     area: item.properties.region
 })).slice(0, 20);
