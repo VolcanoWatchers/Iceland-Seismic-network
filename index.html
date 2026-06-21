@@ -914,8 +914,14 @@ console.log('IMO quake URL:', url);
         const json = await response.json();
         quakeLayer.clearLayers();
         
-        // Transform the array data into objects your code understands
-const freshData = json.features
+L.circleMarker([63.985, -22.55], {
+    radius: 8,
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.7
+}).addTo(quakeLayer);
+       
+    const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
     .map(item => ({
     time: new Date(item.properties.time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
