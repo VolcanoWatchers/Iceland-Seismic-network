@@ -916,6 +916,7 @@ console.log('IMO quake URL:', url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
         quakeLayer.clearLayers();
+        Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
         
    json.features.forEach(item => {
     const coords = item.geometry.coordinates;
