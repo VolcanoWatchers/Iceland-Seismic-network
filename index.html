@@ -916,12 +916,6 @@ console.log('IMO quake URL:', url);
         const json = await response.json();
         quakeLayer.clearLayers();
         
-L.circleMarker([63.985, -22.55], {
-    radius: 8,
-    color: 'yellow',
-    fillColor: 'yellow',
-    fillOpacity: 0.7
-}).addTo(quakeLayer);
        
     const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
