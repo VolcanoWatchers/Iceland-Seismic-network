@@ -686,6 +686,7 @@ sidebar.on('content', function(e) {
         allMarkers.forEach(marker => map.removeLayer(marker));
         
     } else if (e.id === 'gps') {
+        map.removeLayer(quakeLayer);
         // Show GPS stations only
         map.removeLayer(darkMode);
         map.removeLayer(satellite);
@@ -720,6 +721,7 @@ sidebar.on('content', function(e) {
 
 // Clear sidebar content when it is closed completely
 sidebar.on('closing', function () {
+     map.removeLayer(quakeLayer);
     const seismicContainer = document.getElementById('station-data');
     const gpsContainer = document.getElementById('gps-data');
     const gpsInput = document.getElementById('gpsSearch');
