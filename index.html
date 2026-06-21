@@ -924,13 +924,19 @@ console.log('IMO quake URL:', url);
     const mag = parseFloat(props.magnitude);
     const color = getMagColor(mag);
 
-    L.circleMarker([lat, lon], {
-        radius: 6,
-        color: '#ffffff',
-        weight: 1,
-        fillColor: color,
-        fillOpacity: 0.65
-    }).addTo(quakeLayer);
+   L.circleMarker([lat, lon], {
+    radius: 6,
+    color: '#ffffff',
+    weight: 1,
+    fillColor: color,
+    fillOpacity: 0.65
+})
+.bindPopup(`
+    <b>${props.region}</b><br>
+    Magnitude: ${props.magnitude}<br>
+    Depth: ${props.depth} km
+`)
+.addTo(quakeLayer);
 });    
     const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
