@@ -923,6 +923,7 @@ console.log('IMO quake URL:', url);
     const lon = coords[0];
     const mag = parseFloat(props.magnitude);
     const color = getMagColor(mag);
+    const radius = Math.max(4, Math.min(12, 4 + (mag * 2))); 
 
    L.circleMarker([lat, lon], {
     radius: 6,
