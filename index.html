@@ -945,16 +945,18 @@ quakeMarkers[props.event_id] = marker;
 });    
     const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
-    .map(item => ({
+.map(item => ({
+   eventId: item.id,
+
    time: new Date(item.properties.time).toLocaleTimeString(
-    'en-GB',
-    {
-        timeZone: 'UTC',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    }
-),
+      'en-GB',
+      {
+          timeZone: 'UTC',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+      }
+   ),
     mag: parseFloat(item.properties.magnitude).toFixed(1),
     depth: parseFloat(item.properties.depth).toFixed(1),
     area: item.properties.region
