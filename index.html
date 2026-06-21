@@ -958,7 +958,7 @@ quakeMarkers[props.event_id] = marker;
     const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
 .map(item => ({
-   eventId: item.id,
+ eventId: item.properties.event_id,
 
    time: new Date(item.properties.time).toLocaleTimeString(
       'en-GB',
