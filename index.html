@@ -912,6 +912,7 @@ console.log('IMO quake URL:', url);
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
+        quakeLayer.clearLayers();
         
         // Transform the array data into objects your code understands
 const freshData = json.features
