@@ -927,7 +927,7 @@ console.log('IMO quake URL:', url);
     const color = getMagColor(mag);
     const radius = Math.max(4, Math.min(12, 4 + (mag * 2))); 
 
-   L.circleMarker([lat, lon], {
+   const marker = L.circleMarker([lat, lon], {
  radius: radius,
     color: '#ffffff',
     weight: 1,
@@ -941,6 +941,7 @@ Depth: ${parseFloat(props.depth).toFixed(1)} km<br>
 Time: ${new Date(props.time).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit', second: '2-digit' })} UTC
 `)
 .addTo(quakeLayer);
+quakeMarkers[props.event_id] = marker;     
 });    
     const freshData = json.features
    .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
