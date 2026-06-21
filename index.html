@@ -933,8 +933,8 @@ console.log('IMO quake URL:', url);
 })
 .bindPopup(`
     <b>${props.region}</b><br>
-    Magnitude: ${props.magnitude}<br>
-    Depth: ${props.depth} km<br>
+   Magnitude: ${parseFloat(props.magnitude).toFixed(1)}<br>
+Depth: ${parseFloat(props.depth).toFixed(1)} km<br>
 Time: ${new Date(props.time).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit', second: '2-digit' })} UTC
 `)
 .addTo(quakeLayer);
