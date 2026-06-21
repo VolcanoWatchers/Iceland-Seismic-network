@@ -896,9 +896,10 @@ function updateQuakeLedger() {
 row.style.cursor = 'pointer';
 
 row.addEventListener('click', function () {
+    console.log('Clicked ledger event:', eq.eventId);
     const marker = quakeMarkers[eq.eventId];
-
-    if (marker) {
+    
+     if (marker) {
         map.setView(marker.getLatLng(), 10);
         marker.openPopup();
     }
