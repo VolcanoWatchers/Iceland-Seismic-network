@@ -879,19 +879,29 @@ function updateQuakeLedger() {
             <span style="flex:2;">LOCATION</span>
         </div>`;
 
-    earthquakeDataStorage.forEach(eq => {
-        const row = document.createElement('div');
-   row.style.cssText = "display: flex; padding: 6px 0; border-bottom: 1px solid #333; color: #111; font-weight: 700;";
+earthquakeDataStorage.forEach(eq => {
+    const row = document.createElement('div');
+
+    const rowColor = getMagColor(parseFloat(eq.mag));
+
+    row.style.cssText = `
+        display: flex;
+        padding: 6px 8px;
+        margin: 2px 0;
+        border-radius: 4px;
+        background: ${rowColor};
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+    `;
+
+    row.innerHTML = `
+        <span style="flex:1;">${eq.time}</span>
+        <span style="flex:1;">${eq.mag}</span>
+        <span style="flex:1;">${eq.depth} km</span>
+        <span style="flex:2;">${eq.area}</span>
+    `;
         
-        // Use the new getMagColor function here!
-        const magColor = getMagColor(parseFloat(eq.mag)); 
-        
-       row.innerHTML = `
-    <span style="flex:1;">${eq.time}</span>
-    <span style="flex:1; color: ${magColor}; font-weight: bold;">${eq.mag}</span>
-    <span style="flex:1;">${eq.depth} km</span>
-    <span style="flex:2;">${eq.area}</span>
-`;
 
 row.style.cursor = 'pointer';
 
