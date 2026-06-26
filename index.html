@@ -1064,7 +1064,8 @@ row.addEventListener('click', function () {
     }
 
     selectedLedgerRow = row;
-
+    row.style.transform = 'scale(1)';
+    row.style.filter = 'brightness(1)';
     row.style.outline = `2px solid ${rowColor}`;
     row.style.boxShadow = `0 0 10px ${rowColor}`;
 
