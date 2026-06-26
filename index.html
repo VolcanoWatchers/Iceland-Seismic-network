@@ -1078,15 +1078,11 @@ row.addEventListener('click', function () {
 });
 
 row.addEventListener('mouseenter', function () {
-    if (selectedLedgerRow !== row) {
-        row.style.filter = 'brightness(1.12)';
-        row.style.transform = 'scale(1.02)';
-    }
+    row.style.filter = 'brightness(1.12)';
 });
 
 row.addEventListener('mouseleave', function () {
     row.style.filter = 'brightness(1)';
-    row.style.transform = 'scale(1)';
 });
         ledger.appendChild(row);
     });
