@@ -1086,7 +1086,14 @@ const LegendControl = L.Control.extend({
     onAdd: function(map) {
         const div = L.DomUtil.create('div', 'quake-legend-box');
       div.innerHTML = `
-    <div class="legend-header">Magnitude</div>
+  <div class="legend-header" style="
+    text-align:center;
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+">
+    MAGNITUDE
+</div>
 
     <div class="legend-item">
         <span style="color:#2196f3; font-size:18px;">●</span> &lt; M0
