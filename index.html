@@ -1017,9 +1017,21 @@ function updateQuakeLedger(data) {
     const ledger = document.getElementById('quakes-ledger-body');
     if (!ledger) return;
     
-    ledger.innerHTML = `<div style="display: flex; border-bottom: 2px solid #555; padding-bottom: 5px; font-weight: bold; color: #888;">
-       <span style="flex:1;">TIME</span><span style="flex:1;">MAG</span><span style="flex:1;">DEPTH</span><span style="flex:2;">LOCATION</span>
-    </div>`;
+ ledger.innerHTML = `<div style="
+    display: flex;
+    padding: 7px 8px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    background: #4b5b70;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+">
+   <span style="flex:1;">TIME</span>
+   <span style="flex:1;">MAG</span>
+   <span style="flex:1;">DEPTH</span>
+   <span style="flex:2;">AREA</span>
+</div>`;
 
     data.forEach(eq => {
         const row = document.createElement('div');
