@@ -251,9 +251,15 @@
             </div>
         </div>
 
-       <div class="leaflet-sidebar-pane" id="quakes" style="background:#2b3442;">
+     <div class="leaflet-sidebar-pane" id="quakes" style="background:#2b3442; height:100%;">
             <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Recent Earthquakes<span class="leaflet-sidebar-close">×</span></h2>
-           <div id="quakes-ledger-body" style="padding: 10px; color: white; background:#2b3442;">
+        <div id="quakes-ledger-body" style="
+    padding:10px;
+    color:white;
+    background:#2b3442;
+    min-height:100%;
+    box-sizing:border-box;
+">
                 <p>Loading earthquake data...</p>
             </div>
         </div>
