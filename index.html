@@ -83,6 +83,22 @@
         
         /* Ensure sidebar is above map */
         .leaflet-sidebar { z-index: 2000 !important; }
+        /* Darken the left sidebar tab strip */
+.leaflet-sidebar-tabs {
+    background: #2b3442 !important;
+}
+
+/* Darken individual tab buttons */
+.leaflet-sidebar-tabs > ul > li > a {
+    background: #2b3442 !important;
+    color: #e0e0e0 !important;
+}
+
+/* Keep active tab clear and visible */
+.leaflet-sidebar-tabs > ul > li.active > a {
+    background: #1976d2 !important;
+    color: #ffffff !important;
+}
 
        /* Styling for the GPS icon in the tab list */
         .fa-location-arrow {
