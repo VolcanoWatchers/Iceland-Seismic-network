@@ -869,57 +869,6 @@ if (gpsSearchInput) {
 // ==========================================
 let earthquakeDataStorage = [];
 
-function updateQuakeLedger() {
-    const ledger = document.getElementById('quakes-ledger-body');
-    if (!ledger) return;
-    
-    ledger.innerHTML = `
-        <div style="display: flex; border-bottom: 2px solid #555; padding-bottom: 5px; margin-bottom: 5px; font-weight: bold; font-size: 11px; color: #888;">
-            <span style="flex:1;">TIME</span>
-            <span style="flex:1;">MAG</span>
-            <span style="flex:2;">LOCATION</span>
-        </div>`;
-
-earthquakeDataStorage.forEach(eq => {
-    const row = document.createElement('div');
-
-    const rowColor = getMagColor(parseFloat(eq.mag));
-
-    row.style.cssText = `
-        display: flex;
-        padding: 6px 8px;
-        margin: 2px 0;
-        border-radius: 4px;
-        background: ${rowColor};
-        color: white;
-        font-weight: 700;
-        cursor: pointer;
-    `;
-
-    row.innerHTML = `
-        <span style="flex:1;">${eq.time}</span>
-        <span style="flex:1;">${eq.mag}</span>
-        <span style="flex:1;">${eq.depth} km</span>
-        <span style="flex:2;">${eq.area}</span>
-    `;
-        
-
-row.style.cursor = 'pointer';
-
-row.addEventListener('click', function () {
-   console.log('ROW CLICKED');
-    const marker = quakeMarkers[eq.eventId];
-    
-     if (marker) {
-        map.setView(marker.getLatLng(), 10);
-        marker.openPopup();
-    }
-});
-
-ledger.appendChild(row);
-    });
-}
-
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
     const CACHE_KEY = 'quake_data_cache';
