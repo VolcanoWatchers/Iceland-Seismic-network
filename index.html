@@ -1041,11 +1041,12 @@ row.style.cssText = `
     display: flex;
     padding: 6px 8px;
     margin: 2px 0;
-    border-radius: 4px;
+    border-radius: 6px;
     background: ${rowColor};
     color: white;
     font-weight: 700;
     cursor: pointer;
+    transition: all 0.15s ease;
 `;
 
 row.innerHTML = `<span style="flex:1;">${eq.time}</span>
