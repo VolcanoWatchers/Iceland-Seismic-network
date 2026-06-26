@@ -966,7 +966,10 @@ quakeMarkers[props.event_id] = marker;
     }
 }
 
-// Make sure your update function accepts the data as an argument
+// ----------------------------------------------------------
+// 4.3 Earthquake ledger
+// Builds the live earthquake list and handles user interaction
+// ----------------------------------------------------------
 function updateQuakeLedger(data) {
     const ledger = document.getElementById('quakes-ledger-body');
     if (!ledger) return;
