@@ -922,20 +922,20 @@ console.log('IMO quake URL:', url);
     padding:8px;
 ">
     <b>${props.region}</b><br>
-  Magnitude: ${parseFloat(props.magnitude).toFixed(1)}<br>
-  Depth: ${parseFloat(props.depth).toFixed(1)} km<br>
-  Date: ${new Date(props.time).toLocaleDateString('en-GB', {
-      timeZone: 'UTC',
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-  })}<br>
-  Time: ${new Date(props.time).toLocaleTimeString('en-GB', {
-      timeZone: 'UTC',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-  })} UTC
+ <b>Magnitude:</b> ${parseFloat(props.magnitude).toFixed(1)}<br>
+<b>Depth:</b> ${parseFloat(props.depth).toFixed(1)} km<br>
+<b>Date:</b> ${new Date(props.time).toLocaleDateString('en-GB', {
+    timeZone: 'UTC',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+})}<br>
+<b>Time:</b> ${new Date(props.time).toLocaleTimeString('en-GB', {
+    timeZone: 'UTC',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+})} UTC
   </div>
 `)
 .addTo(quakeLayer);
