@@ -916,7 +916,12 @@ console.log('IMO quake URL:', url);
     fillOpacity: 0.65
 })
 .bindPopup(`
-  <b>${props.region}</b><br>
+<div style="
+    border:3px solid ${color};
+    border-radius:8px;
+    padding:8px;
+">
+    <b>${props.region}</b><br>
   Magnitude: ${parseFloat(props.magnitude).toFixed(1)}<br>
   Depth: ${parseFloat(props.depth).toFixed(1)} km<br>
   Date: ${new Date(props.time).toLocaleDateString('en-GB', {
@@ -931,6 +936,7 @@ console.log('IMO quake URL:', url);
       minute: '2-digit',
       second: '2-digit'
   })} UTC
+  </div>
 `)
 .addTo(quakeLayer);
 quakeMarkers[props.event_id] = marker;     
