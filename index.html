@@ -1147,8 +1147,11 @@ sidebar.on('content', function(e) {
     }
 });
 
-//colour helper
-        function getMagColor(mag) {
+// ----------------------------------------------------------
+// 4.1 Earthquake colour helper
+// Controls marker, ledger row and legend colours
+// ----------------------------------------------------------
+    function getMagColor(mag) {
     if (mag < 0) return '#2196f3'; // Blue
     if (mag < 1) return '#8bc34a'; // Light Green
     if (mag < 2) return '#2e7d32'; // Dark Green
