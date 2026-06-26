@@ -865,11 +865,10 @@ if (gpsSearchInput) {
     }
 }
 
-// ==========================================================
-// 4. RECENT EARTHQUAKES ENGINE
-// Live IMO earthquake feed, ledger, map markers and popups
-// ==========================================================
-
+// ----------------------------------------------------------
+// 4.2 Earthquake data fetch
+// Gets live IMO earthquake data and refreshes the viewer
+// ----------------------------------------------------------
 
 async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
