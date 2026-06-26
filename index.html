@@ -207,6 +207,23 @@
 #quakes.leaflet-sidebar-pane,
 #quakes #quakes-ledger-body {
     background: #2b3442 !important;
+}   
+  /* Remove bright scrollbar edge in earthquake sidebar */
+#quakes {
+    scrollbar-color: #4b5b70 #2b3442;
+}
+
+#quakes::-webkit-scrollbar {
+    width: 10px;
+}
+
+#quakes::-webkit-scrollbar-track {
+    background: #2b3442;
+}
+
+#quakes::-webkit-scrollbar-thumb {
+    background: #4b5b70;
+    border-radius: 6px;
 }      
         
         /* This is the final closing bracket for the CSS section */    
