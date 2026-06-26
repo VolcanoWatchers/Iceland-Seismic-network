@@ -1058,10 +1058,12 @@ row.style.cursor = 'pointer';
 
 row.addEventListener('click', function () {
 
-    if (selectedLedgerRow) {
-        selectedLedgerRow.style.outline = 'none';
-        selectedLedgerRow.style.boxShadow = 'none';
-    }
+  if (selectedLedgerRow) {
+    selectedLedgerRow.style.outline = 'none';
+    selectedLedgerRow.style.boxShadow = 'none';
+    selectedLedgerRow.style.transform = 'scale(1)';
+    selectedLedgerRow.style.filter = 'brightness(1)';
+}
 
     selectedLedgerRow = row;
     row.style.transform = 'scale(1)';
