@@ -894,7 +894,11 @@ console.log('IMO quake URL:', url);
         const json = await response.json();
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
-        
+      
+// ----------------------------------------------------------
+// 4.4 Earthquake map display
+// Creates earthquake markers, popups and map interactions
+// ----------------------------------------------------------  
    json.features.forEach(item => {
     const coords = item.geometry.coordinates;
     const props = item.properties;
