@@ -1057,6 +1057,15 @@ row.innerHTML = `<span style="flex:1;">${eq.time}</span>
 row.style.cursor = 'pointer';
 
 row.addEventListener('click', function () {
+    if (selectedLedgerRow) {
+        selectedLedgerRow.style.outline = 'none';
+        selectedLedgerRow.style.boxShadow = 'none';
+    }
+
+    selectedLedgerRow = row;
+    row.style.outline = '2px solid white';
+    row.style.boxShadow = '0 0 8px rgba(255,255,255,0.8)';
+
     const marker = quakeMarkers[eq.eventId];
 
     if (marker) {
