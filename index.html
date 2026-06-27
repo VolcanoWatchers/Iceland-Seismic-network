@@ -934,11 +934,6 @@ console.log('IMO quake URL:', url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
         allEarthquakes = json.features;
-       const maxMag = Math.max(
-    ...json.features.map(item => parseFloat(item.properties.magnitude))
-).toFixed(1);
-
-updateQuakeCountBox(json.features.length, maxMag);
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
       
