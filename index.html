@@ -931,6 +931,7 @@ console.log('IMO quake URL:', url);
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
+        updateQuakeCountBox(json.features.length);
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
       
@@ -1297,7 +1298,29 @@ function updateIcelandClock() {
 
    clock.innerHTML = `🕒 UTC ${time}`;
 }       
+// ----------------------------------------------------------
+// 4.3 Earthquake activity counter
+// Updates the 24-hour earthquake count box
+// ----------------------------------------------------------
+function updateQuakeCountBox(count) {
 
+    const box = document.getElementById('quakeCountBox');
+    if (!box) return;
+
+    let activityColor = '#2e7d32'; // green
+
+    if (count > 150) {
+        activityColor = '#c62828'; // red
+    } else if (count > 75) {
+        activityColor = '#ef6c00'; // orange
+    } else if (count > 20) {
+        activityColor = '#D4AF37'; // gold
+    }
+
+    box.style.background = activityColor;
+    box.style.color = '#ffffff';
+    box.innerHTML = `24h: ${count} EQs`;
+}
 fetchEarthquakeData();
 setInterval(fetchEarthquakeData, 60000);
 
