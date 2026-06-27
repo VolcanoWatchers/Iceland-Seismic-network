@@ -1329,9 +1329,20 @@ function getTimeFilterLabel(hours) {
     if (hours == 48) return '48h';
     return `${hours}h`;
 }
-        
+ // ----------------------------------------------------------
+// 4.4 Time filter helper
+// Returns only earthquakes within the selected time window
 // ----------------------------------------------------------
-// 4.4 Earthquake activity counter
+function filterByTime(quakes, hours) {
+
+    const cutoff = Date.now() - (hours * 60 * 60 * 1000);
+
+    return quakes.filter(q =>
+        new Date(q.properties.time).getTime() >= cutoff
+    );
+}       
+// ----------------------------------------------------------
+//  4.5 Earthquake activity counter
 // Updates the earthquake count and maximum magnitude box
 // ----------------------------------------------------------
 function updateQuakeCountBox(count, maxMag) {
