@@ -1254,12 +1254,21 @@ sidebar.on('closing', function() {
 
 // Update the tab switching logic
 sidebar.on('content', function(e) {
-    if (e.id === 'quakes') {
-        if (!isControlVisible) {
-            map.addControl(quakeControlInstance);
-            map.addControl(legendInstance); // Added this
-            isControlVisible = true;
+   if (e.id === 'quakes') {
+    if (!isControlVisible) {
+        map.addControl(quakeControlInstance);
+        map.addControl(legendInstance);
+        isControlVisible = true;
+
+        const timeFilter = document.getElementById('timeFilter');
+
+        if (timeFilter) {
+            timeFilter.addEventListener('change', function () {
+                console.log('Time filter changed to:', timeFilter.value, 'hours');
+            });
         }
+    }
+}
     } else {
         if (isControlVisible) {
             map.removeControl(quakeControlInstance);
