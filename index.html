@@ -1298,30 +1298,22 @@ function updateIcelandClock() {
 
    clock.innerHTML = `🕒 UTC ${time}`;
 }       
-// -------------------------------------------------------------
+// ----------------------------------------------------------
 // 4.3 Earthquake activity counter
-// Updates the 24-hour earthquake count box
-// -------------------------------------------------------------
-function updateQuakeCountBox(count) {
+// Updates the earthquake count and maximum magnitude box
+// ----------------------------------------------------------
+function updateQuakeCountBox(count, maxMag) {
 
     const box = document.getElementById('quakeCountBox');
     if (!box) return;
 
-    let activityColor = '#2e7d32'; // green
-
-    if (count > 150) {
-        activityColor = '#c62828'; // red
-    } else if (count > 75) {
-        activityColor = '#ef6c00'; // orange
-    } else if (count > 20) {
-        activityColor = '#D4AF37'; // gold
-    }
-
     box.style.background = '#111';
-box.style.border = '1px solid #444';
-box.style.color = '#ffffff';
-box.innerHTML = `🟢 24h: ${count} EQs`;
+    box.style.border = '1px solid #444';
+    box.style.color = '#ffffff';
+
+    box.innerHTML = `24h: ${count} EQs • Max M${maxMag}`;
 }
+
 fetchEarthquakeData();
 setInterval(fetchEarthquakeData, 60000);
 
