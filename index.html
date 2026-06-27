@@ -1238,7 +1238,20 @@ const QuakeControl = L.Control.extend({
         return div;
     }
 });
+// ----------------------------------------------------------
+// 4.4 Time filter listener
+// Detects when the user changes the earthquake time window
+// ----------------------------------------------------------
+setTimeout(function () {
+    const timeFilter = document.getElementById('timeFilter');
 
+    if (timeFilter) {
+        timeFilter.addEventListener('change', function () {
+            console.log('Time filter changed to:', timeFilter.value, 'hours');
+        });
+    }
+}, 500);
+        
 const quakeControlInstance = new QuakeControl({ position: 'topleft' });
 // 2. Hook it into your sidebar toggle logic
 let isControlVisible = false; // Tracks the state of the control bar
