@@ -1271,9 +1271,13 @@ sidebar.on('content', function(e) {
             const timeFilter = document.getElementById('timeFilter');
 
             if (timeFilter) {
-                timeFilter.addEventListener('change', function () {
-                    console.log('Time filter changed to:', timeFilter.value, 'hours');
-                });
+     timeFilter.addEventListener('change', function () {
+
+    console.log('Time filter changed to:', timeFilter.value, 'hours');
+
+    applyEarthquakeFilters();
+
+});
             }
         }
     } else {
