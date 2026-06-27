@@ -1173,8 +1173,19 @@ const QuakeControl = L.Control.extend({
         const regionOptions = regions.map(r => `<option value="${r}">${r}</option>`).join('');
 
         // control bar option 
-        div.innerHTML = `
-            <label>⏰ 
+      div.innerHTML = `
+
+    <span id="icelandClock"
+          style="
+              font-weight:bold;
+              color:#ffffff;
+              min-width:120px;
+              display:inline-block;
+          ">
+        🇮🇸 --:--:--
+    </span>
+
+              <label>⏰ 
                 <select id="timeFilter">
                     <option value="0.5">30m</option>
                     <option value="1">1h</option>
