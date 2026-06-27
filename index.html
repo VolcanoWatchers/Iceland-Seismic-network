@@ -308,7 +308,7 @@ var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/service
     attribution: 'Esri Satellite'
 });
 
-// FIXED: CartoDB Dark Matter - Completely free, no API keys, no 401 errors!
+// 
 var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
@@ -317,9 +317,14 @@ var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{
 
 // Default to loading the topographic map first
 topo.addTo(map);
-  const quakeLayer = L.layerGroup();
-        const quakeMarkers = {};
-        let selectedLedgerRow = null;
+
+const quakeLayer = L.layerGroup();
+const quakeMarkers = {};
+
+// Stores the complete live earthquake dataset
+let allEarthquakes = [];
+
+let selectedLedgerRow = null;
     
     
 // Added "Dark Mode" to your layer switcher control
