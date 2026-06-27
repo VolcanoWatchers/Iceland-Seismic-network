@@ -1317,9 +1317,10 @@ function updateQuakeCountBox(count) {
         activityColor = '#D4AF37'; // gold
     }
 
-    box.style.background = activityColor;
-    box.style.color = '#ffffff';
-    box.innerHTML = `24h: ${count} EQs`;
+    box.style.background = '#111';
+box.style.border = '1px solid #444';
+box.style.color = '#ffffff';
+box.innerHTML = `🟢 24h: ${count} EQs`;
 }
 fetchEarthquakeData();
 setInterval(fetchEarthquakeData, 60000);
