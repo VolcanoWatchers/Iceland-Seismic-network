@@ -1175,15 +1175,19 @@ const QuakeControl = L.Control.extend({
         // control bar option 
       div.innerHTML = `
 
-    <span id="icelandClock"
-          style="
-              font-weight:bold;
-              color:#ffffff;
-              min-width:120px;
-              display:inline-block;
-          ">
-        🇮🇸 --:--:--
-    </span>
+    <span id="icelandClock" style="
+    background:#111;
+    border:1px solid #444;
+    border-radius:5px;
+    padding:3px 8px;
+    font-weight:bold;
+    color:#ffffff;
+    min-width:125px;
+    display:inline-block;
+    text-align:center;
+">
+    🇮🇸 --:--:--
+</span>
 
               <label>⏰ 
                 <select id="timeFilter">
