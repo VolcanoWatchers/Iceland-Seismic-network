@@ -1347,7 +1347,42 @@ function filterByTime(quakes, hours) {
     );
 }       
 // ----------------------------------------------------------
-//  4.5 Earthquake activity counter
+// 4.5 Apply earthquake filters
+// Applies current toolbar filters to the earthquake dataset
+// ----------------------------------------------------------
+function applyEarthquakeFilters() {
+
+    const timeFilter = document.getElementById('timeFilter');
+    const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
+
+    const filteredQuakes = filterByTime(allEarthquakes, selectedHours);
+
+    const maxMag = filteredQuakes.length
+        ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
+        : '0.0';
+
+    updateQuakeCountBox(filteredQuakes.length, maxMag);
+
+    const freshData = filteredQuakes
+        .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
+        .map(item => ({
+            eventId: item.properties.event_id,
+            time: new Date(item.properties.time).toLocaleTimeString('en-GB', {
+                timeZone: 'UTC',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }),
+            mag: parseFloat(item.properties.magnitude).toFixed(1),
+            depth: parseFloat(item.properties.depth).toFixed(1),
+            area: item.properties.region
+        }))
+        .slice(0, 50);
+
+    updateQuakeLedger(freshData);
+}
+// ----------------------------------------------------------
+//  4.6 Earthquake activity counter
 // Updates the earthquake count and maximum magnitude box
 // ----------------------------------------------------------
 function updateQuakeCountBox(count, maxMag) {
@@ -1359,11 +1394,11 @@ function updateQuakeCountBox(count, maxMag) {
     box.style.border = '1px solid #444';
     box.style.color = '#ffffff';
 
-const timeFilter = document.getElementById('timeFilter');
-const hours = timeFilter ? parseFloat(timeFilter.value) : 24;
-const label = getTimeFilterLabel(hours);
+    const timeFilter = document.getElementById('timeFilter');
+    const hours = timeFilter ? parseFloat(timeFilter.value) : 24;
+    const label = getTimeFilterLabel(hours);
 
-box.innerHTML = `${label}: ${count} EQs • Max M${maxMag}`;
+    box.innerHTML = `${label}: ${count} EQs • Max M${maxMag}`;
 }
 
 fetchEarthquakeData();
