@@ -1343,7 +1343,11 @@ function updateQuakeCountBox(count, maxMag) {
     box.style.border = '1px solid #444';
     box.style.color = '#ffffff';
 
-    box.innerHTML = `24h: ${count} EQs • Max M${maxMag}`;
+const timeFilter = document.getElementById('timeFilter');
+const hours = timeFilter ? parseFloat(timeFilter.value) : 24;
+const label = getTimeFilterLabel(hours);
+
+box.innerHTML = `${label}: ${count} EQs • Max M${maxMag}`;
 }
 
 fetchEarthquakeData();
