@@ -933,6 +933,7 @@ console.log('IMO quake URL:', url);
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
+        allEarthquakes = json.features;
        const maxMag = Math.max(
     ...json.features.map(item => parseFloat(item.properties.magnitude))
 ).toFixed(1);
