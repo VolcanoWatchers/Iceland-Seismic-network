@@ -998,27 +998,37 @@ updateQuakeCountBox(json.features.length, maxMag);
 .addTo(quakeLayer);
 quakeMarkers[props.event_id] = marker;     
 });    
-    const freshData = json.features
-   .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
-.map(item => ({
- eventId: item.properties.event_id,
+    const selectedHours = parseFloat(document.getElementById('timeFilter')?.value || 24);
 
-   time: new Date(item.properties.time).toLocaleTimeString(
-      'en-GB',
-      {
-          timeZone: 'UTC',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-      }
-   ),
-    mag: parseFloat(item.properties.magnitude).toFixed(1),
-    depth: parseFloat(item.properties.depth).toFixed(1),
-    area: item.properties.region
-})).slice(0, 50);
-        // Save to LocalStorage so it works even if the API goes offline later
-        localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
-        updateQuakeLedger(freshData);
+const filteredQuakes = filterByTime(allEarthquakes, selectedHours);
+
+const maxMag = filteredQuakes.length
+    ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
+    : '0.0';
+
+updateQuakeCountBox(filteredQuakes.length, maxMag);
+
+const freshData = filteredQuakes
+   .sort((a, b) => Date.parse(b.properties.time) - Date.parse(a.properties.time))
+   .map(item => ({
+        eventId: item.properties.event_id,
+        time: new Date(item.properties.time).toLocaleTimeString(
+            'en-GB',
+            {
+                timeZone: 'UTC',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }
+        ),
+        mag: parseFloat(item.properties.magnitude).toFixed(1),
+        depth: parseFloat(item.properties.depth).toFixed(1),
+        area: item.properties.region
+    }))
+    .slice(0, 50);
+
+localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
+updateQuakeLedger(freshData);
         
     } catch (e) {
         console.warn("Fetch failed, loading from cache:", e);
