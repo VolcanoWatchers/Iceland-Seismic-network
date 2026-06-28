@@ -1023,7 +1023,7 @@ const freshData = filteredQuakes
     .slice(0, 50);
 
 localStorage.setItem(CACHE_KEY, JSON.stringify(freshData));
-updateQuakeLedger(freshData);
+applyEarthquakeFilters();
         
     } catch (e) {
         console.warn("Fetch failed, loading from cache:", e);
