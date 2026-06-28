@@ -1267,6 +1267,8 @@ sidebar.on('content', function(e) {
             map.addControl(quakeControlInstance);
             map.addControl(legendInstance);
             isControlVisible = true;
+            
+            applyEarthquakeFilters();
 
             const timeFilter = document.getElementById('timeFilter');
 
