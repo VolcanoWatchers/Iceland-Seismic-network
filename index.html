@@ -941,7 +941,10 @@ console.log('IMO quake URL:', url);
 // 4.4 Earthquake map display
 // Creates earthquake markers, popups and map interactions
 // ----------------------------------------------------------  
-   json.features.forEach(item => {
+filterByTime(
+    allEarthquakes,
+    parseFloat(document.getElementById('timeFilter')?.value || 24)
+).forEach(item => {
     const coords = item.geometry.coordinates;
     const props = item.properties;
     const lat = coords[1];
