@@ -917,7 +917,7 @@ if (gpsSearchInput) {
 // 4.3 Earthquake marker helper
 // Draws earthquake markers on the map
 // ----------------------------------------------------------
-function drawEarthquakeMap(quakes) {
+function updateEarthquakeMap(quakes) {
   quakeLayer.clearLayers();
   Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
     
