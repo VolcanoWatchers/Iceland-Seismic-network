@@ -932,6 +932,14 @@ function updateEarthquakeMap(quakes) {
         const color = getMagColor(mag);
         const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
 
+        const marker = L.circleMarker([lat, lon], {
+            radius: radius,
+            color: '#ffffff',
+            weight: 1,
+            fillColor: color,
+            fillOpacity: 0.65
+        });
+
     });
 
 }
