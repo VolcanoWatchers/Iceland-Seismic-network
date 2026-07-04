@@ -203,23 +203,14 @@
 .legend-item {
     margin: 3px 0;
 }     
-
 /* Earthquake sidebar dark theme */
-#quakes,
 #quakes.leaflet-sidebar-pane,
 #quakes #quakes-ledger-body {
-    background: #1f1f1f !important;
+    background: #2b3442 !important;
 }
 
-/* Darken shared sidebar content only while Earthquakes tab is open */
-#sidebar.quake-mode .leaflet-sidebar-content {
-    background: #1f1f1f !important;
-}
-
-/* Keep Seismic and GPS tabs white */
-.leaflet-sidebar-content:has(#home.active),
-.leaflet-sidebar-content:has(#gps.active) {
-    background: #ffffff !important;
+.leaflet-sidebar-content {
+    background: #2b3442 !important;
 }
 
 /* Remove bright scrollbar edge in earthquake sidebar */
@@ -288,7 +279,7 @@
             </div>
         </div>
 
-    <div class="leaflet-sidebar-pane" id="quakes">
+    <div class="leaflet-sidebar-pane" id="quakes" style="background:#2b3442;">
             <h2 class="leaflet-sidebar-header" style="background-color: #c62828;">Recent Earthquakes<span class="leaflet-sidebar-close">×</span></h2>
    <div id="quakes-ledger-body" style="padding:10px; color:white; background:#2b3442; min-height:100%; box-sizing:border-box;">
                 <p>Loading earthquake data...</p>
@@ -999,48 +990,48 @@ filterByTime(
     const color = getMagColor(mag);
     const radius = Math.max(4, Math.min(12, 4 + (mag * 2))); 
 
-    const marker = L.circleMarker([lat, lon], {
-    radius: radius,
+   const marker = L.circleMarker([lat, lon], {
+ radius: radius,
     color: '#ffffff',
     weight: 1,
     fillColor: color,
     fillOpacity: 0.65
 })
-.bindPopup(`
-    <div style="
-        border: 3px solid ${color};
-        border-radius: 10px;
-        padding: 8px;
-        font-size: 13px;
-    ">
-        <div style="
-            color: ${color};
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        ">
-            ${props.region}
-        </div>
 
-        <b>Magnitude:</b> ${parseFloat(props.magnitude).toFixed(1)}<br>
-        <b>Depth:</b> ${parseFloat(props.depth).toFixed(1)} km<br>
-        <b>Date:</b> ${new Date(props.time).toLocaleDateString('en-GB', {
-            timeZone: 'UTC',
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric'
-        })}<br>
-        <b>Time:</b> ${new Date(props.time).toLocaleTimeString('en-GB', {
-            timeZone: 'UTC',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        })} UTC
-    </div>
+.bindPopup(`
+<div style="
+    border:3px solid ${color};
+    border-radius:10px;
+    padding:8px;
+">
+
+<div style="
+    color:${color};
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:8px;
+">
+    ${props.region}
+</div>
+
+ <b>Magnitude:</b> ${parseFloat(props.magnitude).toFixed(1)}<br>
+<b>Depth:</b> ${parseFloat(props.depth).toFixed(1)} km<br>
+<b>Date:</b> ${new Date(props.time).toLocaleDateString('en-GB', {
+    timeZone: 'UTC',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+})}<br>
+<b>Time:</b> ${new Date(props.time).toLocaleTimeString('en-GB', {
+    timeZone: 'UTC',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+})} UTC
+  </div>
 `)
 .addTo(quakeLayer);
-
-quakeMarkers[props.event_id] = marker;
+quakeMarkers[props.event_id] = marker;     
 });    
     const selectedHours = parseFloat(document.getElementById('timeFilter')?.value || 24);
 
@@ -1312,7 +1303,6 @@ sidebar.on('closing', function() {
 // Update the tab switching logic
 sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
-     document.getElementById('sidebar').classList.add('quake-mode');   
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
             map.addControl(legendInstance);
