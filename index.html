@@ -924,6 +924,14 @@ function drawEarthquakeMarkers(quakes) {
 
     quakes.forEach(item => {
 
+        const coords = item.geometry.coordinates;
+        const props = item.properties;
+        const lat = coords[1];
+        const lon = coords[0];
+        const mag = parseFloat(props.magnitude);
+        const color = getMagColor(mag);
+        const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
+
     });
 
 }
