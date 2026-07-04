@@ -203,14 +203,21 @@
 .legend-item {
     margin: 3px 0;
 }     
-  /* Earthquake sidebar dark theme */
+ /* Earthquake sidebar dark theme */
+#quakes,
 #quakes.leaflet-sidebar-pane,
 #quakes #quakes-ledger-body {
-    background: #2b3442 !important;
-}   
-  /* Remove bright scrollbar edge in earthquake sidebar */
+    background: #1f1f1f !important;
+}
+
+/* Darken shared sidebar content only while Earthquakes tab is open */
+#sidebar.quake-mode .leaflet-sidebar-content {
+    background: #1f1f1f !important;
+}
+
+/* Remove bright scrollbar edge in earthquake sidebar */
 #quakes {
-    scrollbar-color: #4b5b70 #2b3442;
+    scrollbar-color: #4b5b70 #1f1f1f;
 }
 
 #quakes::-webkit-scrollbar {
@@ -218,13 +225,13 @@
 }
 
 #quakes::-webkit-scrollbar-track {
-    background: #2b3442;
+    background: #1f1f1f;
 }
 
 #quakes::-webkit-scrollbar-thumb {
     background: #4b5b70;
     border-radius: 6px;
-}      
+}
         
         /* This is the final closing bracket for the CSS section */    
 </style>
