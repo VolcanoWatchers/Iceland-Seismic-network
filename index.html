@@ -236,7 +236,27 @@
 #quakes::-webkit-scrollbar-thumb:hover {
     background: #5d6f86;
 }
-        
+  /* Earthquake mode scrollbar on the shared sidebar content */
+#sidebar.quake-mode .leaflet-sidebar-content {
+    scrollbar-color: #4b5b70 #1f1f1f;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar-track {
+    background: #1f1f1f;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar-thumb {
+    background: #4b5b70;
+    border-radius: 6px;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: #5d6f86;
+}      
         /* This is the final closing bracket for the CSS section */    
 </style>
 </head>
