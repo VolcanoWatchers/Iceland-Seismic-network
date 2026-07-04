@@ -919,6 +919,9 @@ if (gpsSearchInput) {
 // ----------------------------------------------------------
 function drawEarthquakeMarkers(quakes) {
 
+    quakeLayer.clearLayers();
+    Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
+
 }
 
  async function fetchEarthquakeData() {
