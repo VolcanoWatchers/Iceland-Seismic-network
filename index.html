@@ -208,8 +208,7 @@
 #quakes #quakes-ledger-body {
     background: #2b3442 !important;
 }   
-  
-/* Remove bright scrollbar edge in earthquake sidebar */
+  /* Remove bright scrollbar edge in earthquake sidebar */
 #quakes {
     scrollbar-color: #4b5b70 #2b3442;
 }
@@ -919,34 +918,12 @@ if (gpsSearchInput) {
 // Draws earthquake markers on the map
 // ----------------------------------------------------------
 function updateEarthquakeMap(quakes) {
-
-    quakeLayer.clearLayers();
-    Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
-
-    quakes.forEach(item => {
-
-        const coords = item.geometry.coordinates;
-        const props = item.properties;
-        const lat = coords[1];
-        const lon = coords[0];
-        const mag = parseFloat(props.magnitude);
-        const color = getMagColor(mag);
-        const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
-
-            const marker = L.circleMarker([lat, lon], {
-            radius: radius,
-            color: '#ffffff',
-            weight: 1,
-            fillColor: color,
-            fillOpacity: 0.65
-        })
-        .addTo(quakeLayer);
-
-        quakeMarkers[props.event_id] = marker;
-
-    });
-
+  quakeLayer.clearLayers();
+  Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
+    
 }
+
+
  async function fetchEarthquakeData() {
     const ledger = document.getElementById('quakes-ledger-body');
     const CACHE_KEY = 'quake_data_cache';
@@ -1422,8 +1399,6 @@ function applyEarthquakeFilters() {
         .slice(0, 50);
 
     updateQuakeLedger(freshData);
-    updateEarthquakeMap(filteredQuakes);
-   
 }
 // ----------------------------------------------------------
 //  4.6 Earthquake activity counter
