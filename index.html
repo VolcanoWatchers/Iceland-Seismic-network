@@ -918,9 +918,8 @@ if (gpsSearchInput) {
 // Draws earthquake markers on the map
 // ----------------------------------------------------------
 function updateEarthquakeMap(quakes) {
- function updateEarthquakeMap(quakes) {
 
-    quakeLayer.clearLayers();
+ quakeLayer.clearLayers();
     Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
 
     quakes.forEach(item => {
