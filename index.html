@@ -1340,6 +1340,7 @@ sidebar.on('closing', function() {
 // Update the tab switching logic
 sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
+         document.getElementById('sidebar').classList.add('quake-mode');
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
             map.addControl(legendInstance);
