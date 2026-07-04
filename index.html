@@ -205,12 +205,21 @@
 }     
 
 /* Earthquake sidebar dark theme */
-#quakes {
+#quakes,
+#quakes.leaflet-sidebar-pane,
+#quakes #quakes-ledger-body {
     background: #1f1f1f !important;
 }
 
-#quakes #quakes-ledger-body {
+/* Only darken the shared sidebar content when Earthquakes is the active tab */
+.leaflet-sidebar-content:has(#quakes.active) {
     background: #1f1f1f !important;
+}
+
+/* Keep Seismic and GPS tabs white */
+.leaflet-sidebar-content:has(#home.active),
+.leaflet-sidebar-content:has(#gps.active) {
+    background: #ffffff !important;
 }
 
 /* Remove bright scrollbar edge in earthquake sidebar */
