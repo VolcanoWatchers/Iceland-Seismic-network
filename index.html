@@ -438,11 +438,61 @@ var baseMaps = {
     "Satellite": satellite,
     "Dark Mode": darkMode, 
     "Dark Relief": darkRelief
-};
+    };
 
 L.control.layers(baseMaps).addTo(map);
 L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
 L.control.zoom({ position: 'topright' }).addTo(map);
+
+ // Custom visible map style selector
+const mapStyleControl = L.control({ position: 'topright' });
+
+mapStyleControl.onAdd = function () {
+    const div = L.DomUtil.create('div', 'map-style-selector');
+
+    div.innerHTML = `
+        <button data-layer="topo" class="active">Topo</button>
+        <button data-layer="dark">Dark</button>
+        <button data-layer="satellite">Satellite</button>
+        <button data-layer="relief">Relief</button>
+    `;
+
+    L.DomEvent.disableClickPropagation(div);
+
+    div.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function () {
+            const selectedLayer = this.dataset.layer;
+
+            map.removeLayer(topo);
+            map.removeLayer(darkMode);
+            map.removeLayer(satellite);
+            map.removeLayer(darkRelief);
+
+            if (selectedLayer === 'topo') {
+                map.addLayer(topo);
+            }
+
+            if (selectedLayer === 'dark') {
+                map.addLayer(darkMode);
+            }
+
+            if (selectedLayer === 'satellite') {
+                map.addLayer(satellite);
+            }
+
+            if (selectedLayer === 'relief') {
+                map.addLayer(darkRelief);
+            }
+
+            div.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    return div;
+};
+
+mapStyleControl.addTo(map);       
 
 // ==========================================
 // 2. INITIALIZE SIDEBAR
