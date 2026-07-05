@@ -202,7 +202,33 @@
 
 .legend-item {
     margin: 3px 0;
-}     
+}  
+ /* Earthquake control bar dropdown styling */
+#timeFilter,
+#magFilter,
+#areaFilter {
+    background: #151515;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    outline: none;
+}
+
+#timeFilter:hover,
+#magFilter:hover,
+#areaFilter:hover {
+    background: #1f1f1f;
+    border-color: #666;
+}
+
+#timeFilter:focus,
+#magFilter:focus,
+#areaFilter:focus {
+    border-color: #777;
+}       
  /* Earthquake sidebar dark theme */
 #quakes,
 #quakes.leaflet-sidebar-pane,
