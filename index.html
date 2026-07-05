@@ -293,6 +293,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     display: flex;
     gap: 3px;
+    margin-bottom: 8px;
 }
 
 .map-style-selector button {
@@ -305,7 +306,20 @@
     font-weight: bold;
     cursor: pointer;
 }
+.leaflet-top.leaflet-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 
+.leaflet-top.leaflet-right .map-style-selector {
+    order: 1;
+}
+
+.leaflet-top.leaflet-right .leaflet-control-zoom {
+    order: 2;
+}
+        
 .map-style-selector button:hover {
     background: #333;
     color: #fff;
