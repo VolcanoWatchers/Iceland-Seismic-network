@@ -1750,7 +1750,8 @@ const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
 const selectedMag = magFilter ? parseFloat(magFilter.value) : 0;
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
-    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag);
+    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
+    .sort((a, b) => new Date(b.properties.time) - new Date(a.properties.time));
 
     const maxMag = filteredQuakes.length
         ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
