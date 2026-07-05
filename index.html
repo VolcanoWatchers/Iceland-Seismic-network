@@ -473,7 +473,38 @@ let selectedLedgerRow = null;
 
 // Remember earthquake IDs we have already displayed
 let seenEarthquakeIds = new Set();
-    
+ // Simple M3+ alert sound
+let quakeAudioContext = null;
+
+function playM3AlertDing() {
+    const audioToggle = document.getElementById('audioToggle');
+
+    if (!audioToggle || !audioToggle.checked) return;
+
+    try {
+        if (!quakeAudioContext) {
+            quakeAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const oscillator = quakeAudioContext.createOscillator();
+        const gainNode = quakeAudioContext.createGain();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, quakeAudioContext.currentTime);
+
+        gainNode.gain.setValueAtTime(0.0001, quakeAudioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.25, quakeAudioContext.currentTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, quakeAudioContext.currentTime + 0.35);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(quakeAudioContext.destination);
+
+        oscillator.start();
+        oscillator.stop(quakeAudioContext.currentTime + 0.35);
+    } catch (error) {
+        console.warn('M3 alert sound could not play:', error);
+    }
+}   
     
 // Added "Dark Mode" to your layer switcher control //
 var baseMaps = { 
