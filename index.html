@@ -1571,6 +1571,7 @@ sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
         document.getElementById('sidebar').classList.add('quake-mode');
         setActiveMapStyleButton('dark');
+
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
             map.addControl(legendInstance);
@@ -1578,51 +1579,51 @@ sidebar.on('content', function(e) {
 
             applyEarthquakeFilters();
 
-           const timeFilter = document.getElementById('timeFilter');
-const magFilter = document.getElementById('magFilter');
-const areaFilter = document.getElementById('areaFilter');
+            const timeFilter = document.getElementById('timeFilter');
+            const magFilter = document.getElementById('magFilter');
+            const areaFilter = document.getElementById('areaFilter');
 
-if (timeFilter) {
-    timeFilter.addEventListener('change', function () {
-        console.log('Time filter changed to:', timeFilter.value, 'hours');
-        applyEarthquakeFilters();
-    });
-}
+            if (timeFilter) {
+                timeFilter.addEventListener('change', function () {
+                    console.log('Time filter changed to:', timeFilter.value, 'hours');
+                    applyEarthquakeFilters();
+                });
+            }
 
-if (magFilter) {
-    magFilter.addEventListener('change', function () {
-        console.log('Magnitude filter changed to:', magFilter.value);
-        applyEarthquakeFilters();
-    });
-}
+            if (magFilter) {
+                magFilter.addEventListener('change', function () {
+                    console.log('Magnitude filter changed to:', magFilter.value);
+                    applyEarthquakeFilters();
+                });
+            }
 
-if (areaFilter) {
-    areaFilter.addEventListener('change', function () {
-        console.log('Region filter changed to:', areaFilter.value);
-        applyEarthquakeFilters();
-    });
-}
+            if (areaFilter) {
+                areaFilter.addEventListener('change', function () {
+                    console.log('Region filter changed to:', areaFilter.value);
+                    applyEarthquakeFilters();
+                });
+            }
+        }
 
-} else {
-    document.getElementById('sidebar').classList.remove('quake-mode');
-    setActiveMapStyleButton('topo');
+    } else {
+        document.getElementById('sidebar').classList.remove('quake-mode');
+        setActiveMapStyleButton('topo');
 
-    map.removeLayer(darkMode);
-    map.removeLayer(satellite);
-    map.removeLayer(darkRelief);
+        map.removeLayer(darkMode);
+        map.removeLayer(satellite);
+        map.removeLayer(darkRelief);
 
-    if (!map.hasLayer(topo)) {
-        map.addLayer(topo);
-    }
+        if (!map.hasLayer(topo)) {
+            map.addLayer(topo);
+        }
 
-    if (isControlVisible) {
+        if (isControlVisible) {
             map.removeControl(quakeControlInstance);
             map.removeControl(legendInstance);
             isControlVisible = false;
         }
     }
 });
-
 // ----------------------------------------------------------
 // 4.1 Earthquake colour helper
 // Controls marker, ledger row and legend colours
