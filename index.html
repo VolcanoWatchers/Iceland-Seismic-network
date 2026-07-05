@@ -1219,18 +1219,13 @@ const url =
 console.log('IMO quake URL:', url);
     
     try {
-        const response = await fetch(url);
+const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
         allEarthquakes = json.features;
-        
-        console.log(
-    'IMO regions:',
-    [...new Set(allEarthquakes.map(item => item.properties.region))].sort()
-);
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
-      
+
 // ----------------------------------------------------------
 // 4.4 Earthquake map display
 // Creates earthquake markers, popups and map interactions
