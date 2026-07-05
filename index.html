@@ -1631,10 +1631,14 @@ function filterByTime(quakes, hours) {
 // ----------------------------------------------------------
 function applyEarthquakeFilters() {
 
-    const timeFilter = document.getElementById('timeFilter');
-    const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
+  const timeFilter = document.getElementById('timeFilter');
+const magFilter = document.getElementById('magFilter');
 
-    const filteredQuakes = filterByTime(allEarthquakes, selectedHours);
+const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
+const selectedMag = magFilter ? parseFloat(magFilter.value) : 0;
+
+const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
+    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag);
 
     const maxMag = filteredQuakes.length
         ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
