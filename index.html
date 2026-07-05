@@ -1219,13 +1219,13 @@ const url =
 console.log('IMO quake URL:', url);
     
     try {
-const response = await fetch(url);
+        const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const json = await response.json();
         allEarthquakes = json.features;
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
-
+      
 // ----------------------------------------------------------
 // 4.4 Earthquake map display
 // Creates earthquake markers, popups and map interactions
@@ -1571,7 +1571,6 @@ sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
         document.getElementById('sidebar').classList.add('quake-mode');
         setActiveMapStyleButton('dark');
-
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
             map.addControl(legendInstance);
@@ -1581,7 +1580,6 @@ sidebar.on('content', function(e) {
 
             const timeFilter = document.getElementById('timeFilter');
             const magFilter = document.getElementById('magFilter');
-            const areaFilter = document.getElementById('areaFilter');
 
             if (timeFilter) {
                 timeFilter.addEventListener('change', function () {
@@ -1596,34 +1594,28 @@ sidebar.on('content', function(e) {
                     applyEarthquakeFilters();
                 });
             }
-
-            if (areaFilter) {
-                areaFilter.addEventListener('change', function () {
-                    console.log('Region filter changed to:', areaFilter.value);
-                    applyEarthquakeFilters();
-                });
-            }
         }
 
-    } else {
-        document.getElementById('sidebar').classList.remove('quake-mode');
-        setActiveMapStyleButton('topo');
+} else {
+    document.getElementById('sidebar').classList.remove('quake-mode');
+    setActiveMapStyleButton('topo');
 
-        map.removeLayer(darkMode);
-        map.removeLayer(satellite);
-        map.removeLayer(darkRelief);
+    map.removeLayer(darkMode);
+    map.removeLayer(satellite);
+    map.removeLayer(darkRelief);
 
-        if (!map.hasLayer(topo)) {
-            map.addLayer(topo);
-        }
+    if (!map.hasLayer(topo)) {
+        map.addLayer(topo);
+    }
 
-        if (isControlVisible) {
+    if (isControlVisible) {
             map.removeControl(quakeControlInstance);
             map.removeControl(legendInstance);
             isControlVisible = false;
         }
     }
 });
+
 // ----------------------------------------------------------
 // 4.1 Earthquake colour helper
 // Controls marker, ledger row and legend colours
@@ -1691,20 +1683,15 @@ function filterByTime(quakes, hours) {
 // ----------------------------------------------------------
 function applyEarthquakeFilters() {
 
-const timeFilter = document.getElementById('timeFilter');
+  const timeFilter = document.getElementById('timeFilter');
 const magFilter = document.getElementById('magFilter');
-const areaFilter = document.getElementById('areaFilter');
 
 const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
 const selectedMag = magFilter ? parseFloat(magFilter.value) : 0;
-const selectedArea = areaFilter ? areaFilter.value : 'All regions';
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
-    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
-    .filter(item => {
-        if (selectedArea === 'All regions') return true;
-        return item.properties.region === selectedArea;
-    });
+    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag);
+
     const maxMag = filteredQuakes.length
         ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
         : '0.0';
