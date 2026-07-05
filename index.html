@@ -1040,7 +1040,7 @@ function updateEarthquakeMap(quakes) {
 
             setTimeout(() => {
                 marker.getElement()?.classList.remove('new-quake-pulse');
-            }, 6500);
+            }, 18000);
         }
 
         seenEarthquakeIds.add(eventId);
@@ -1139,7 +1139,7 @@ if (!seenEarthquakeIds.has(eventId)) {
 
     setTimeout(() => {
         marker.getElement()?.classList.remove('new-quake-pulse');
-    }, 6500);
+   }, 18000);
 }
 
 seenEarthquakeIds.add(eventId);
