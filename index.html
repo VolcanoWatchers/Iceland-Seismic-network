@@ -284,7 +284,20 @@
 #sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar-thumb:hover {
     background: #444444;
 }     
- /* New earthquake pulse marker */
+ /* Darken left sidebar tab strip only while Earthquakes tab is open */
+#sidebar.quake-mode .leaflet-sidebar-tabs {
+    background: #151515 !important;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-tabs > ul {
+    background: #151515 !important;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-tabs > ul > li {
+    background: #151515 !important;
+}
+        
+        /* New earthquake pulse marker */
 .new-quake-pulse {
     animation: quakePulse 2.2s ease-out 8;
 }
