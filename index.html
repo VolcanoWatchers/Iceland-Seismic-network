@@ -374,7 +374,22 @@ var darkMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{
     maxZoom: 20
 });
 
-// Default to loading the topographic map first
+ // Experimental dark relief map: dark base with subtle hillshade
+var darkReliefBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+});
+
+var darkReliefShade = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Esri World Hillshade',
+    opacity: 0.28,
+    maxZoom: 16
+});
+
+var darkRelief = L.layerGroup([darkReliefBase, darkReliefShade]);       
+
+        // Default to loading the topographic map first
 topo.addTo(map);
 
 const quakeLayer = L.layerGroup();
