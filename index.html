@@ -378,6 +378,9 @@ const quakeLayer = L.layerGroup();
 const quakeMarkers = {};
 let allEarthquakes = [];
 let selectedLedgerRow = null;
+
+// Remember earthquake IDs we have already displayed
+let seenEarthquakeIds = new Set();
     
     
 // Added "Dark Mode" to your layer switcher control //
