@@ -1324,6 +1324,10 @@ const eventId = props.event_id;
 if (!seenEarthquakeIds.has(eventId)) {
     marker.getElement()?.classList.add('new-quake-pulse');
 
+    if (mag >= 3) {
+        playM3AlertDing();
+    }
+
     setTimeout(() => {
         marker.getElement()?.classList.remove('new-quake-pulse');
    }, 18000);
