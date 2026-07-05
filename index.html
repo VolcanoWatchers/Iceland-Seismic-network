@@ -1033,6 +1033,18 @@ function updateEarthquakeMap(quakes) {
 `)
         .addTo(quakeLayer);
 
+        const eventId = props.event_id;
+
+        if (!seenEarthquakeIds.has(eventId)) {
+            marker.getElement()?.classList.add('new-quake-pulse');
+
+            setTimeout(() => {
+                marker.getElement()?.classList.remove('new-quake-pulse');
+            }, 6500);
+        }
+
+        seenEarthquakeIds.add(eventId);
+
         quakeMarkers[props.event_id] = marker;
 
     });
@@ -1119,6 +1131,19 @@ filterByTime(
   </div>
 `)
 .addTo(quakeLayer);
+
+const eventId = props.event_id;
+
+if (!seenEarthquakeIds.has(eventId)) {
+    marker.getElement()?.classList.add('new-quake-pulse');
+
+    setTimeout(() => {
+        marker.getElement()?.classList.remove('new-quake-pulse');
+    }, 6500);
+}
+
+seenEarthquakeIds.add(eventId);
+
 quakeMarkers[props.event_id] = marker;     
 });    
     
