@@ -1578,23 +1578,30 @@ sidebar.on('content', function(e) {
 
             applyEarthquakeFilters();
 
-            const timeFilter = document.getElementById('timeFilter');
-            const magFilter = document.getElementById('magFilter');
+           const timeFilter = document.getElementById('timeFilter');
+const magFilter = document.getElementById('magFilter');
+const areaFilter = document.getElementById('areaFilter');
 
-            if (timeFilter) {
-                timeFilter.addEventListener('change', function () {
-                    console.log('Time filter changed to:', timeFilter.value, 'hours');
-                    applyEarthquakeFilters();
-                });
-            }
+if (timeFilter) {
+    timeFilter.addEventListener('change', function () {
+        console.log('Time filter changed to:', timeFilter.value, 'hours');
+        applyEarthquakeFilters();
+    });
+}
 
-            if (magFilter) {
-                magFilter.addEventListener('change', function () {
-                    console.log('Magnitude filter changed to:', magFilter.value);
-                    applyEarthquakeFilters();
-                });
-            }
-        }
+if (magFilter) {
+    magFilter.addEventListener('change', function () {
+        console.log('Magnitude filter changed to:', magFilter.value);
+        applyEarthquakeFilters();
+    });
+}
+
+if (areaFilter) {
+    areaFilter.addEventListener('change', function () {
+        console.log('Region filter changed to:', areaFilter.value);
+        applyEarthquakeFilters();
+    });
+}
 
 } else {
     document.getElementById('sidebar').classList.remove('quake-mode');
