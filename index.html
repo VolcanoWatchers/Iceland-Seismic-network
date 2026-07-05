@@ -1570,10 +1570,19 @@ sidebar.on('content', function(e) {
             }
         }
 
-    } else {
-        document.getElementById('sidebar').classList.remove('quake-mode');
+} else {
+    document.getElementById('sidebar').classList.remove('quake-mode');
+    setActiveMapStyleButton('topo');
 
-        if (isControlVisible) {
+    map.removeLayer(darkMode);
+    map.removeLayer(satellite);
+    map.removeLayer(darkRelief);
+
+    if (!map.hasLayer(topo)) {
+        map.addLayer(topo);
+    }
+
+    if (isControlVisible) {
             map.removeControl(quakeControlInstance);
             map.removeControl(legendInstance);
             isControlVisible = false;
