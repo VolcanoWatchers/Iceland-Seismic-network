@@ -1218,13 +1218,17 @@ function updateEarthquakeMap(quakes) {
 
         const eventId = props.event_id;
 
-   if (!seenEarthquakeIds.has(eventId)) {
-            marker.getElement()?.classList.add('new-quake-pulse');
+ if (!seenEarthquakeIds.has(eventId)) {
+    marker.getElement()?.classList.add('new-quake-pulse');
 
-            setTimeout(() => {
-                marker.getElement()?.classList.remove('new-quake-pulse');
-            }, 18000);
-        }
+    if (mag >= 3) {
+        playM3AlertDing();
+    }
+
+    setTimeout(() => {
+        marker.getElement()?.classList.remove('new-quake-pulse');
+    }, 18000);
+}
 
         seenEarthquakeIds.add(eventId);
 
