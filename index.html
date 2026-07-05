@@ -1543,15 +1543,22 @@ sidebar.on('content', function(e) {
 
             applyEarthquakeFilters();
 
-            const timeFilter = document.getElementById('timeFilter');
+const timeFilter = document.getElementById('timeFilter');
+const magFilter = document.getElementById('magFilter');
 
-            if (timeFilter) {
-                timeFilter.addEventListener('change', function () {
-                    console.log('Time filter changed to:', timeFilter.value, 'hours');
-                    applyEarthquakeFilters();
-                });
-            }
-        }
+if (timeFilter) {
+    timeFilter.addEventListener('change', function () {
+        console.log('Time filter changed to:', timeFilter.value, 'hours');
+        applyEarthquakeFilters();
+    });
+}
+
+if (magFilter) {
+    magFilter.addEventListener('change', function () {
+        console.log('Magnitude filter changed to:', magFilter.value);
+        applyEarthquakeFilters();
+    });
+}
 
     } else {
         document.getElementById('sidebar').classList.remove('quake-mode');
