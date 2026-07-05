@@ -1267,11 +1267,18 @@ const url =
 
 console.log('IMO quake URL:', url);
     
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('API Error');
-        const json = await response.json();
-        allEarthquakes = json.features;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('API Error');
+    const json = await response.json();
+
+    allEarthquakes = json.features;
+
+    quakeLayer.clearLayers();
+    Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
+
+    applyEarthquakeFilters();
+        
         quakeLayer.clearLayers();
         Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
       
