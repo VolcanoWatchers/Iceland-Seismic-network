@@ -1326,15 +1326,11 @@ function updateEarthquakeMap(quakes) {
 const quakeTime = new Date(props.time);
 
 if (!seenEarthquakeIds.has(eventId)) {
-    marker.getElement()?.classList.add('new-quake-pulse');
+    createNewQuakeRipple(lat, lon);
 
     if (mag >= 3) {
         playM3AlertDing();
     }
-
-    setTimeout(() => {
-        marker.getElement()?.classList.remove('new-quake-pulse');
-    }, 18000);
 }
 
         seenEarthquakeIds.add(eventId);
@@ -1459,15 +1455,11 @@ const eventId = props.event_id;
 const quakeTime = new Date(props.time);
 
 if (!seenEarthquakeIds.has(eventId)) {
-    marker.getElement()?.classList.add('new-quake-pulse');
+    createNewQuakeRipple(lat, lon);
 
     if (mag >= 3) {
         playM3AlertDing();
     }
-
-    setTimeout(() => {
-        marker.getElement()?.classList.remove('new-quake-pulse');
-    }, 18000);
 }
 seenEarthquakeIds.add(eventId);
 
