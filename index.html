@@ -1838,14 +1838,20 @@ function filterByTime(quakes, hours) {
 // ----------------------------------------------------------
 function applyEarthquakeFilters() {
 
-  const timeFilter = document.getElementById('timeFilter');
+const timeFilter = document.getElementById('timeFilter');
 const magFilter = document.getElementById('magFilter');
+const areaFilter = document.getElementById('areaFilter');
 
 const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
-const selectedMag = magFilter ? parseFloat(magFilter.value) : 0;
+const selectedMag = magFilter ? parseFloat(magFilter.value) : -2;
+const selectedArea = areaFilter ? areaFilter.value : "All regions";
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
     .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
+    .filter(item => {
+        if (selectedArea === "All regions") return true;
+        return item.properties.region === selectedArea;
+    })
     .sort((a, b) => new Date(b.properties.time) - new Date(a.properties.time));
 
     const maxMag = filteredQuakes.length
