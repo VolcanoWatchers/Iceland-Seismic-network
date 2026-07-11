@@ -1240,7 +1240,7 @@ function updateEarthquakeMap(quakes) {
 
 const quakeTime = new Date(props.time);
 
-if (!seenEarthquakeIds.has(eventId) && quakeTime > pageLoadTime) {
+if (!seenEarthquakeIds.has(eventId)) {
     marker.getElement()?.classList.add('new-quake-pulse');
 
     if (mag >= 3) {
@@ -1360,7 +1360,7 @@ const eventId = props.event_id;
 
 const quakeTime = new Date(props.time);
 
-if (!seenEarthquakeIds.has(eventId) && quakeTime > pageLoadTime) {
+if (!seenEarthquakeIds.has(eventId)) {
     marker.getElement()?.classList.add('new-quake-pulse');
 
     if (mag >= 3) {
