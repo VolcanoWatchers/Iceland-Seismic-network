@@ -1549,14 +1549,10 @@ row.addEventListener('mouseleave', function () {
         ledger.appendChild(row);
     });
 }
-// Define the list of regions
-const regions = [
-    "All regions", "Reykjanes peninsula", "Reykjanes ridge", "Hengill", 
-    "Southern Iceland (SISZ)", "Vestmannaeyjar", "Mýrdalsjökull (Includes Katla)", 
-    "Vatnajökull (Includes Bárðarbunga and Grímsvötn)", "Askja", "Mývatn", 
-    "Tjörnes fracture zone - small", "Tjörnes fracture zone - large", 
-    "Snæfellsnes", "Langjökull", "Hofsjökull", "East fjords", "West fjords", "N-Atlantic"
-];
+// Region list starts with All regions.
+// Live API region names will be added after earthquake data loads.
+let regions = ["All regions"];
+
 
 //  Define the Legend
 const LegendControl = L.Control.extend({
