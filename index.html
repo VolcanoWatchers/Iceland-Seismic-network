@@ -1323,10 +1323,8 @@ function updateEarthquakeMap(quakes) {
 
         const eventId = props.event_id;
 
-const quakeTime = new Date(props.time);
-
-if (!seenEarthquakeIds.has(eventId)) {
-    createNewQuakeRipple(lat, lon);
+        if (!seenEarthquakeIds.has(eventId)) {
+            createNewQuakeRipple(lat, lon);
 
     if (mag >= 3) {
         playM3AlertDing();
