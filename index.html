@@ -1641,9 +1641,10 @@ sidebar.on('content', function(e) {
             updateRegionDropdownFromData();
             applyEarthquakeFilters();
 
-            const timeFilter = document.getElementById('timeFilter');
-            const magFilter = document.getElementById('magFilter');
-            const areaFilter = document.getElementById('areaFilter');
+           const timeFilter = document.getElementById('timeFilter');
+const magFilter = document.getElementById('magFilter');
+const statusFilter = document.getElementById('statusFilter');
+const areaFilter = document.getElementById('areaFilter');
 
             if (timeFilter) {
                 timeFilter.addEventListener('change', function () {
@@ -1658,6 +1659,13 @@ sidebar.on('content', function(e) {
                     applyEarthquakeFilters();
                 });
             }
+           
+            if (statusFilter) {
+    statusFilter.addEventListener('change', function () {
+        console.log('Status filter changed to:', statusFilter.value);
+        applyEarthquakeFilters();
+    });
+}
 
             if (areaFilter) {
                 areaFilter.addEventListener('change', function () {
