@@ -489,6 +489,9 @@ let selectedLedgerRow = null;
 let seenEarthquakeIds = new Set();
         // Used so old earthquakes do not pulse when the page first loads or when filters change
 const pageLoadTime = new Date();
+        // Prevent first page load / 2-day old events from pulsing
+let hasCompletedInitialEarthquakeLoad = false;
+        
         
   // Simple M3+ alert sound
 let quakeAudioContext = null;
