@@ -1235,7 +1235,9 @@ function updateEarthquakeMap(quakes) {
 
         const eventId = props.event_id;
 
- if (!seenEarthquakeIds.has(eventId)) {
+const quakeTime = new Date(props.time);
+
+if (!seenEarthquakeIds.has(eventId) && quakeTime > pageLoadTime) {
     marker.getElement()?.classList.add('new-quake-pulse');
 
     if (mag >= 3) {
@@ -1345,7 +1347,9 @@ filterByTime(
 
 const eventId = props.event_id;
 
-if (!seenEarthquakeIds.has(eventId)) {
+const quakeTime = new Date(props.time);
+
+if (!seenEarthquakeIds.has(eventId) && quakeTime > pageLoadTime) {
     marker.getElement()?.classList.add('new-quake-pulse');
 
     if (mag >= 3) {
@@ -1354,9 +1358,8 @@ if (!seenEarthquakeIds.has(eventId)) {
 
     setTimeout(() => {
         marker.getElement()?.classList.remove('new-quake-pulse');
-   }, 18000);
+    }, 18000);
 }
-
 seenEarthquakeIds.add(eventId);
 
 quakeMarkers[props.event_id] = marker;     
