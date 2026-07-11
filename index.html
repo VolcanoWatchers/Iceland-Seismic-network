@@ -1792,6 +1792,32 @@ function filterByTime(quakes, hours) {
         new Date(q.properties.time).getTime() >= cutoff
     );
 }       
+
+// ----------------------------------------------------------
+// 4.5 Region dropdown helper
+// Builds region options from live API earthquake data
+// ----------------------------------------------------------
+    function updateRegionDropdownFromData() {
+    const areaFilter = document.getElementById('areaFilter');
+    if (!areaFilter || !allEarthquakes || allEarthquakes.length === 0) return;
+
+    const currentValue = areaFilter.value || "All regions";
+
+    const liveRegions = [...new Set(
+        allEarthquakes
+            .map(item => item.properties.region)
+            .filter(region => region && region.trim() !== "")
+    )].sort();
+
+    regions = ["All regions", ...liveRegions];
+
+    areaFilter.innerHTML = regions
+        .map(region => `<option value="${region}">${region}</option>`)
+        .join("");
+
+    areaFilter.value = regions.includes(currentValue) ? currentValue : "All regions";
+}
+
 // ----------------------------------------------------------
 // 4.5 Apply earthquake filters
 // Applies current toolbar filters to the earthquake dataset
