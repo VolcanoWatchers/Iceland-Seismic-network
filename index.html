@@ -1808,7 +1808,7 @@ function filterByTime(quakes, hours) {
         allEarthquakes
             .map(item => item.properties.region)
             .filter(region => region && region.trim() !== "")
-    )].sort();
+   )].sort((a, b) => a.localeCompare(b, 'is'));
 
     regions = ["All regions", ...liveRegions];
 
