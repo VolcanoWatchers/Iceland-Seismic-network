@@ -487,7 +487,10 @@ let selectedLedgerRow = null;
 
 // Remember earthquake IDs we have already displayed
 let seenEarthquakeIds = new Set();
- // Simple M3+ alert sound
+        // Used so old earthquakes do not pulse when the page first loads or when filters change
+const pageLoadTime = new Date();
+        
+  // Simple M3+ alert sound
 let quakeAudioContext = null;
 
 function playM3AlertDing() {
