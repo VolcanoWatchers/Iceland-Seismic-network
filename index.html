@@ -1317,31 +1317,41 @@ const url =
 
 console.log('IMO quake URL:', url);
     
-  try {
+try {
     const response = await fetch(url);
     if (!response.ok) throw new Error('API Error');
     const json = await response.json();
 
-allEarthquakes = json.features.filter(item => {
-    const coords = item.geometry.coordinates;
-    const lon = coords[0];
-    const lat = coords[1];
+    allEarthquakes = json.features.filter(item => {
+        const coords = item.geometry.coordinates;
+        const lon = coords[0];
+        const lat = coords[1];
 
-    return (
-        lat >= 62.80 &&
-        lat <= 67.20 &&
-        lon >= -30.00 &&
-        lon <= -13.00
-    );
-});
+        return (
+            lat >= 62.80 &&
+            lat <= 67.20 &&
+            lon >= -30.00 &&
+            lon <= -13.00
+        );
+    });
 
-    hasCompletedInitialEarthquakeLoad = true;
-}
+    updateRegionDropdownFromData();
 
-quakeLayer.clearLayers();
-Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
+    if (!hasCompletedInitialEarthquakeLoad) {
+        allEarthquakes.forEach(item => {
+            const firstLoadEventId = item.properties.event_id;
+            if (firstLoadEventId) {
+                seenEarthquakeIds.add(firstLoadEventId);
+            }
+        });
 
-applyEarthquakeFilters();
+        hasCompletedInitialEarthquakeLoad = true;
+    }
+
+    quakeLayer.clearLayers();
+    Object.keys(quakeMarkers).forEach(key => delete quakeMarkers[key]);
+
+    applyEarthquakeFilters();
       
 // ----------------------------------------------------------
 // 4.4 Earthquake map display
