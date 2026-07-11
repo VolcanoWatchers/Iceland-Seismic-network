@@ -290,7 +290,7 @@
 #sidebar.quake-mode .leaflet-sidebar-content::-webkit-scrollbar-thumb:hover {
     background: #444444;
 }     
- /* Darken left sidebar tab strip only while Earthquakes tab is open */
+  /* Darken left sidebar tab strip only while Earthquakes tab is open */
 #sidebar.quake-mode .leaflet-sidebar-tabs {
     background: #151515 !important;
 }
@@ -301,6 +301,23 @@
 
 #sidebar.quake-mode .leaflet-sidebar-tabs > ul > li {
     background: #151515 !important;
+}
+
+/* Darken actual tab icon buttons while Earthquakes tab is open */
+#sidebar.quake-mode .leaflet-sidebar-tabs > ul > li > a {
+    background: #151515 !important;
+    color: #e0e0e0 !important;
+}
+
+#sidebar.quake-mode .leaflet-sidebar-tabs > ul > li > a:hover {
+    background: #242424 !important;
+    color: #ffffff !important;
+}
+
+/* Keep the active Earthquakes tab clear */
+#sidebar.quake-mode .leaflet-sidebar-tabs > ul > li.active > a {
+    background: #244f68 !important;
+    color: #ffffff !important;
 }
         
         /* New earthquake pulse marker */
