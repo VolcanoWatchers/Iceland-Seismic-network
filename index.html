@@ -1323,7 +1323,7 @@ console.log('IMO quake URL:', url);
     const json = await response.json();
 
    allEarthquakes = json.features;
-
+updateRegionDropdownFromData();
 if (!hasCompletedInitialEarthquakeLoad) {
     allEarthquakes.forEach(item => {
         const firstLoadEventId = item.properties.event_id;
