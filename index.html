@@ -1344,14 +1344,21 @@ function updateEarthquakeMap(quakes) {
     const ledger = document.getElementById('quakes-ledger-body');
     const CACHE_KEY = 'quake_data_cache';
     // rolling time on ledger for new eq's
- const now = new Date();
+const now = new Date();
 const start = new Date(now.getTime() - 48 * 60 * 60 * 1000);
 
-const url =
+const statusFilter = document.getElementById('statusFilter');
+const selectedStatus = statusFilter ? statusFilter.value : 'live';
+
+let url =
   'https://api.vedur.is/quakes/events?' +
   'start_time=' + encodeURIComponent(start.toISOString()) +
   '&end_time=' + encodeURIComponent(now.toISOString()) +
-'&depth_min=0&depth_max=25&size_min=-2&size_max=7';
+  '&depth_min=0&depth_max=25&size_min=-2&size_max=7';
+
+if (selectedStatus === 'reviewed') {
+    url += '&status=reviewed';
+}
 
 console.log('IMO quake URL:', url);
     
