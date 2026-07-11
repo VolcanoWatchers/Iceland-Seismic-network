@@ -1782,10 +1782,12 @@ function applyEarthquakeFilters() {
 
 const timeFilter = document.getElementById('timeFilter');
 const magFilter = document.getElementById('magFilter');
+const statusFilter = document.getElementById('statusFilter');
 const areaFilter = document.getElementById('areaFilter');
 
 const selectedHours = timeFilter ? parseFloat(timeFilter.value) : 24;
 const selectedMag = magFilter ? parseFloat(magFilter.value) : -2;
+const selectedStatus = statusFilter ? statusFilter.value : "live";
 const selectedArea = areaFilter ? areaFilter.value : "All regions";
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
