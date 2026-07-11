@@ -1686,12 +1686,13 @@ sidebar.on('content', function(e) {
     if (e.id === 'quakes') {
         document.getElementById('sidebar').classList.add('quake-mode');
         setActiveMapStyleButton('dark');
-        if (!isControlVisible) {
-            map.addControl(quakeControlInstance);
-            map.addControl(legendInstance);
-            isControlVisible = true;
+       if (!isControlVisible) {
+    map.addControl(quakeControlInstance);
+    map.addControl(legendInstance);
+    isControlVisible = true;
 
-            applyEarthquakeFilters();
+    updateRegionDropdownFromData();
+    applyEarthquakeFilters();
 
             const timeFilter = document.getElementById('timeFilter');
             const magFilter = document.getElementById('magFilter');
