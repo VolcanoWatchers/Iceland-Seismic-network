@@ -1257,7 +1257,7 @@ function updateEarthquakeMap(quakes) {
     const CACHE_KEY = 'quake_data_cache';
     // rolling time on ledger for new eq's
  const now = new Date();
-const start = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+const start = new Date(now.getTime() - 48 * 60 * 60 * 1000);
 
 const url =
   'https://api.vedur.is/quakes/events?' +
