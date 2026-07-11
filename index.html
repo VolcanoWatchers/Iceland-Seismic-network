@@ -1793,11 +1793,18 @@ const selectedArea = areaFilter ? areaFilter.value : "All regions";
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
     .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
     .filter(item => {
+        if (selectedStatus === "live") return true;
+
+        return (
+            item.properties.evaluation_mode === "manual" &&
+            item.properties.type === "earthquake"
+        );
+    })
+    .filter(item => {
         if (selectedArea === "All regions") return true;
         return item.properties.region === selectedArea;
     })
     .sort((a, b) => new Date(b.properties.time) - new Date(a.properties.time));
-
     const maxMag = filteredQuakes.length
         ? Math.max(...filteredQuakes.map(item => parseFloat(item.properties.magnitude))).toFixed(1)
         : '0.0';
