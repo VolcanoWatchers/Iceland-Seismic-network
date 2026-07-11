@@ -489,7 +489,7 @@ var map = L.map('map', {
     // WIDENED BOUNDS: Dropped western wall to -26.50, and pushed northern wall to 67.20
     maxBounds: [[62.80, -26.50], [67.20, -13.00]],
     maxBoundsViscosity: 1.0
-}).setView([64.90, -21.4], 7);
+}).setView([64.90, -20.4], 7);
 
 // Existing Layers
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17 });
@@ -684,7 +684,7 @@ function resetMap() {
     allMarkers.forEach(marker => map.removeLayer(marker));
     
     // Snap back cleanly to our optimal static position
-    map.setView([64.90, -18.3], 7);
+   map.setView([64.90, -20.4], 7);
 
     // REVERT TO TOPOGRAPHY ON CLOSE
     map.removeLayer(darkMode);
