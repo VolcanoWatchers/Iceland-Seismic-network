@@ -372,7 +372,26 @@
  /* Hide default Leaflet layer switcher now that we use custom map buttons */
 .leaflet-control-layers {
     display: none !important;
-}       
+} 
+/* Dark Leaflet zoom buttons */
+.leaflet-control-zoom a {
+    background: #151515 !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #333333 !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: #242424 !important;
+    color: #ffffff !important;
+}
+
+.leaflet-control-zoom {
+    border: 1px solid #444444 !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+        
 /* This is the final closing bracket for the CSS section */    
 </style>
 </head>
