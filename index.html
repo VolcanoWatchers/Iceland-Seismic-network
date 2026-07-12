@@ -1057,6 +1057,70 @@ function drawEarthMovementStations() {
 
             marker.addTo(earthMovementLayer);
         });
+       
+    // ----------------------------------------------------------
+    // Temporary demo vertical movement indicators
+    // These are placeholders only, to test the Earth Movement style
+    // ----------------------------------------------------------
+    const demoVerticalMovement = [
+        {
+            stationId: "seng",
+            label: "Demo uplift",
+            symbol: "▲",
+            color: "#ff5252"
+        },
+        {
+            stationId: "klv",
+            label: "Demo subsidence",
+            symbol: "▼",
+            color: "#42a5f5"
+        }
+    ];
+
+    demoVerticalMovement.forEach(item => {
+        const station = stations.find(s => s.id === item.stationId);
+
+        if (!station) return;
+
+        const icon = L.divIcon({
+            className: "earth-movement-demo-icon",
+            html: `<div style="
+                color:${item.color};
+                font-size:20px;
+                font-weight:bold;
+                text-shadow:0 0 4px #000000;
+                transform: translate(-2px, -20px);
+            ">${item.symbol}</div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        L.marker([station.lat, station.lon], {
+            icon: icon,
+            interactive: true
+        }).bindPopup(`
+            <div style="
+                border:3px solid ${item.color};
+                border-radius:10px;
+                padding:8px;
+            ">
+                <div style="
+                    color:${item.color};
+                    font-size:16px;
+                    font-weight:bold;
+                    margin-bottom:6px;
+                ">
+                    ${item.label}
+                </div>
+
+                <b>${station.name}</b><br>
+                Temporary Earth Movement test marker<br>
+                <span style="font-size:12px; color:#666;">
+                    Real uplift/subsidence data will be connected later.
+                </span>
+            </div>
+        `).addTo(earthMovementLayer);
+    });
 }
              
 // ==========================================
