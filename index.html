@@ -1844,7 +1844,17 @@ const selectedStatus = statusFilter ? statusFilter.value : "live";
 const selectedArea = areaFilter ? areaFilter.value : "All regions";
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
-    .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
+    .filter(item => {
+    const displayMag = parseFloat(parseFloat(item.properties.magnitude).toFixed(1));
+
+    if (selectedMag === -2) return true;
+
+    if (selectedMag === 5) {
+        return displayMag >= 5;
+    }
+
+    return displayMag >= selectedMag && displayMag < selectedMag + 1;
+})
    .filter(item => {
     if (selectedStatus === "live") return true;
 
