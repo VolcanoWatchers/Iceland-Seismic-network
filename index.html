@@ -1027,7 +1027,7 @@ function drawEarthMovementStations() {
         .filter(station => station.type === "gps")
         .forEach(station => {
             const marker = L.circleMarker([station.lat, station.lon], {
-                radius: 5,
+                radius: 6,
                 color: '#ffffff',
                 weight: 1,
                 fillColor: '#00bcd4',
@@ -1067,13 +1067,17 @@ function drawEarthMovementStations() {
             stationId: "seng",
             label: "Demo uplift",
             symbol: "▲",
-            color: "#ff5252"
+            color: "#ff5252",
+            offsetX: -1,
+            offsetY: -5
         },
         {
             stationId: "klv",
             label: "Demo subsidence",
             symbol: "▼",
-            color: "#42a5f5"
+            color: "#42a5f5",
+            offsetX: -1,
+            offsetY: -4
         }
     ];
 
@@ -1086,40 +1090,21 @@ function drawEarthMovementStations() {
             className: "earth-movement-demo-icon",
             html: `<div style="
                 color:${item.color};
-                font-size:20px;
+                font-size:17px;
                 font-weight:bold;
+                line-height:17px;
                 text-shadow:0 0 4px #000000;
-                transform: translate(-2px, -20px);
+                transform: translate(${item.offsetX}px, ${item.offsetY}px);
+                pointer-events:none;
             ">${item.symbol}</div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
+            iconSize: [18, 18],
+            iconAnchor: [9, 9]
         });
 
         L.marker([station.lat, station.lon], {
             icon: icon,
-            interactive: true
-        }).bindPopup(`
-            <div style="
-                border:3px solid ${item.color};
-                border-radius:10px;
-                padding:8px;
-            ">
-                <div style="
-                    color:${item.color};
-                    font-size:16px;
-                    font-weight:bold;
-                    margin-bottom:6px;
-                ">
-                    ${item.label}
-                </div>
-
-                <b>${station.name}</b><br>
-                Temporary Earth Movement test marker<br>
-                <span style="font-size:12px; color:#666;">
-                    Real uplift/subsidence data will be connected later.
-                </span>
-            </div>
-        `).addTo(earthMovementLayer);
+            interactive: false
+        }).addTo(earthMovementLayer);
     });
 }
              
