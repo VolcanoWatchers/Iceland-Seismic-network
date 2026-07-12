@@ -1068,16 +1068,16 @@ function drawEarthMovementStations() {
             label: "Demo uplift",
             symbol: "▲",
             color: "#ff5252",
-            offsetX: -1,
-            offsetY: -5
+            offsetX: -0,
+            offsetY: -1
         },
         {
             stationId: "klv",
             label: "Demo subsidence",
             symbol: "▼",
             color: "#42a5f5",
-            offsetX: -1,
-            offsetY: -4
+            offsetX: -0,
+            offsetY: -1
         }
     ];
 
@@ -1086,20 +1086,25 @@ function drawEarthMovementStations() {
 
         if (!station) return;
 
-        const icon = L.divIcon({
-            className: "earth-movement-demo-icon",
-            html: `<div style="
-                color:${item.color};
-                font-size:17px;
-                font-weight:bold;
-                line-height:17px;
-                text-shadow:0 0 4px #000000;
-                transform: translate(${item.offsetX}px, ${item.offsetY}px);
-                pointer-events:none;
-            ">${item.symbol}</div>`,
-            iconSize: [18, 18],
-            iconAnchor: [9, 9]
-        });
+       const icon = L.divIcon({
+    className: "earth-movement-demo-icon",
+    html: `<div style="
+        width:18px;
+        height:18px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:${item.color};
+        font-size:16px;
+        font-weight:bold;
+        line-height:1;
+        text-shadow:0 0 4px #000000;
+        transform: translate(${item.offsetX}px, ${item.offsetY}px);
+        pointer-events:none;
+    ">${item.symbol}</div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+});
 
         L.marker([station.lat, station.lon], {
             icon: icon,
