@@ -1819,10 +1819,13 @@ sidebar.on('content', function(e) {
         map.removeLayer(marker);
     });
 
-    // Add the dedicated Earth Movement layer
-    if (!map.hasLayer(earthMovementLayer)) {
-        earthMovementLayer.addTo(map);
-    }
+   // Add the dedicated Earth Movement layer
+if (!map.hasLayer(earthMovementLayer)) {
+    earthMovementLayer.addTo(map);
+}
+
+// Draw GNSS stations for the Earth Movement tab
+drawEarthMovementStations();
 
     map.removeLayer(topo);
     map.removeLayer(satellite);
