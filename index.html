@@ -732,6 +732,7 @@ sidebar.on('content', function (e) {
                 map.removeLayer(marker);
             }
         });
+
     } else if (e.id === 'home') {
         // --- SEISMIC TAB OPENED: Show ONLY Red Dots ---
         allMarkers.forEach(marker => {
@@ -741,6 +742,12 @@ sidebar.on('content', function (e) {
             } else {
                 marker.addTo(map);
             }
+        });
+
+    } else if (e.id === 'earthmovement') {
+        // --- EARTH MOVEMENT TAB OPENED: Hide existing station layers for now ---
+        allMarkers.forEach(marker => {
+            map.removeLayer(marker);
         });
     }
 });
