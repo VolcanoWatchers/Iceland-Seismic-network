@@ -1769,13 +1769,18 @@ sidebar.on('content', function(e) {
             }
         }
 
-    } else if (e.id === 'earthmovement') {
+} else if (e.id === 'earthmovement') {
     document.getElementById('sidebar').classList.remove('quake-mode');
 
     // Hide existing Seismic/GPS station markers on Earth Movement tab for now
     allMarkers.forEach(marker => {
         map.removeLayer(marker);
     });
+
+    // Add the dedicated Earth Movement layer
+    if (!map.hasLayer(earthMovementLayer)) {
+        earthMovementLayer.addTo(map);
+    }
 
     map.removeLayer(topo);
     map.removeLayer(satellite);
@@ -1792,8 +1797,9 @@ sidebar.on('content', function(e) {
     }
 
 } else {
-        document.getElementById('sidebar').classList.remove('quake-mode');
-        setActiveMapStyleButton('topo');
+    document.getElementById('sidebar').classList.remove('quake-mode');
+    map.removeLayer(earthMovementLayer);
+    setActiveMapStyleButton('topo');
 
         map.removeLayer(darkMode);
         map.removeLayer(satellite);
