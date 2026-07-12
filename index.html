@@ -1781,9 +1781,13 @@ sidebar.on('closing', function() {
 });
 
 sidebar.on('content', function(e) {
-    if (e.id === 'quakes') {
-        document.getElementById('sidebar').classList.add('quake-mode');
-        setActiveMapStyleButton('dark');
+   if (e.id === 'quakes') {
+    document.getElementById('sidebar').classList.add('quake-mode');
+
+    // Hide Earth Movement GNSS dots when opening Earthquakes tab
+    map.removeLayer(earthMovementLayer);
+
+    setActiveMapStyleButton('dark');
 
         if (!isControlVisible) {
             map.addControl(quakeControlInstance);
