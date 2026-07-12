@@ -1726,10 +1726,10 @@ sidebar.on('content', function(e) {
             updateRegionDropdownFromData();
             applyEarthquakeFilters();
 
-           const timeFilter = document.getElementById('timeFilter');
-const magFilter = document.getElementById('magFilter');
-const statusFilter = document.getElementById('statusFilter');
-const areaFilter = document.getElementById('areaFilter');
+            const timeFilter = document.getElementById('timeFilter');
+            const magFilter = document.getElementById('magFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const areaFilter = document.getElementById('areaFilter');
 
             if (timeFilter) {
                 timeFilter.addEventListener('change', function () {
@@ -1744,13 +1744,13 @@ const areaFilter = document.getElementById('areaFilter');
                     applyEarthquakeFilters();
                 });
             }
-           
+
             if (statusFilter) {
-    statusFilter.addEventListener('change', function () {
-        console.log('Status filter changed to:', statusFilter.value);
-        applyEarthquakeFilters();
-    });
-}
+                statusFilter.addEventListener('change', function () {
+                    console.log('Status filter changed to:', statusFilter.value);
+                    applyEarthquakeFilters();
+                });
+            }
 
             if (areaFilter) {
                 areaFilter.addEventListener('change', function () {
@@ -1758,6 +1758,23 @@ const areaFilter = document.getElementById('areaFilter');
                     applyEarthquakeFilters();
                 });
             }
+        }
+
+    } else if (e.id === 'earthmovement') {
+        document.getElementById('sidebar').classList.remove('quake-mode');
+
+        map.removeLayer(topo);
+        map.removeLayer(satellite);
+        map.removeLayer(darkRelief);
+
+        if (!map.hasLayer(darkMode)) {
+            map.addLayer(darkMode);
+        }
+
+        if (isControlVisible) {
+            map.removeControl(quakeControlInstance);
+            map.removeControl(legendInstance);
+            isControlVisible = false;
         }
 
     } else {
