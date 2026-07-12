@@ -1276,9 +1276,10 @@ function updateEarthquakeMap(quakes) {
         const props = item.properties;
         const lat = coords[1];
         const lon = coords[0];
-        const mag = parseFloat(props.magnitude);
-        const color = getMagColor(mag);
-        const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
+      const rawMag = parseFloat(props.magnitude);
+const mag = parseFloat(rawMag.toFixed(1));
+const color = getMagColor(mag);
+const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
 
         const marker = L.circleMarker([lat, lon], {
             radius: radius,
@@ -1304,7 +1305,7 @@ function updateEarthquakeMap(quakes) {
     ${props.region}
 </div>
 
-<b>Magnitude:</b> ${parseFloat(props.magnitude).toFixed(1)}<br>
+<b>Magnitude:</b> ${mag.toFixed(1)}<br>
 <b>Depth:</b> ${parseFloat(props.depth).toFixed(1)} km<br>
 <b>Date:</b> ${new Date(props.time).toLocaleDateString('en-GB', {
     timeZone: 'UTC',
