@@ -1000,6 +1000,48 @@ sidebar.on('closing', resetMap);
             { id: "vot", name: "Vöttur", lat: 64.27081, lon: -17.18254, url: "vot" },
             { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
      ];
+    // ----------------------------------------------------------
+// Earth Movement GNSS station helper
+// Draws GPS/GNSS stations onto the Earth Movement tab layer
+// ----------------------------------------------------------
+function drawEarthMovementStations() {
+    earthMovementLayer.clearLayers();
+
+    stations
+        .filter(station => station.type === "gps")
+        .forEach(station => {
+            const marker = L.circleMarker([station.lat, station.lon], {
+                radius: 5,
+                color: '#ffffff',
+                weight: 1,
+                fillColor: '#00bcd4',
+                fillOpacity: 0.85
+            }).bindPopup(`
+                <div style="
+                    border: 3px solid #00bcd4;
+                    border-radius: 10px;
+                    padding: 8px;
+                ">
+                    <div style="
+                        color: #00bcd4;
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-bottom: 6px;
+                    ">
+                        ${station.url}
+                    </div>
+
+                    <b>${station.name}</b><br>
+                    GNSS Earth Movement station<br>
+                    <span style="font-size:12px; color:#666;">
+                        Movement vectors will be added in a later step.
+                    </span>
+                </div>
+            `);
+
+            marker.addTo(earthMovementLayer);
+        });
+}
              
 // ==========================================
 // 5. MARKER STYLE AND LABEL ADJUSTMENTS
