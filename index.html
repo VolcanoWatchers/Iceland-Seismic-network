@@ -1768,23 +1768,28 @@ sidebar.on('content', function(e) {
         }
 
     } else if (e.id === 'earthmovement') {
-        document.getElementById('sidebar').classList.remove('quake-mode');
+    document.getElementById('sidebar').classList.remove('quake-mode');
 
-        map.removeLayer(topo);
-        map.removeLayer(satellite);
-        map.removeLayer(darkRelief);
+    // Hide existing Seismic/GPS station markers on Earth Movement tab for now
+    allMarkers.forEach(marker => {
+        map.removeLayer(marker);
+    });
 
-        if (!map.hasLayer(darkMode)) {
-            map.addLayer(darkMode);
-        }
+    map.removeLayer(topo);
+    map.removeLayer(satellite);
+    map.removeLayer(darkRelief);
 
-        if (isControlVisible) {
-            map.removeControl(quakeControlInstance);
-            map.removeControl(legendInstance);
-            isControlVisible = false;
-        }
+    if (!map.hasLayer(darkMode)) {
+        map.addLayer(darkMode);
+    }
 
-    } else {
+    if (isControlVisible) {
+        map.removeControl(quakeControlInstance);
+        map.removeControl(legendInstance);
+        isControlVisible = false;
+    }
+
+} else {
         document.getElementById('sidebar').classList.remove('quake-mode');
         setActiveMapStyleButton('topo');
 
