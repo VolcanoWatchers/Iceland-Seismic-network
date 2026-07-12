@@ -1814,14 +1814,11 @@ const selectedArea = areaFilter ? areaFilter.value : "All regions";
 
 const filteredQuakes = filterByTime(allEarthquakes, selectedHours)
     .filter(item => parseFloat(item.properties.magnitude) >= selectedMag)
-    .filter(item => {
-        if (selectedStatus === "live") return true;
+   .filter(item => {
+    if (selectedStatus === "live") return true;
 
-        return (
-            item.properties.evaluation_mode === "manual" &&
-            item.properties.type === "earthquake"
-        );
-    })
+    return item.properties.evaluation_mode === "manual";
+})
     .filter(item => {
         if (selectedArea === "All regions") return true;
         return item.properties.region === selectedArea;
