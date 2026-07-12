@@ -1026,12 +1026,13 @@ function drawEarthMovementStations() {
     stations
         .filter(station => station.type === "gps")
         .forEach(station => {
-  const marker = L.circleMarker([station.lat, station.lon], {
+const marker = L.circleMarker([station.lat, station.lon], {
     radius: 8,
-    color: '#ffffff',
+    color: '#fffde7',
     weight: 1,
-    fillColor: '#fff176',
-    fillOpacity: 0.95
+    opacity: 0.75,
+    fillColor: '#fff8b0',
+    fillOpacity: 0.55
 }).bindPopup(`
                 <div style="
                     border: 3px solid #fff176;
