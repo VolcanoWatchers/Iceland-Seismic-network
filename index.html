@@ -496,20 +496,59 @@
             </div>
         </div>
 
-    <div class="leaflet-sidebar-pane" id="quakes" style="background:#2b3442;">
-           <h2 class="leaflet-sidebar-header" style="background-color: #244f68;">Recent Earthquakes<span class="leaflet-sidebar-close">×</span></h2>
-   <div id="quakes-ledger-body" style="padding: 10px; color: white; background:#2b3442;">
-                <p>Loading earthquake data...</p>
-            </div>
+ <div class="leaflet-sidebar-pane" id="quakes" style="background:#2b3442;">
+    <h2 class="leaflet-sidebar-header" style="background-color: #244f68;">
+        Recent Earthquakes
+        <span class="leaflet-sidebar-close">×</span>
+    </h2>
+
+    <div id="quakes-ledger-body" style="padding: 10px; color: white; background:#2b3442;">
+        <p>Loading earthquake data...</p>
+    </div>
+</div>
+
+<div class="leaflet-sidebar-pane" id="earthmovement" style="background:#263238;">
+    <h2 class="leaflet-sidebar-header" style="background-color:#37474f;">
+        Earth Movement
+        <span class="leaflet-sidebar-close">×</span>
+    </h2>
+
+    <div style="padding:15px; color:#ffffff;">
+        <h3 style="margin-top:0; color:#ffb300;">GNSS Movement Vectors</h3>
+
+        <p style="line-height:1.5;">
+            This tab will show GNSS station movement vectors and vertical
+            uplift/subsidence trends across Iceland.
+        </p>
+
+        <p style="line-height:1.5;">
+            Future layers will include station movement arrows, uplift and
+            subsidence indicators, and a time slider for viewing deformation
+            through time.
+        </p>
+
+        <div style="
+            margin-top:18px;
+            padding:10px;
+            border:1px solid #455a64;
+            border-radius:6px;
+            background:#1c252b;
+            font-size:13px;
+            line-height:1.5;
+        ">
+            <b>Status:</b> tab shell added. GNSS movement layers will be built next.
         </div>
-    </div> 
+    </div>
+</div>
+
+    </div>
 </div>
 
 <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.min.js"></script>
 
-    <script>
+<script>
        
 // ==========================================
 // 1. INITIALIZE MAP (STABLE, FIXED POSITION)
