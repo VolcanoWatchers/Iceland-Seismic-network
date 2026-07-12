@@ -1279,7 +1279,7 @@ function updateEarthquakeMap(quakes) {
       const rawMag = parseFloat(props.magnitude);
 const mag = parseFloat(rawMag.toFixed(1));
 const color = getMagColor(mag);
-const radius = Math.max(4, Math.min(12, 4 + (mag * 2)));
+const radius = Math.max(4, Math.min(15, 4 + (mag * 2.4)));
 
         const marker = L.circleMarker([lat, lon], {
             radius: radius,
