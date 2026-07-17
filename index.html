@@ -1086,60 +1086,7 @@ function drawEarthMovementStations() {
         });
 }
 
-    // ----------------------------------------------------------
-    // Temporary demo vertical movement indicators
-    // These are placeholders only, to test the Earth Movement style
-    // ----------------------------------------------------------
-    const demoVerticalMovement = [
-        {
-            stationId: "seng",
-            label: "Demo uplift",
-            symbol: "▲",
-            color: "#ff5252",
-            offsetX: 0,
-            offsetY: -1
-        },
-        {
-            stationId: "fedg",
-            label: "Demo subsidence",
-            symbol: "▼",
-            color: "#1565c0",
-            offsetX: 0,
-            offsetY: 1
-        }
-    ];
 
-    demoVerticalMovement.forEach(item => {
-        const station = stations.find(s => s.id === item.stationId);
-
-        if (!station) return;
-
-        const icon = L.divIcon({
-            className: "earth-movement-demo-icon",
-            html: `<div style="
-                width:18px;
-                height:18px;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:${item.color};
-                font-size:16px;
-                font-weight:bold;
-                line-height:1;
-                text-shadow:0 0 4px #000000;
-                transform: translate(${item.offsetX}px, ${item.offsetY}px);
-                pointer-events:none;
-            ">${item.symbol}</div>`,
-            iconSize: [18, 18],
-            iconAnchor: [9, 9]
-        });
-
-        L.marker([station.lat, station.lon], {
-            icon: icon,
-            interactive: false
-        }).addTo(earthMovementLayer);
-    });
-}
 // ==========================================
 // 5. MARKER STYLE AND LABEL ADJUSTMENTS
 // ==========================================
