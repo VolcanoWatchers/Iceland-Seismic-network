@@ -1091,11 +1091,16 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
 '</div>';
 
             const marker = L.marker([station.lat, station.lon], {
-                icon: icon,
-                interactive: true
-            }).bindPopup(popupHtml);
+    icon: icon,
+    interactive: true
+}).bindPopup(popupHtml, {
+    maxWidth: 220,
+    autoPan: true,
+    autoPanPadding: [30, 30],
+    keepInView: true
+});
 
-            marker.addTo(earthMovementLayer);
+marker.addTo(earthMovementLayer);
 
             // Temporary demo horizontal movement arrow.
             // Fixed length only: shows direction, not movement amount.
