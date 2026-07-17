@@ -1027,13 +1027,11 @@ function drawEarthMovementStations() {
             // Temporary demo movement direction.
             // Real uplift/subsidence values will be connected later.
             const isUplift = index % 2 === 0;
-
-          const symbol = "▲";
+const symbol = "▲";
 const movementLabel = isUplift ? "Demo uplift" : "Demo subsidence";
 const markerColor = isUplift ? "#ef5350" : "#1565c0";
-const markerRotation = isUplift ? "0deg" : "180deg";
 
-          const iconHtml =
+     const iconHtml =
     '<div style="' +
         'width:24px;' +
         'height:24px;' +
@@ -1045,7 +1043,6 @@ const markerRotation = isUplift ? "0deg" : "180deg";
         'font-weight:bold;' +
         'line-height:1;' +
         'text-shadow:0 0 3px #000000, 0 0 5px #000000;' +
-        'transform:rotate(' + markerRotation + ');' +
     '">' +
         symbol +
     '</div>';
