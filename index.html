@@ -1028,25 +1028,27 @@ function drawEarthMovementStations() {
             // Real uplift/subsidence values will be connected later.
             const isUplift = index % 2 === 0;
 
-            const symbol = isUplift ? "▲" : "▼";
-            const movementLabel = isUplift ? "Demo uplift" : "Demo subsidence";
-            const markerColor = isUplift ? "#ef5350" : "#1565c0";
+          const symbol = "▲";
+const movementLabel = isUplift ? "Demo uplift" : "Demo subsidence";
+const markerColor = isUplift ? "#ef5350" : "#1565c0";
+const markerRotation = isUplift ? "0deg" : "180deg";
 
-            const iconHtml =
-                '<div style="' +
-                    'width:24px;' +
-                    'height:24px;' +
-                    'display:flex;' +
-                    'align-items:center;' +
-                    'justify-content:center;' +
-                    'color:' + markerColor + ';' +
-                    'font-size:22px;' +
-                    'font-weight:bold;' +
-                    'line-height:1;' +
-                    'text-shadow:0 0 3px #000000, 0 0 5px #000000;' +
-                '">' +
-                    symbol +
-                '</div>';
+          const iconHtml =
+    '<div style="' +
+        'width:24px;' +
+        'height:24px;' +
+        'display:flex;' +
+        'align-items:center;' +
+        'justify-content:center;' +
+        'color:' + markerColor + ';' +
+        'font-size:22px;' +
+        'font-weight:bold;' +
+        'line-height:1;' +
+        'text-shadow:0 0 3px #000000, 0 0 5px #000000;' +
+        'transform:rotate(' + markerRotation + ');' +
+    '">' +
+        symbol +
+    '</div>';
 
             const icon = L.divIcon({
                 className: "earth-movement-triangle-icon",
