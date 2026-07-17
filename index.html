@@ -1085,6 +1085,43 @@ function drawEarthMovementStations() {
             }).bindPopup(popupHtml);
 
             marker.addTo(earthMovementLayer);
+
+            // Temporary demo horizontal movement arrow.
+            // Fixed length only: shows direction, not movement amount.
+            const demoDirections = [
+                "→", "↗", "↑", "↖", "←", "↙", "↓", "↘"
+            ];
+
+            const arrowSymbol = demoDirections[index % demoDirections.length];
+
+            const arrowIconHtml =
+                '<div style="' +
+                    'width:22px;' +
+                    'height:22px;' +
+                    'display:flex;' +
+                    'align-items:center;' +
+                    'justify-content:center;' +
+                    'color:#ffb300;' +
+                    'font-size:20px;' +
+                    'font-weight:bold;' +
+                    'line-height:1;' +
+                    'text-shadow:0 0 3px #000000, 0 0 5px #000000;' +
+                '">' +
+                    arrowSymbol +
+                '</div>';
+
+            const arrowIcon = L.divIcon({
+                className: "earth-movement-arrow-icon",
+                html: arrowIconHtml,
+                iconSize: [22, 22],
+                iconAnchor: [11, 11]
+            });
+
+            L.marker([station.lat, station.lon], {
+                icon: arrowIcon,
+                interactive: false
+            }).addTo(earthMovementLayer);
+            
         });
 }
 // ==========================================
