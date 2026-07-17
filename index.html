@@ -1075,21 +1075,20 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
             station.url +
         '</div>' +
 
-        '<b>' + station.name + '</b><br>' +
-      
-        '<b>Latitude:</b> ' + station.lat.toFixed(5) + '<br>' +
-        '<b>Longitude:</b> ' + station.lon.toFixed(5) + '<br><br>' +
+     '<b>' + station.name + '</b><br><br>' +
 
-'<b>Vertical trend:</b> ' + movementLabel + '<br>' +
-'<b>North trend:</b> demo value<br>' +
-'<b>East trend:</b> demo value<br>' +
-'<b>Up:</b> demo value<br><br>' +
+  '<b>Lat:</b> ' + station.lat.toFixed(5) + '<br>' +
+  '<b>Lon:</b> ' + station.lon.toFixed(5) + '<br><br>' +
 
-'<span style="font-size:12px; color:#666;">' +
-    '90-day graph: view on GPS Deformation tab<br>' +
-    'Demo popup only. Real N / E / Up movement values will be connected later.' +
-'</span>' +
-    '</div>';
+  '<b>Vertical:</b> ' + movementLabel + '<br>' +
+  '<b>N:</b> demo<br>' +
+  '<b>E:</b> demo<br>' +
+  '<b>Up:</b> demo<br><br>' +
+
+  '<span style="font-size:12px; color:#666;">' +
+    'Data: latest IMO GNSS update' +
+  '</span>' +
+'</div>';
 
             const marker = L.marker([station.lat, station.lon], {
                 icon: icon,
