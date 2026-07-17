@@ -1017,6 +1017,7 @@ sidebar.on('closing', resetMap);
             { id: "vsh", name: "Vestari Sauðahnjúkar", lat: 64.80775, lon: -15.72768, url: "vsh" }
      ];
     // ----------------------------------------------------------
+// ----------------------------------------------------------
 // Earth Movement GNSS station helper
 // Draws GPS/GNSS stations onto the Earth Movement tab layer
 // ----------------------------------------------------------
@@ -1024,8 +1025,10 @@ function drawEarthMovementStations() {
     earthMovementLayer.clearLayers();
 
     stations
-        .filter(station => station.type === "gps")
-        .forEach((station, index) => {
+        .filter(function(station) {
+            return station.type === "gps";
+        })
+        .forEach(function(station, index) {
             // Temporary demo movement direction.
             // Real uplift/subsidence values will be connected later.
             const isUplift = index % 2 === 0;
@@ -1034,59 +1037,61 @@ function drawEarthMovementStations() {
             const movementLabel = isUplift ? "Demo uplift" : "Demo subsidence";
             const markerColor = isUplift ? "#ef5350" : "#1565c0";
 
+            const iconHtml =
+                '<div style="' +
+                    'width:24px;' +
+                    'height:24px;' +
+                    'display:flex;' +
+                    'align-items:center;' +
+                    'justify-content:center;' +
+                    'color:' + markerColor + ';' +
+                    'font-size:22px;' +
+                    'font-weight:bold;' +
+                    'line-height:1;' +
+                    'text-shadow:0 0 3px #000000, 0 0 5px #000000;' +
+                '">' +
+                    symbol +
+                '</div>';
+
             const icon = L.divIcon({
                 className: "earth-movement-triangle-icon",
-                html: `<div style="
-                    width:24px;
-                    height:24px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    color:${markerColor};
-                    font-size:22px;
-                    font-weight:bold;
-                    line-height:1;
-                    text-shadow:
-                        0 0 3px #000000,
-                        0 0 5px #000000;
-                ">${symbol}</div>`,
+                html: iconHtml,
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });
 
+            const popupHtml =
+                '<div style="' +
+                    'border:3px solid ' + markerColor + ';' +
+                    'border-radius:10px;' +
+                    'padding:8px;' +
+                '">' +
+                    '<div style="' +
+                        'color:' + markerColor + ';' +
+                        'font-size:16px;' +
+                        'font-weight:bold;' +
+                        'margin-bottom:6px;' +
+                    '">' +
+                        station.url +
+                    '</div>' +
+
+                    '<b>' + station.name + '</b><br>' +
+                    'GNSS Earth Movement station<br><br>' +
+
+                    '<b>Vertical trend:</b> ' + movementLabel + '<br>' +
+                    '<span style="font-size:12px; color:#666;">' +
+                        'Demo marker only. Real N / E / Up movement values will be added later.' +
+                    '</span>' +
+                '</div>';
+
             const marker = L.marker([station.lat, station.lon], {
                 icon: icon,
                 interactive: true
-            }).bindPopup(`
-                <div style="
-                    border:3px solid ${markerColor};
-                    border-radius:10px;
-                    padding:8px;
-                ">
-                    <div style="
-                        color:${markerColor};
-                        font-size:16px;
-                        font-weight:bold;
-                        margin-bottom:6px;
-                    ">
-                        ${station.url}
-                    </div>
-
-                    <b>${station.name}</b><br>
-                    GNSS Earth Movement station<br><br>
-
-                    <b>Vertical trend:</b> ${movementLabel}<br>
-                    <span style="font-size:12px; color:#666;">
-                        Demo marker only. Real N / E / Up movement values will be added later.
-                    </span>
-                </div>
-            `);
+            }).bindPopup(popupHtml);
 
             marker.addTo(earthMovementLayer);
         });
 }
-
-
 // ==========================================
 // 5. MARKER STYLE AND LABEL ADJUSTMENTS
 // ==========================================
