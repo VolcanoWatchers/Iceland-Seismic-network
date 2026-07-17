@@ -1055,28 +1055,36 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
             });
 
             const popupHtml =
-                '<div style="' +
-                    'border:3px solid ' + markerColor + ';' +
-                    'border-radius:10px;' +
-                    'padding:8px;' +
-                '">' +
-                    '<div style="' +
-                        'color:' + markerColor + ';' +
-                        'font-size:16px;' +
-                        'font-weight:bold;' +
-                        'margin-bottom:6px;' +
-                    '">' +
-                        station.url +
-                    '</div>' +
+    '<div style="' +
+        'border:3px solid ' + markerColor + ';' +
+        'border-radius:10px;' +
+        'padding:8px;' +
+        'min-width:190px;' +
+    '">' +
+        '<div style="' +
+            'color:' + markerColor + ';' +
+            'font-size:16px;' +
+            'font-weight:bold;' +
+            'margin-bottom:6px;' +
+        '">' +
+            station.url +
+        '</div>' +
 
-                    '<b>' + station.name + '</b><br>' +
-                    'GNSS Earth Movement station<br><br>' +
+        '<b>' + station.name + '</b><br>' +
+        '<span style="font-size:12px; color:#666;">GNSS Earth Movement station</span><br><br>' +
 
-                    '<b>Vertical trend:</b> ' + movementLabel + '<br>' +
-                    '<span style="font-size:12px; color:#666;">' +
-                        'Demo marker only. Real N / E / Up movement values will be added later.' +
-                    '</span>' +
-                '</div>';
+        '<b>Latitude:</b> ' + station.lat.toFixed(5) + '<br>' +
+        '<b>Longitude:</b> ' + station.lon.toFixed(5) + '<br><br>' +
+
+        '<b>Vertical trend:</b> ' + movementLabel + '<br>' +
+        '<b>North trend:</b> demo value<br>' +
+        '<b>East trend:</b> demo value<br>' +
+        '<b>Up:</b> demo value<br><br>' +
+
+        '<span style="font-size:12px; color:#666;">' +
+            'Demo popup only. Real N / E / Up movement values will be connected later.' +
+        '</span>' +
+    '</div>';
 
             const marker = L.marker([station.lat, station.lon], {
                 icon: icon,
