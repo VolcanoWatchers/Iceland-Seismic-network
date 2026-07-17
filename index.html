@@ -1059,18 +1059,20 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
                 iconAnchor: [12, 12]
             });
 
-            const popupHtml =
+     const popupHtml =
     '<div style="' +
         'border:3px solid ' + markerColor + ';' +
         'border-radius:10px;' +
-        'padding:8px;' +
-        'min-width:190px;' +
+        'padding:7px;' +
+        'min-width:170px;' +
+        'font-size:13px;' +
+        'line-height:1.35;' +
     '">' +
-        '<div style="' +
+               '<div style="' +
             'color:' + markerColor + ';' +
-            'font-size:16px;' +
+            'font-size:15px;' +
             'font-weight:bold;' +
-            'margin-bottom:6px;' +
+            'margin-bottom:5px;' +
         '">' +
             station.url +
         '</div>' +
@@ -1085,7 +1087,7 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
   '<b>E:</b> demo<br>' +
   '<b>Up:</b> demo<br><br>' +
 
-  '<span style="font-size:12px; color:#666;">' +
+  '<span style="font-size:11px; color:#666;">' +
     'Data: latest IMO GNSS update' +
   '</span>' +
 '</div>';
