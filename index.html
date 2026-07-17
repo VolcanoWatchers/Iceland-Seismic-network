@@ -1068,16 +1068,14 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
         'font-size:13px;' +
         'line-height:1.35;' +
     '">' +
-               '<div style="' +
+                   '<div style="' +
             'color:' + markerColor + ';' +
             'font-size:15px;' +
             'font-weight:bold;' +
-            'margin-bottom:5px;' +
+            'margin-bottom:6px;' +
         '">' +
-            station.url +
+            station.url + ' - ' + station.name +
         '</div>' +
-
-     '<b>' + station.name + '</b><br><br>' +
 
   '<b>Lat:</b> ' + station.lat.toFixed(5) + '<br>' +
   '<b>Lon:</b> ' + station.lon.toFixed(5) + '<br><br>' +
