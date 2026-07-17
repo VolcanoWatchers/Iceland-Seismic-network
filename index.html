@@ -1095,7 +1095,9 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
 const marker = L.marker([station.lat, station.lon], {
     icon: icon,
     interactive: true
-}).bindPopup(popupHtml);
+}).bindPopup(popupHtml, {
+    offset: L.point(85, 35)
+});
 
 marker.addTo(earthMovementLayer);
 
