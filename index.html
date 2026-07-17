@@ -1095,14 +1095,12 @@ const markerColor = isUplift ? "#ef5350" : "#1565c0";
 const marker = L.marker([station.lat, station.lon], {
     icon: icon,
     interactive: true
-}).bindPopup(popupHtml, {
-    offset: L.point(85, 35)
-});
+  }).bindPopup(popupHtml);
 
 marker.addTo(earthMovementLayer);
 
-            // Temporary demo horizontal movement arrow.
-            // Fixed length only: shows direction, not movement amount.
+// Temporary demo horizontal movement arrow.
+// Fixed length only: shows direction, not movement amount.
             const demoDirections = [
                 "→", "↗", "↑", "↖", "←", "↙", "↓", "↘"
             ];
